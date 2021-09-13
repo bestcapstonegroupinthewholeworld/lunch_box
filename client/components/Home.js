@@ -1,13 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import ButtonTiffany from '../materialUiStyles/ButtonTiffany';
-import ButtonGreen from '../materialUiStyles/ButtonGreen';
-import {Link} from 'react-router-dom'
+import Grid from '@material-ui/core/Grid'
+import Box from '@material-ui/core/Box'
+import { withStyles } from "@material-ui/core/styles"
+import Typography from "@material-ui/core/Typography"
+import { Link } from 'react-router-dom'
+import Button from '@material-ui/core/Button'
 
 /** STYLES **/
 const WhiteTextTypography = withStyles({
@@ -19,6 +18,7 @@ const WhiteTextTypography = withStyles({
  const useStyles = makeStyles((theme) => ({
   homeMain: {
     position: 'relative',
+    zIndex: '1000'
   },
   homeInner: {
     alignItems: 'center',
@@ -61,20 +61,11 @@ export const Home = props => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
               </WhiteTextTypography>
               <Box mt={3}>
-                <Grid container spacing={2} mt={3} className={classes.buttons} >
-                  <Grid item md={3}>
-                    <ButtonTiffany variant="contained" color="primary" disableRipple> 
-                      {/* <Link to="/party" className={classes.linkNav}>Host a Party</Link> */}
-                      Host a Party
-                    </ButtonTiffany>
-                  </Grid>
-                  <Grid item md={9}>
-                    <ButtonGreen variant="contained" color="primary" disableRipple> 
-                      Join a Party
-                      {/* <Link to="/party" className={classes.linkNav}>Join a Paty</Link> */}
-                    </ButtonGreen>  
-                  </Grid>
-                </Grid>
+                <Grid container spacing={2} mt={3} className={classes.buttons}>
+                  <Button color='primary' variant='contained' size='large' component={ Link } to="/party">
+                    Get Started! 
+                  </Button>
+                </Grid>  
               </Box>
             </Grid>
           </Grid>
@@ -87,7 +78,7 @@ export const Home = props => {
 /**
  * CONTAINER
  */
-const mapState = state => {
+ const mapState = state => {
   return {
     username: state.auth.username
   }

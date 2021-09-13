@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme) => ({
       transform: 'scaleX(1)'
     }
   }
-  
-  
- 
 }));
 
 export const Navbar = ({handleClick, isLoggedIn}) => {
@@ -62,7 +59,6 @@ export const Navbar = ({handleClick, isLoggedIn}) => {
             </Box>
           </AppBar>
         )}
-      
     </div>
   )
   

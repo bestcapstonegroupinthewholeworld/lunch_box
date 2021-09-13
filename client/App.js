@@ -1,13 +1,34 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-
-
-
+// createMuiTheme - function that allow to create a custom theme. 
+import { ThemeProvider } from '@material-ui/core'
+import { createTheme } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 
 import Navbar from './components/Navbar'
 import Routes from './Routes'
-import { CssBaseline } from '@material-ui/core';
 
+
+const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#60d2da'
+      },
+      secondary: {
+        main: '#5cc87c'
+      },
+      text: {
+        primary: '#fff'
+      }
+    }, 
+    overrides: {
+      MuiInputLabel: {
+        root: {
+          color: "#fff",
+        },
+      },
+    },
+})
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,30 +44,20 @@ const useStyles = makeStyles((theme) => ({
         width: 'calc(100% - 60px)',
         top: '30px',
         left: '30px'
-    },
-    // '&::after': {
-    //   content: '""',
-    //   background: `url(${'/assets/landing-random-people-people.png'})`,
-    //   height: '100%',
-    //   width: '100%',
-    //   backgroundSize: 'contain',
-    //   top: '0',
-    //   left: '-50px',
-    //   position: 'absolute',
-    //   backgroundRepeat: 'no-repeat',
-    //   backgroundPositionX: 'right'
-    //  }
+    }
   }
 }));
 
 const App = () => {
   const classes = useStyles();
   return (
-    <div className={classes.app}>
-      <Navbar />
-      <Routes />
-      <CssBaseline />
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className={classes.app}>
+        <Navbar />
+        <Routes />
+        <CssBaseline />
+      </div>
+    </ThemeProvider>
   )
 }
 

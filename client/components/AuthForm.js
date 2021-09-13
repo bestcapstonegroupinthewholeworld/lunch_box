@@ -16,10 +16,14 @@ import Button from '@material-ui/core/Button';
   },
   formOuter: {
     justifyContent: 'center',
-    display: 'flex'
+    display: 'flex',
+    minHeight: '600px',
+    alignItems: 'center'
   }
-
  }))
+
+ 
+
 
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props;
@@ -28,13 +32,9 @@ const AuthForm = props => {
 
   return (
     <Box className={classes.formOuter}>
-      <form onSubmit={handleSubmit} name={name} className={classes.form} noValidate autoComplete="off">
+      <form onSubmit={handleSubmit} name={name} className={classes.form} noValidate autoComplete="off" color='primary'>
         <div>
-          <TextField id="standard-basic" label="username" name="username" />
-          {/* <label htmlFor="username">
-            <small>Username</small> */}
-          {/* </label> */}
-          {/* <input name="username" type="text" /> */}
+          <TextField id="standard-basic" label="Username" name="username" />
         </div>
         <div>
         <TextField
@@ -44,14 +44,13 @@ const AuthForm = props => {
           autoComplete="current-password"
           name="password"
         />
-          {/* <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" /> */}
         </div>
+        <Box>
+        <Button variant="outlined" type="submit">{displayName}</Button>
+
+        </Box>
         <div>
-          <Button variant="outlined" type="submit">{displayName}</Button>
-          {/* <button type="submit">{displayName}</button> */}
+          
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>

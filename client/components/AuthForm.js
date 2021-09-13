@@ -1,34 +1,60 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {authenticate} from '../store'
+import { makeStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 
 /**
  * COMPONENT
  */
+
+ const useStyles = makeStyles((theme) => ({ 
+  form: {
+    position: 'relative'
+  },
+  formOuter: {
+    justifyContent: 'center',
+    display: 'flex',
+    minHeight: '600px',
+    alignItems: 'center'
+  }
+ }))
+
+ 
+
+
 const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+  const {name, displayName, handleSubmit, error} = props;
+  const classes = useStyles();
+  
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+    <Box className={classes.formOuter}>
+      <form onSubmit={handleSubmit} name={name} className={classes.form} noValidate autoComplete="off" color='primary'>
         <div>
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
+          <TextField id="standard-basic" label="Username" name="username" />
         </div>
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+        <TextField
+          id="standard-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          name="password"
+        />
         </div>
+        <Box>
+        <Button variant="outlined" type="submit">{displayName}</Button>
+
+        </Box>
         <div>
-          <button type="submit">{displayName}</button>
+          
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-    </div>
+    </Box>
   )
 }
 

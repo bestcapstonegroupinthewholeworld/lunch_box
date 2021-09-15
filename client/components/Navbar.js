@@ -61,7 +61,6 @@ export const Navbar = ({handleClick, isLoggedIn}) => {
         )}
     </div>
   )
-  
 }
 
 /**

@@ -24,15 +24,20 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '9px 33px',
     boxShadow: '2px 2px 2px black',
     marginBottom: '2em',
-    padding: '1em 1em 2em 3em'
-  },
+    padding: '1em 1em 2em 3em',
+    position: 'relative',
+    '&::before': {
+        content: '""',
+    },
+  }, 
+  
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
-  },
+  }
 }));
 
 /** COMPONENT **/
@@ -50,14 +55,24 @@ export const Host = props => {
           <Grid item xs={6} md={6} p={4}>
               <div className={classes.boxDark}>
                   <GameChoice />
+                  <div className="greenNum">
+                      1
+                  </div>
               </div>
               <div className={classes.boxDark}>
                   <GameOptions />
+                  <div className="greenNum">
+                      2
+                  </div>
               </div>
+
           </Grid>
           <Grid item xs={6} md={6} p={4}>
             <div className={classes.boxDark}>
               <ParticipantsList />
+              <div className="greenNum">
+                      3
+                  </div>
             </div>
           </Grid>
         </Grid>

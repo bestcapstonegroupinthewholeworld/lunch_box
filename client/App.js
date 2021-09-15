@@ -25,9 +25,9 @@ const theme = createTheme({
       MuiInputLabel: {
         root: {
           color: "#fff",
-        },
-      },
-    },
+        }
+      }
+    }
 })
 
 

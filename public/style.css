@@ -20,3 +20,19 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.MuiInput-underline:before{
+  border-bottom: 1px solid #f3ba40 !important;
+}
+.MuiSelect-icon {
+  color: #fff !important;
+}
+.greenNum {
+  position: absolute;
+  top: -30px;
+  left: 0;
+  color: #5CC87C;
+  font-size: 50px;
+  font-weight: 800;
+  filter: drop-shadow(2px 2px 1px #000);
+}

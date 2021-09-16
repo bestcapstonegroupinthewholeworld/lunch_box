@@ -18,14 +18,31 @@ const theme = createTheme({
         main: '#5cc87c'
       },
       text: {
-        primary: '#fff'
+        primary: '#fff',
+        secondary: '#fff'
       }
     }, 
     overrides: {
       MuiInputLabel: {
         root: {
           color: "#fff",
+        },
+        MuiButton: {
+          color: '#fff'
         }
+      },
+      MuiButton: {
+        containedPrimary: {
+          color: 'white',
+        },
+        containedSecondary: {
+          color: 'white',
+        },
+      },
+    },
+    typography: {
+      h1: {
+        marginTop: '0'
       }
     }
 })
@@ -48,8 +65,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const App = () => {
   const classes = useStyles();
+  
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.app}>

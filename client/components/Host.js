@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid'
 import GameChoice from './GameChoice'
 import GameOptions from './GameOptions.js'
 import ParticipantsList from './ParticipantsList'
+import Button from '@material-ui/core/Button'
+import { Link } from 'react-router-dom'
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -76,6 +78,11 @@ export const Host = props => {
             </div>
           </Grid>
         </Grid>
+        <Box textAlign="center">
+          <Button color='secondary' variant='contained' size='large' component={ Link } to="/party/join">
+            Let's goooo!
+          </Button>
+        </Box>
       </Box>
     </Box>  
   )

@@ -48,7 +48,7 @@ export const Home = props => {
   return (
     <div className={classes.homeOuter}>
       <Grid>
-        <Box m={6} p={6} className={classes.homeMain} alignItems="center">
+        <Box ml={6} pl={6} className={classes.homeMain} alignItems="center">
           <Grid container spacing={2} className={classes.homeInner}>
             <Grid item xs={6} md={7} p={4}>
               <Box mb={2}>

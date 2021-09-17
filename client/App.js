@@ -10,25 +10,44 @@ import Navbar from "./components/Navbar";
 import Routes from "./Routes";
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#60d2da",
-    },
-    secondary: {
-      main: "#5cc87c",
-    },
-    text: {
-      primary: "#fff",
-    },
-  },
-  overrides: {
-    MuiInputLabel: {
-      root: {
-        color: "#fff",
+
+    palette: {
+      primary: {
+        main: '#60d2da'
+      },
+      secondary: {
+        main: '#5cc87c'
+      },
+      text: {
+        primary: '#fff',
+        secondary: '#fff'
+      }
+    }, 
+    overrides: {
+      MuiInputLabel: {
+        root: {
+          color: "#fff",
+        },
+        MuiButton: {
+          color: '#fff'
+        }
+      },
+      MuiButton: {
+        containedPrimary: {
+          color: 'white',
+        },
+        containedSecondary: {
+          color: 'white',
+        },
       },
     },
-  },
-});
+    typography: {
+      h1: {
+        marginTop: '0'
+      }
+    }
+})
+
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -48,8 +67,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 const App = () => {
   const classes = useStyles();
+  
   return (
     <ThemeProvider theme={theme}>
       <div className={classes.app} style={{ height: "100%" }}>

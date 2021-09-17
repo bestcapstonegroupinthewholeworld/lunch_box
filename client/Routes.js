@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -26,9 +27,14 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/party/host" component={Host} />
-            <Route path="/party/join" component={PartyLobby} />
+
+//             <Route path="/party/join" component={PartyLobby} />
             <Route path="/party" component={JoinHost} />
             <Route path="/chatroom" component={VideoCall} />
+
+            <Route path="/party/:partyId" component={PartyLobby} />
+            <Route exact path="/party" component={JoinHost} />
+
             <Redirect to="/home" />
           </Switch>
         ) : (

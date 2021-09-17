@@ -1,20 +1,20 @@
 const Sequelize = require('sequelize');
-const { STRING, INTEGER } = require('sequelize');
+const { STRING, INTEGER, TEXT } = require('sequelize');
 const db = require('../db');
 
 const Game = db.define('game', {
   name: STRING,
-  Rounds: INTEGER,
-  RoundTime: {
+  rounds: INTEGER,
+  roundTime: {
     type: INTEGER,
     default: 60,
     //store time in seconds seems easiest
   },
-  Round1Rules: STRING,
-  Round2Rules: STRING,
-  Round3Rules: STRING,
-  Round4Rules: STRING,
-  Round5Rules: STRING,
+  round1Rules: TEXT,
+  round2Rules: TEXT,
+  round3Rules: TEXT,
+  round4Rules: TEXT,
+  round5Rules: TEXT,
 });
 
 module.exports = Game;

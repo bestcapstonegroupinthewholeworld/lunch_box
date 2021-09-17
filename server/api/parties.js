@@ -11,6 +11,7 @@ router.post('/host', async (req, res, next) => {
     const newParty = await Party.create();
     const host = await User.findByPk(req.body.hostId);
     await host.update({ partyId: newParty.id });
+    newParty.chooseGame('lunchbox');
     res.json(newParty);
   } catch (err) {
     next(err);

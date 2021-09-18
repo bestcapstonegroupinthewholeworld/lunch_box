@@ -1,11 +1,44 @@
 import React from "react";
-import { AgoraVideoPlayer } from "agora-rtc-react";
-import { Grid } from "@material-ui/core";
 import { useState, useEffect } from "react";
+
+import { AgoraVideoPlayer } from "agora-rtc-react";
+
+import { Grid } from "@material-ui/core";
+import Box from '@material-ui/core/Box'
+import { makeStyles } from '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+  videoContainerOuter: {
+    height: '100%',
+    position: 'absolute',
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  singleVideoScreen: {
+    position: 'relative',
+    maxHeight: '220px',
+    marginRight: '15px',
+    maxWidth: '350px',
+    minWidth: '350px'
+  },
+  videoHost: {
+    position: 'relative',
+    maxHeight: '220px',
+    marginRight: '15px',
+    maxWidth: '350px',
+    minWidth: '350px'
+  },
+  singleVideoScreenInner: {
+    
+  }
+  
+}));
+
 
 export default function Video(props) {
   const { users, tracks } = props;
   const [gridSpacing, setGridSpacing] = useState(12);
+  const classes = useStyles();
 
   useEffect(() => {
     //users.length + 1 => including the host
@@ -14,17 +47,18 @@ export default function Video(props) {
 
   return (
     //AgoraVideoPlayer height takes from the parent height ? how to fix
-    <Grid container style={{ height: "100%", position: "static" }}>
-      <Grid item xs={gridSpacing}>
+    <Box>
+      <Grid container className={classes.videoContainerOuter}>
+      <Grid item xs={gridSpacing} className={classes.videoHost}>
         {/* host ===================== */}
         <AgoraVideoPlayer
           videoTrack={tracks[1]}
           style={{
             height: "100%",
             width: "100%",
-            position: "relative",
-            top: "-1px",
+            position: "absolute",
           }}
+          className={classes.singleVideoScreenHost}
         />
       </Grid>
       {/* generate a video for every sigle user  */}
@@ -32,16 +66,16 @@ export default function Video(props) {
         users.map((user) => {
           if (user.videoTrack) {
             return (
-              <Grid item xs={gridSpacing}>
+              <Grid item xs={gridSpacing} className={classes.singleVideoScreen}>
                 <AgoraVideoPlayer
                   key={user.uid}
                   videoTrack={user.videoTrack}
                   style={{
                     height: "100%",
                     width: "100%",
-                    position: "relative",
-                    top: "-1px",
+                    position: "absolute"
                   }}
+                  className={classes.singleVideoScreenInner}
                 />
               </Grid>
             );
@@ -49,6 +83,8 @@ export default function Video(props) {
             return null;
           }
         })}
-    </Grid>
+      </Grid>
+    </Box>
+    
   );
 }

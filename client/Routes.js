@@ -26,15 +26,14 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+
             <Route path="/party/host" component={Host} />
-
-//             <Route path="/party/join" component={PartyLobby} />
-            <Route path="/party" component={JoinHost} />
+            <Route path="/party/join" component={PartyLobby} />
+            <Route path="/party" exact component={JoinHost} />
+            <Route path="/party/:partyId" exact component={PartyLobby} />
+            
             <Route path="/chatroom" component={VideoCall} />
-
-            <Route path="/party/:partyId" component={PartyLobby} />
-            <Route exact path="/party" component={JoinHost} />
-
+          
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -57,6 +56,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    party: state.party,
   };
 };
 

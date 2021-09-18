@@ -63,7 +63,7 @@ const JoinHost = ({ userId, createParty, party }) => {
             variant="contained"
             size="large"
             component={Link}
-            to={`/party/join?room=${room}`}
+            to={`/party/${room}`}
           >
             Join
           </Button>

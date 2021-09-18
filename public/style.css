@@ -1,3 +1,4 @@
+/* GLOBAL STYLES */
 body {
   font-family: sans-serif;
   /* margin: 0; */
@@ -5,25 +6,22 @@ body {
 h1 {
   margin-top: 0
 }
-
 a {
   text-decoration: none;
 }
-
 label {
   display: block;
 }
-
 nav a {
   display: inline-block;
   margin: 1em;
 }
 
+/* FORM OVERRIDES */
 form div {
   margin: 1em;
   display: inline-block;
 }
-
 .MuiInput-underline:before{
   border-bottom: 1px solid #f3ba40 !important;
 }
@@ -38,4 +36,28 @@ form div {
   font-size: 50px;
   font-weight: 800;
   filter: drop-shadow(2px 2px 1px #000);
+}
+
+/* PARTY LOBBY - video screen  */
+/* Participants Styles */
+.makeStyles-singleVideoScreenInner-15 > div {
+  border-radius: 10px;
+}
+.makeStyles-singleVideoScreenInner-15 > div > video{
+  border-radius: 20px;
+    background: linear-gradient(
+90deg
+, rgba(243,185,63,1) 0%, rgba(96,210,218,1) 100%);
+    padding: 10px;
+}
+/* Video Host Styles */
+.makeStyles-videoHost-14 > div > div {
+  border-radius: 10px;
+}
+.makeStyles-singleVideoScreenHost-15 .agora_video_player {
+  border-radius: 20px;
+    background: linear-gradient(
+90deg
+, rgba(243,185,63,1) 0%, rgb(218, 96, 96) 100%);
+    padding: 10px;
 }

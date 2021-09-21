@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -8,6 +7,7 @@ import JoinHost from "./components/JoinHost";
 import Host from "./components/Host";
 import PartyLobby from "./components/PartyLobby";
 import VideoCall from "./components/VideoCall";
+import CountdownClock from "./components/CountDown";
 import { me } from "./store";
 
 /**
@@ -31,9 +31,11 @@ class Routes extends Component {
             <Route path="/party/join" component={PartyLobby} />
             <Route path="/party" exact component={JoinHost} />
             <Route path="/party/:partyId" exact component={PartyLobby} />
-            
+
+            <Route path="/countdown" exact component={CountdownClock} />
+
             <Route path="/chatroom" component={VideoCall} />
-          
+
             <Redirect to="/home" />
           </Switch>
         ) : (

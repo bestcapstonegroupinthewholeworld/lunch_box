@@ -33,10 +33,6 @@ const JoinHost = ({ userId, createParty, party }) => {
   //Setting room to join a specific room
   const [room, setRoom] = useState('');
 
-  useEffect(() => {
-    console.log(party);
-  }, [party]);
-
   return (
     <Box m={6} p={6} className={classes.hostJoin}>
       <Grid container spacing={2}>

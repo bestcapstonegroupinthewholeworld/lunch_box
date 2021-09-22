@@ -19,11 +19,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   innerRow: {
-      alignItems: 'center',
+    alignItems: 'center',
   },
-  borderYellow: {
-      
-  }
+  borderYellow: {},
 }));
 
 /** COMPONENT **/
@@ -33,35 +31,35 @@ const GameOptions = () => {
   const [numberOfRoundsState, setNumberOfRoundsState] = useState('3');
   const [numberOfWordsState, setnumberOfWordsState] = useState('10');
 
-  const handleChangeRoudTime = (event) => { 
+  const handleChangeRoudTime = (event) => {
     const selectedTime = event.target.value;
     setRoundTimeState(selectedTime);
-    console.log(selectedTime)
-  }
-  const handleChangeRoundNumber = (event) => { 
+    // console.log(selectedTime)
+  };
+  const handleChangeRoundNumber = (event) => {
     const selectedRoundNumber = event.target.value;
     setNumberOfRoundsState(selectedRoundNumber);
-    console.log(selectedRoundNumber)
-  }
-  const handleChangeWordNumber = (event) => { 
+    // console.log(selectedRoundNumber)
+  };
+  const handleChangeWordNumber = (event) => {
     const selectedWordsNumber = event.target.value;
     setnumberOfWordsState(selectedWordsNumber);
-    console.log(selectedWordsNumber)
-  }
+    // console.log(selectedWordsNumber)
+  };
 
   return (
     <Box className={classes.gameOptions}>
-      <h2>  Define Game Options </h2>
+      <h2> Define Game Options </h2>
       <Grid container spacing={2} className={classes.innerRow}>
         <Grid item xs={6} md={6} p={4} className={classes.borderYellow}>
-            Rounds Time
+          Rounds Time
         </Grid>
-        <Grid item xs={6} md={6} p={4} >
+        <Grid item xs={6} md={6} p={4}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
             <Select
               native
-              labelId=''
+              labelId=""
               value={roundTimeState}
               onChange={handleChangeRoudTime}
               displayEmpty
@@ -74,12 +72,12 @@ const GameOptions = () => {
             </Select>
           </FormControl>
         </Grid>
-       </Grid>
-       <Grid container spacing={2} className={classes.innerRow}>
+      </Grid>
+      <Grid container spacing={2} className={classes.innerRow}>
         <Grid item xs={6} md={6} p={4}>
-           # of Rounds:
+          # of Rounds:
         </Grid>
-        <Grid item xs={6} md={6} p={4} >
+        <Grid item xs={6} md={6} p={4}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
             <Select
@@ -96,12 +94,12 @@ const GameOptions = () => {
             </Select>
           </FormControl>
         </Grid>
-       </Grid>
-       <Grid container spacing={2} className={classes.innerRow}>
+      </Grid>
+      <Grid container spacing={2} className={classes.innerRow}>
         <Grid item xs={6} md={6} p={4}>
           Max # of words per player:
         </Grid>
-        <Grid item xs={6} md={6} p={4} >
+        <Grid item xs={6} md={6} p={4}>
           <FormControl className={classes.formControl}>
             <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
             <Select
@@ -118,9 +116,9 @@ const GameOptions = () => {
             </Select>
           </FormControl>
         </Grid>
-       </Grid>
+      </Grid>
     </Box>
-  )
-}
+  );
+};
 
 export default GameOptions;

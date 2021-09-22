@@ -4,11 +4,18 @@ const db = require('../db');
 
 const Game = db.define('game', {
   name: STRING,
-  rounds: INTEGER,
+  rounds: {
+    type: INTEGER,
+    defaultValue: 3,
+  },
   roundTime: {
     type: INTEGER,
-    default: 60,
+    defaultValue: 60,
     //store time in seconds seems easiest
+  },
+  cardsPerPlayer: {
+    type: INTEGER,
+    defaultValue: 10,
   },
   round1Rules: TEXT,
   round2Rules: TEXT,

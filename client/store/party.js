@@ -13,9 +13,15 @@ export const createParty = (hostId, history) => {
   return async (dispatch) => {
     const res = await axios.post('/api/parties/host', { hostId });
     const party = res.data;
-
     dispatch(createdParty(party));
-    history.push(`/party/host/${party.id}`);
+    history.push(`/party/host/${party.party.id}`);
+  };
+};
+
+export const makeRandomTeams = (partyId) => {
+  return async (dispatch) => {
+    //should probably return teams and add to state somehow
+    await axios.post(`/api/parties/teams/${partyId}`);
   };
 };
 

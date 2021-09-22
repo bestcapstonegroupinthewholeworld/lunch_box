@@ -1,66 +1,76 @@
 import React from "react";
-import { useTimer } from "react-timer-hook";
 
-function Timer({ expiryTimestamp }) {
-  const {
-    seconds,
-    minutes,
-    isRunning,
-    start,
-    pause,
-    resume,
-    restart,
-  } = useTimer({
-    expiryTimestamp,
-    onExpire: () => console.warn("onExpire called"),
-  });
+export default class CountdownClock extends React.Component {
+  state = {
+    isActive: false,
+    secondsElapsed: 1800000 / 1000,
+  };
 
-  return (
-    <div className="countDown_container">
-      <div className="text">
-        <span className="countDownMin">{minutes}</span>
-        <span className="countDownColon">:</span>
-        <span className="countDownSec">{seconds}</span>
+  getMinutes() {
+    return ("0" + Math.floor((this.state.secondsElapsed % 3600) / 60)).slice(
+      -2
+    );
+  }
+
+  getSeconds() {
+    return ("0" + Math.floor(this.state.secondsElapsed % 60)).slice(-2);
+  }
+
+  startTime = () => {
+    this.setState({ isActive: true });
+
+    this.countdown = setInterval(() => {
+      this.setState(({ secondsElapsed }) => ({
+        secondsElapsed: secondsElapsed - 1,
+      }));
+    }, 1000);
+  };
+
+  resetTime = () => {
+    clearInterval(this.countdown);
+    this.setState({
+      secondsElapsed: 1800000 / 1000,
+      isActive: false,
+    });
+  };
+
+  pauseTime = () => {
+    clearInterval(this.countdown);
+    this.setState({ isActive: false });
+  };
+
+  render() {
+    return (
+      <div className="countDown_container">
+        <div className="text">
+          <span className="countDownMin">{this.getMinutes()}</span>
+          <span className="countDownColon">:</span>
+          <span className="countDownSec">{this.getSeconds()}</span>
+        </div>
+
+        <div className="text-reflect">
+          <span className="countDownMin">{this.getMinutes()}</span>
+          <span className="countDownColon">:</span>
+          <span className="countDownSec">{this.getSeconds()}</span>
+        </div>
+        {/* ========================== pause button ============================  */}
+        <div className="countDownFrame">
+          <button className="countDownBtn" onClick={this.pauseTime}>
+            <i className="material-icons-round">pause</i>
+          </button>
+          {/* ========================== play button ============================  */}
+          <button
+            className="countDownBtn"
+            onClick={this.state.isActive ? this.pauseTime : this.startTime}
+          >
+            <i className="material-icons-round">play_arrow</i>
+          </button>
+          {/* ========================== reset button ============================  */}
+          <button className="countDownBtn" onClick={this.resetTime}>
+            <i className="material-icons-round">replay</i>
+          </button>
+        </div>
       </div>
-
-      <div className="text-reflect">
-        <span className="countDownMin">{minutes}</span>
-        <span className="countDownColon">:</span>
-        <span className="countDownSec">{seconds}</span>
-      </div>
-
-      {/* <p className="countDownStatus">{isRunning ? "Running" : "Not running"}</p> */}
-      <div className="countDownFrame">
-        <button className="countDownBtn" onClick={pause}>
-          <i className="material-icons-round">pause</i>
-        </button>
-        {/* <button className="countDownBtn3" onClick={resume}>
-          resume
-        </button> */}
-        <button className="countDownBtn" onClick={start}>
-          <i className="material-icons-round">play_arrow</i>
-        </button>
-        <button
-          className="countDownBtn"
-          onClick={() => {
-            const time = new Date();
-            time.setSeconds(time.getSeconds() + 600);
-            restart(time);
-          }}
-        >
-          <i className="material-icons-round">replay</i>
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default function CountdownClock() {
-  const time = new Date();
-  time.setSeconds(time.getSeconds() + 600);
-  return (
-    <div>
-      <Timer expiryTimestamp={time} />
-    </div>
-  );
+    );
+  }
 }

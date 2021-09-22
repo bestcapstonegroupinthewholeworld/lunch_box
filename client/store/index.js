@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import auth from './auth';
 import party from './party';
+import lunchbox from './lunchbox';
 
-const reducer = combineReducers({ auth, party });
+const reducer = combineReducers({ auth, party, lunchbox });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

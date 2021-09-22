@@ -15,6 +15,9 @@ Party.hasMany(User);
 User.belongsTo(Team);
 Team.hasMany(User);
 
+Team.belongsTo(Party);
+Party.hasMany(Team);
+
 Party.hasOne(Game);
 Game.belongsTo(Party);
 

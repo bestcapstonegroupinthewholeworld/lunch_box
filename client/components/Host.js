@@ -89,7 +89,8 @@ export const Host = ({ username, partyId }) => {
 const mapState = (state) => {
   return {
     username: state.auth.username,
-    partyId: state.party.id,
+    partyId: state.party.party.id,
+    lunchbox: state.party.lunchbox,
   };
 };
 

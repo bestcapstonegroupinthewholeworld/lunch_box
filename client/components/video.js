@@ -2,10 +2,18 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import { AgoraVideoPlayer } from "agora-rtc-react";
+import {
+  config,
+  useClient,
+  useMicrophoneAndCameraTracks,
+  channelName,
+} from "../settings.js";
 
 import { Grid } from "@material-ui/core";
 import Box from '@material-ui/core/Box'
 import { makeStyles } from '@material-ui/core/styles'
+
+import Control from "./control";
 
 const useStyles = makeStyles((theme) => ({
   videoContainerOuter: {
@@ -38,6 +46,10 @@ const useStyles = makeStyles((theme) => ({
 export default function Video(props) {
   const { users, tracks } = props;
   const [gridSpacing, setGridSpacing] = useState(12);
+  const [start, setStart] = useState(false);
+  const [inCall, setInCall] = useState(false);
+  const { ready } = useMicrophoneAndCameraTracks();
+
   const classes = useStyles();
 
   useEffect(() => {
@@ -51,15 +63,24 @@ export default function Video(props) {
       <Grid container className={classes.videoContainerOuter}>
       <Grid item xs={gridSpacing} className={classes.videoHost}>
         {/* host ===================== */}
-        <AgoraVideoPlayer
-          videoTrack={tracks[1]}
-          style={{
-            height: "100%",
-            width: "100%",
-            position: "absolute",
-          }}
-          className={classes.singleVideoScreenHost}
-        />
+        <div className="team-one">
+          <AgoraVideoPlayer
+            videoTrack={tracks[1]}
+            style={{
+              height: "100%",
+              width: "100%",
+              position: "absolute",
+              borderRadius: '15px',
+            }}
+          />
+        </div>
+        {/* {ready && tracks && (
+                  <Control
+                    tracks={tracks}
+                    setStart={setStart}
+                    setInCall={setInCall}
+                  />
+                )} */}
       </Grid>
       {/* generate a video for every sigle user  */}
       {users.length > 0 &&
@@ -67,16 +88,28 @@ export default function Video(props) {
           if (user.videoTrack) {
             return (
               <Grid item xs={gridSpacing} className={classes.singleVideoScreen}>
-                <AgoraVideoPlayer
+                 <div className="team-one">
+                 <AgoraVideoPlayer
                   key={user.uid}
                   videoTrack={user.videoTrack}
                   style={{
                     height: "100%",
                     width: "100%",
-                    position: "absolute"
+                    position: "absolute",
+
                   }}
                   className={classes.singleVideoScreenInner}
                 />
+
+                 </div>
+               
+                {/* {ready && tracks && (
+                  <Control
+                    tracks={tracks}
+                    setStart={setStart}
+                    setInCall={setInCall}
+                  />
+                )} */}
               </Grid>
             );
           } else {

@@ -17,6 +17,19 @@ nav a {
   margin: 1em;
 }
 
+/* CUSTOM FONT STYLES*/
+
+h4.italicBlue {
+  color: #60d2da;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
+span.accentYellow {
+  color: #f3ba40;
+  font-weight: 900;
+}
+
 /* FORM OVERRIDES */
 form div {
   margin: 1em;
@@ -38,26 +51,75 @@ form div {
   filter: drop-shadow(2px 2px 1px #000);
 }
 
-/* PARTY LOBBY - video screen  */
+/* PARTY LOBBY */
+.svgFile {
+  width: 5%;
+}
+.svgFile svg {
+  max-height: -webkit-fill-available;
+  position: absolute;
+  left: 0;
+  bottom: 50px;
+}
+
+/* VIDEO CONTROLS - video screen  */
+.controlInner {
+  position: absolute;
+  right: -65px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 2;
+  top: 50%;
+  gap: 5px;
+}
+.controlInner button {
+  background-color: transparent;
+  box-shadow: none;
+}
+.controlInner button:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+.controlInner svg.MuiSvgIcon-root {
+  color: #f3b940;
+}
+
 /* Participants Styles */
-.makeStyles-singleVideoScreenInner-15 > div {
-  border-radius: 10px;
+.team-one > div > div > video {
+  border-radius: 15px;
+  background-color: #5cc87c; 
+  padding: 10px;
+}
+.team-one > div > div {
+  border-radius: 15px;
+}
+.team-two > div > div > video {
+  border-radius: 15px;
+  background-color: #61d1d8; 
+  padding: 10px;
+}
+.team-two > div > div {
+  border-radius: 15px;
+}
+
+/* .makeStyles-singleVideoScreenInner-15 > div {
+  border-radius: 15px;
 }
 .makeStyles-singleVideoScreenInner-15 > div > video {
-  border-radius: 20px;
+  border-radius: 15px;
   background: linear-gradient(
     90deg,
     rgba(243, 185, 63, 1) 0%,
     rgba(96, 210, 218, 1) 100%
   );
   padding: 10px;
-}
+} */
 /* Video Host Styles */
 .makeStyles-videoHost-14 > div > div {
-  border-radius: 10px;
+  border-radius: 5px;
 }
 .makeStyles-singleVideoScreenHost-15 .agora_video_player {
-  border-radius: 20px;
+  border-radius: 15px;
   background: linear-gradient(
     90deg,
     rgba(243, 185, 63, 1) 0%,
@@ -93,6 +155,14 @@ form div {
 
   -webkit-text-fill-color: transparent;
 }
+
+.team-one{
+  background-color: #5cc87c;
+}
+.team-one{
+  background-color: #60d2da;
+}
+
 
 .countDownMin,
 .countDownSec,

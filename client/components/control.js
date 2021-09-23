@@ -38,8 +38,8 @@ export default function Control(props) {
   };
   return (
     <Grid container spacing={2} alignItems="center">
-      {/* audio button =============================== */}
-      <Grid item>
+      <div className="controlInner">
+        {/* audio button =============================== */} 
         <Button
           variant="contained"
           color={trackState.audio ? "primary" : "secondary"}
@@ -47,10 +47,7 @@ export default function Control(props) {
         >
           {trackState.audio ? <MicIcon /> : <MicOffIcon />}
         </Button>
-      </Grid>
-
-      {/* video button =============================== */}
-      <Grid item>
+        {/* mute button =============================== */} 
         <Button
           variant="contained"
           color={trackState.video ? "primary" : "secondary"}
@@ -58,19 +55,15 @@ export default function Control(props) {
         >
           {trackState.video ? <VideocamIcon /> : <VideocamOffIcon />}
         </Button>
-      </Grid>
-
-      {/* leave button =============================== */}
-      <Grid item>
+        {/* leave button =============================== */} 
         <Button
           variant="contained"
           color="default"
           onClick={() => leaveChannel()}
         >
-          Leave
-          <ExitToAppIcon />
+        <ExitToAppIcon />
         </Button>
-      </Grid>
+      </div>
     </Grid>
   );
 }

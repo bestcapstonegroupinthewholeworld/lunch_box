@@ -48,13 +48,11 @@ const PartyLobby = ({
   const classes = useStyles();
   const [word, setWord] = useState('');
 
-  let params = useParams();
+  const { partyId } = useParams();
 
   useEffect(() => {
-    getPartyInfo(params.partyId);
+    getPartyInfo(partyId);
   }, []);
-
-  console.log('PARTAYYYYY', party);
 
   const addToBox = () => {
     addCard({
@@ -66,7 +64,7 @@ const PartyLobby = ({
   };
 
   const createTeams = () => {
-    makeRandomTeams(party.party.id);
+    makeRandomTeams(partyId);
   };
 
   return (
@@ -137,21 +135,19 @@ const PartyLobby = ({
   );
 };
 
-const mapState = ({ party, auth }) => {
+const mapState = ({ party, auth, lunchbox }) => {
   return {
     party: party || {},
     game: party.game || {},
     user: auth,
-    userCards: party.game
-      ? party.game.lunchbox.cards.filter((card) => card.createdBy === auth.id)
-      : [],
+    userCards: lunchbox.filter((card) => card.createdBy === auth.id),
   };
 };
 
 const mapDispatch = (dispatch, { history }) => {
   return {
-    fetchCards: (lunchboxId) => {
-      dispatch(fetchCards(lunchboxId));
+    fetchCards: (partyId) => {
+      dispatch(fetchCards(partyId));
     },
     addCard: (card) => {
       dispatch(addCard(card));

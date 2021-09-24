@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchCards } from './lunchbox';
 
 //ACTION TYPES
 const CREATED_PARTY = 'CREATED_PARTY';
@@ -24,8 +25,8 @@ export const createParty = (hostId, history) => {
 export const getPartyInfo = (partyId) => {
   return async (dispatch) => {
     const res = await axios.get(`/api/parties/${partyId}`);
-    const party = res.data;
-    // console.log(party);
+    const party = await res.data;
+    dispatch(fetchCards(party.game.lunchbox.id));
     dispatch(gotPartyInfo(party));
   };
 };
@@ -51,6 +52,8 @@ export default (state = [], action) => {
 
     case ADDED_CARD:
       const newParty = state;
+      console.log('newParrtty', newParty);
+      console.log(action.card);
       newParty.game.lunchbox.cards.push(action.card);
       return newParty;
 

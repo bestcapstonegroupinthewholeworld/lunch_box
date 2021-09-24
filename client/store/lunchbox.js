@@ -34,11 +34,10 @@ export default (state = [], action) => {
   switch (action.type) {
     case FETCHED_CARDS:
       return action.cards;
-      break;
 
-    // case ADDED_CARD:
-    //   return [...state, action.card];
-    //   break;
+    case ADDED_CARD:
+      return [...state, action.card];
+      break;
 
     default:
       return state;

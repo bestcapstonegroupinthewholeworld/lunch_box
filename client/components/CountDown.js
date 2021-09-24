@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import CountDownControl from "./CountDownControl";
 
 export default function CountdownClock() {
   //   const [secondsElapsed, setSecondsElapsed] = useState(600000);
@@ -54,39 +55,12 @@ export default function CountdownClock() {
         <span className="countDownSec">{secondsElapsed}</span> */}
         {min <= 9 ? "0" + min : min} : {sec <= 9 ? "0" + sec : sec}
       </h1>
-
-      {/* ========================== pause button ============================  */}
-      <div className="countDownFrame">
-        <button
-          className="countDownBtn"
-          onClick={() => {
-            setIsActive(false);
-          }}
-        >
-          <i className="material-icons-round">pause</i>
-        </button>
-        {/* ========================== play button ============================  */}
-        <button
-          className="countDownBtn"
-          onClick={() => {
-            setIsActive(true);
-          }}
-        >
-          <i className="material-icons-round">play_arrow</i>
-        </button>
-        {/* ========================== reset button ============================  */}
-        <button
-          className="countDownBtn"
-          onClick={() => {
-            setIsActive(false);
-            setCount(599);
-            setMin(10);
-            setSec(0);
-          }}
-        >
-          <i className="material-icons-round">replay</i>
-        </button>
-      </div>
+      <CountDownControl
+        setIsActive={setIsActive}
+        setCount={setCount}
+        setMin={setMin}
+        setSec={setSec}
+      />
     </div>
   );
 }

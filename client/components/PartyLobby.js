@@ -8,7 +8,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import { fetchCards, addCard } from '../store/lunchbox';
-import { makeRandomTeams } from '../store/party';
+import { makeRandomTeams, getPartyInfo } from '../store/party';
+import { useParams } from 'react-router-dom';
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -34,25 +35,24 @@ const PartyLobby = ({
   userCards,
   addCard,
   makeRandomTeams,
+  getPartyInfo,
 }) => {
   const classes = useStyles();
   const [word, setWord] = useState('');
 
+  let params = useParams();
+
   useEffect(() => {
-    if (party.lunchboxId) {
-      console.log('IN USE EFFECT', party.lunchboxId);
-      const fetch = async (id) => {
-        await fetchCards(id);
-      };
-      fetch(party.lunchboxId);
-    }
-  }, [party.lunchboxId]);
+    getPartyInfo(params.partyId);
+  }, []);
+
+  console.log('PARTAYYYYY', party);
 
   const addToBox = () => {
     addCard({
       name: word,
       createdBy: user.id * 1,
-      lunchboxId: party.lunchboxId,
+      lunchboxId: party.game.lunchbox.id,
     });
     setWord('');
   };
@@ -106,16 +106,18 @@ const PartyLobby = ({
   );
 };
 
-const mapState = ({ party, auth, lunchbox }) => {
+const mapState = ({ party, auth }) => {
   return {
     party: party || {},
     game: party.game || {},
     user: auth,
-    userCards: lunchbox.filter((card) => card.createdBy === auth.id) || [],
+    userCards: party.game
+      ? party.game.lunchbox.cards.filter((card) => card.createdBy === auth.id)
+      : [],
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, { history }) => {
   return {
     fetchCards: (lunchboxId) => {
       dispatch(fetchCards(lunchboxId));
@@ -124,7 +126,10 @@ const mapDispatch = (dispatch) => {
       dispatch(addCard(card));
     },
     makeRandomTeams: (partyId) => {
-      dispatch(makeRandomTeams(partyId));
+      dispatch(makeRandomTeams(partyId, history));
+    },
+    getPartyInfo: (partyId) => {
+      dispatch(getPartyInfo(partyId));
     },
   };
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { connect } from 'react-redux';
@@ -7,7 +7,8 @@ import GameChoice from './GameChoice';
 import GameOptions from './GameOptions.js';
 import ParticipantsList from './ParticipantsList';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getPartyInfo } from '../store/party';
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -43,9 +44,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 /** COMPONENT **/
-export const Host = ({ username, partyId }) => {
+export const Host = ({ username, party, getPartyInfo }) => {
   const classes = useStyles();
 
+  let params = useParams();
+
+  useEffect(() => {
+    getPartyInfo(params.partyId);
+  }, []);
+
+  console.log(party);
   return (
     <Box className={classes.hostOuter} color="text.primary" mr={6} ml={6}>
       <Box className={classes.center}>
@@ -76,7 +84,7 @@ export const Host = ({ username, partyId }) => {
             variant="contained"
             size="large"
             component={Link}
-            to={`/party/${partyId}`}
+            to={`/party/${params.partyId}`}
           >
             Let's goooo!
           </Button>
@@ -89,9 +97,16 @@ export const Host = ({ username, partyId }) => {
 const mapState = (state) => {
   return {
     username: state.auth.username,
-    partyId: state.party.party.id,
-    lunchbox: state.party.lunchbox,
+    party: state.party || {},
   };
 };
 
-export default connect(mapState)(Host);
+const mapDispatch = (dispatch) => {
+  return {
+    getPartyInfo: (partyId) => {
+      dispatch(getPartyInfo(partyId));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(Host);

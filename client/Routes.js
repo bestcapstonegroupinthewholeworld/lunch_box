@@ -1,14 +1,15 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login, Signup } from "./components/AuthForm";
-import Home from "./components/Home";
-import JoinHost from "./components/JoinHost";
-import Host from "./components/Host";
-import PartyLobby from "./components/PartyLobby";
-import VideoCall from "./components/VideoCall";
-import CountdownClock from "./components/CountDown";
-import { me } from "./store";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Login, Signup } from './components/AuthForm';
+import Home from './components/Home';
+import JoinHost from './components/JoinHost';
+import Host from './components/Host';
+import PartyLobby from './components/PartyLobby';
+import VideoCall from './components/VideoCall';
+import CountdownClock from './components/CountDown';
+import { me } from './store';
+import MidRound from './components/briansPlaceholderComponents/MidRound';
 
 /**
  * COMPONENT
@@ -27,7 +28,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
 
-            <Route path="/party/host" component={Host} />
+            <Route path="/party/host/:partyId" component={Host} />
             <Route path="/party/join" component={PartyLobby} />
             <Route path="/party" exact component={JoinHost} />
             <Route path="/party/:partyId" exact component={PartyLobby} />
@@ -35,6 +36,11 @@ class Routes extends Component {
             <Route path="/countdown" exact component={CountdownClock} />
 
             <Route path="/chatroom" component={VideoCall} />
+
+            <Route
+              path="/dummyround/:partyId/:clueGiverId"
+              component={MidRound}
+            />
 
             <Redirect to="/home" />
           </Switch>

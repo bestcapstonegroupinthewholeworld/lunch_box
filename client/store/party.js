@@ -35,15 +35,17 @@ export const createParty = (hostId, history) => {
   };
 };
 
-export const getPartyInfo = (partyId, userId) => {
+export const getPartyInfo = (partyId, userId, path, history) => {
   return async (dispatch) => {
-    console.log('GET PARTY INFO', userId);
     let res = await axios.get(`/api/parties/${partyId}`);
     const party = await res.data;
     dispatch(fetchCards(party.game.lunchbox.id));
     dispatch(gotPartyInfo(party));
     if (!party.users.find((player) => player.id === userId)) {
       dispatch(joinParty(partyId, userId));
+    }
+    if (path && path !== party.currentRoute) {
+      history.push(party.currentRoute);
     }
   };
 };

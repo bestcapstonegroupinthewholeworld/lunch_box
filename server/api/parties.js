@@ -54,8 +54,8 @@ router.post('/teams/:id', async (req, res, next) => {
     const party = await Party.findByPk(req.params.id);
     const users = await User.findAll({ where: { partyId: party.id } });
     const teamSize = users.length / 2;
-    const teamA = await Team.create();
-    const teamB = await Team.create();
+    const teamA = await Team.create({ partyId: party.id });
+    const teamB = await Team.create({ partyId: party.id });
 
     for (let i = 0; i < teamSize; i++) {
       const idx = Math.floor(Math.random() * users.length);
@@ -68,12 +68,14 @@ router.post('/teams/:id', async (req, res, next) => {
       await users[i].update({ teamId: teamA.id, turnOrder: i + 1 });
     }
 
-    await party.update({ guessingTeam: teamA.id });
-
     const guesser = await User.findOne({
       where: { partyId: party.id, teamId: teamB.id, turnOrder: 1 },
     });
 
+    await party.update({
+      guessingTeam: teamA.id,
+      currentRoute: `/dummyround/${party.id}/${guesser.id}`,
+    });
     res.json(guesser);
   } catch (err) {
     next(err);

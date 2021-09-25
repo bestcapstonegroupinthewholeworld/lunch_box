@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 
 import { connect } from 'react-redux';
 
-import { makeRandomTeams, getPartyInfo } from '../store/party';
+import { makeRandomTeams, getPartyInfo, joinParty } from '../store/party';
 import { useParams } from 'react-router-dom';
 
 /** STYLES **/
@@ -51,7 +51,8 @@ const PartyLobby = ({
   const { partyId } = useParams();
 
   useEffect(() => {
-    getPartyInfo(partyId);
+    console.log('lobby User Id', user.id);
+    getPartyInfo(partyId, user.id);
   }, []);
 
   const addToBox = () => {
@@ -155,8 +156,11 @@ const mapDispatch = (dispatch, { history }) => {
     makeRandomTeams: (partyId) => {
       dispatch(makeRandomTeams(partyId, history));
     },
-    getPartyInfo: (partyId) => {
-      dispatch(getPartyInfo(partyId));
+    getPartyInfo: (partyId, userId) => {
+      dispatch(getPartyInfo(partyId, userId));
+    },
+    joinParty: (partyId, userId) => {
+      dispatch(joinParty(partyId, userId)); //calling this from inside getPartyInfo
     },
   };
 };

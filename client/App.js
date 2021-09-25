@@ -42,13 +42,8 @@ const theme = createTheme({
         width: '170px',
 
         borderRadius: '20px',
-        color: 'white',
-      },
-      containedSecondary: {
-        color: 'white',
       },
     },
-
   },
   typography: {
     h1: {

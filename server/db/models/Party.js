@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { UUID, UUIDV4 } = Sequelize;
+const { UUID, UUIDV4, INTEGER, STRING } = Sequelize;
 const db = require('../db');
 
 const Party = db.define('party', {
@@ -9,8 +9,10 @@ const Party = db.define('party', {
     defaultValue: UUIDV4(),
   },
   password: {
-    type: Sequelize.STRING,
+    type: STRING,
   },
+  guessingTeam: INTEGER,
+  currentRoute: STRING,
 });
 
 module.exports = Party;
@@ -46,24 +48,4 @@ Party.prototype.chooseGame = async function (gameName) {
   const lunchbox = await db.models.lunchbox.create({ gameId: game.id });
 
   return { lunchbox, game };
-};
-
-Party.prototype.makeRandomTeams = async function () {
-  const users = await db.models.user.findAll({ where: { partyId: this.id } });
-  const team1 = await db.models.team.create({ partyId: this.id });
-  const team2 = await db.models.team.create({ partyId: this.id });
-
-  const teamSize = users / 2;
-
-  for (let i = 0; i < teamSize; i++) {
-    const idx = Math.round(Math.random() * users.length);
-    users[idx].teamId = team1.id;
-    await users[idx].save();
-    users.splice(idx, 1);
-  }
-
-  users.forEach(async (user) => {
-    user.teamId = team2.id;
-    await user.save();
-  });
 };

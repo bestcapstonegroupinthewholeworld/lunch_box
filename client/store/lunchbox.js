@@ -2,7 +2,7 @@ import axios from 'axios';
 
 //ACTION TYPES
 const FETCHED_CARDS = 'FETCHED_CARDS';
-const ADDED_CARD = 'ADDED_CARD';
+export const ADDED_CARD = 'ADDED_CARD';
 
 //ACTION CREATOR
 
@@ -34,7 +34,6 @@ export default (state = [], action) => {
   switch (action.type) {
     case FETCHED_CARDS:
       return action.cards;
-      break;
 
     case ADDED_CARD:
       return [...state, action.card];

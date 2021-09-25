@@ -49,11 +49,10 @@ export default function CountdownClock() {
 
   return (
     <div className="countDown_container">
-      <h1 className="text" style={{ color: "black" }}>
-        {/* <span className="countDownMin">{secondsElapsed}</span>
+      <h1 className="text">
+        <span className="countDownMin">{min <= 9 ? "0" + min : min}</span>
         <span className="countDownColon">:</span>
-        <span className="countDownSec">{secondsElapsed}</span> */}
-        {min <= 9 ? "0" + min : min} : {sec <= 9 ? "0" + sec : sec}
+        <span className="countDownSec">{sec <= 9 ? "0" + sec : sec}</span>
       </h1>
       <CountDownControl
         setIsActive={setIsActive}

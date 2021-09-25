@@ -6,7 +6,11 @@ const Team = db.define('team', {
   name: STRING,
   score: {
     type: INTEGER,
-    default: 0,
+    defaultValue: 0,
+  },
+  clueGiver: {
+    type: INTEGER,
+    defaultValue: 1,
   },
 });
 

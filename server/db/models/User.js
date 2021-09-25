@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const { UUID, UUIDV4, BOOLEAN } = Sequelize;
+const { UUID, UUIDV4, BOOLEAN, INTEGER, STRING } = Sequelize;
 const db = require('../db');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -14,17 +14,15 @@ const User = db.define('user', {
   //     defaultValue: UUIDV4(),
   //   },
   username: {
-    type: Sequelize.STRING,
+    type: STRING,
     unique: true,
     allowNull: false,
   },
   password: {
-    type: Sequelize.STRING,
+    type: STRING,
   },
-  host: {
-    type: BOOLEAN,
-    defaultValue: false,
-  },
+  host: STRING,
+  turnOrder: INTEGER,
 });
 
 module.exports = User;

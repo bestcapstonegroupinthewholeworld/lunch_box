@@ -33,6 +33,12 @@ h4.italicBlue {
   font-style: italic;
   font-weight: 400;
 }
+a.italicBlue {
+  color: #60d2da;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
 span.accentYellow {
   color: #f3ba40;
   font-weight: 900;
@@ -58,7 +64,9 @@ form div {
   font-weight: 800;
   filter: drop-shadow(2px 2px 1px #000);
 }
-
+span.accentTestGreen {
+  color: #5bc77b;
+}
 /* PARTY LOBBY */
 .svgFile {
   width: 5%;

@@ -52,7 +52,7 @@ class Circles extends Component {
       });
   
       return (
-        <div id="floatingCircles" ref={this.myRef} style={{ width: '100%', maxHeight: '100vh', position:'absolute', left: '0', top: '0', position: 'fixed' } }>   
+        <div id="floatingCircles" ref={this.myRef} style={{ width: '100%', maxHeight: '100vh', position:'absolute', left: '0', top: '0', position: 'fixed', opacity: '0.7' } }>   
         </div>
       ) 
     }

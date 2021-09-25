@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { getPartyInfo } from '../../store/party';
+import { useParams, useLocation } from 'react-router-dom';
 
-const MidRound = () => {
+const MidRound = ({ party, user, lunchbox, getPartyInfo }) => {
+  const { partyId, clueGiverId } = useParams();
+  const { pathname } = useLocation();
   useEffect(() => {
-    console.log('in dummy');
+    getPartyInfo(partyId, user.id, pathname);
   }, []);
 
   return (
@@ -15,8 +19,19 @@ const MidRound = () => {
   );
 };
 
-const mapState = (state) => {
-  return { state };
+const mapState = ({ party, auth, lunchbox }) => {
+  return {
+    party: party || {},
+    user: auth,
+    lunchbox: lunchbox || [],
+  };
 };
 
-export default connect(mapState)(MidRound);
+const mapDispatch = (dispatch, { history }) => {
+  return {
+    getPartyInfo: (partyId, userId, path) => {
+      dispatch(getPartyInfo(partyId, userId, path, history));
+    },
+  };
+};
+export default connect(mapState, mapDispatch)(MidRound);

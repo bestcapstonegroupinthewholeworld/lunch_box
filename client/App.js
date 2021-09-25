@@ -27,9 +27,9 @@ const theme = createTheme({
       root: {
         color: '#fff',
       },
-      MuiButton: {
-        color: '#fff',
-      },
+      // MuiButton: {
+      //   color: '#fff',
+      // },
     },
     MuiButton: {
       containedPrimary: {
@@ -40,6 +40,7 @@ const theme = createTheme({
       containedSecondary: {
         color: 'white',
         width: '170px',
+
         borderRadius: '20px',
         color: 'white',
       },
@@ -47,6 +48,7 @@ const theme = createTheme({
         color: 'white',
       },
     },
+
   },
   typography: {
     h1: {

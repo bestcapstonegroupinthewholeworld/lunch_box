@@ -27,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: '220px',
     marginRight: '15px',
     maxWidth: '350px',
-    minWidth: '350px'
+    minWidth: '200px'
   },
   videoHost: {
     position: 'relative',
     maxHeight: '220px',
     marginRight: '15px',
     maxWidth: '350px',
-    minWidth: '350px'
+    minWidth: '200px'
   },
   singleVideoScreenInner: {
     
@@ -74,13 +74,6 @@ export default function Video(props) {
             }}
           />
         </div>
-        {/* {ready && tracks && (
-                  <Control
-                    tracks={tracks}
-                    setStart={setStart}
-                    setInCall={setInCall}
-                  />
-                )} */}
       </Grid>
       {/* generate a video for every sigle user  */}
       {users.length > 0 &&
@@ -100,16 +93,7 @@ export default function Video(props) {
                   }}
                   className={classes.singleVideoScreenInner}
                 />
-
                  </div>
-               
-                {/* {ready && tracks && (
-                  <Control
-                    tracks={tracks}
-                    setStart={setStart}
-                    setInCall={setInCall}
-                  />
-                )} */}
               </Grid>
             );
           } else {

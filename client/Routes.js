@@ -4,6 +4,7 @@ import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import JoinHost from './components/JoinHost';
+import RulesLunchBox from './components/RulesLunchBox'
 import Host from './components/Host';
 import PartyLobby from './components/PartyLobby';
 import VideoCall from './components/VideoCall';
@@ -36,6 +37,8 @@ class Routes extends Component {
             <Route path="/countdown" exact component={CountdownClock} />
 
             <Route path="/chatroom" component={VideoCall} />
+
+            <Route path="/rules/lunchbox" exact component={RulesLunchBox} />
 
             <Route
               path="/dummyround/:partyId/:clueGiverId"

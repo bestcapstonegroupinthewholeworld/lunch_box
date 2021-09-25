@@ -11,10 +11,15 @@ import { createParty } from '../store/party';
 
 import TextField from '@material-ui/core/TextField';
 
+import Circles from './FloatingCircles'
+
 /** STYLES **/
 
 const useStyles = makeStyles((theme) => ({
   hostJoin: {
+    height: 'calc(100vh - 20em)',
+    display: 'flex',
+    alignItems: 'center',
     '&::before': {
       content: '""',
       backgroundColor: '#141018',
@@ -25,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
       left: '30px',
     },
   },
+  hostContainerOuter: {
+    zIndex: '4'
+  }
 }));
 
 /** COMPONENT **/
@@ -34,13 +42,21 @@ const JoinHost = ({ userId, createParty, party }) => {
   const [room, setRoom] = useState('');
 
   return (
+    
     <Box m={6} p={6} className={classes.hostJoin}>
-      <Grid container spacing={2}>
-        <Grid container item xs={6} md={6}>
+      <Circles />
+      <Grid container spacing={2}  style={{
+              zIndex: '4'
+            }}>
+        <Grid container item xs={6} md={6} className="hostContainer">
           <Button
             color="secondary"
             variant="contained"
             size="large"
+            style={{
+              justifyContent: 'center',
+              zIndex: '6'
+            }}
             onClick={async () => {
               await createParty(userId);
             }}
@@ -55,7 +71,7 @@ const JoinHost = ({ userId, createParty, party }) => {
             onChange={(event) => setRoom(event.target.value)}
           />
           <Button
-            color="secondary"
+            color="primary"
             variant="contained"
             size="large"
             component={Link}
@@ -65,6 +81,7 @@ const JoinHost = ({ userId, createParty, party }) => {
           </Button>
         </Grid>
       </Grid>
+      <div className="diagonal-green"></div>
     </Box>
   );
 };

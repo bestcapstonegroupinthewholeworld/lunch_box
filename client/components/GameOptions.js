@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { useTime, useTimeUpdate } from "./TimeContext";
+import { TimeProvider } from "./TimeContext";
+
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import { Link } from "react-router-dom";
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
   gameOptions: {
-    position: 'relative',
+    position: "relative",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -20,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   innerRow: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   borderYellow: {},
 }));
@@ -28,15 +31,17 @@ const useStyles = makeStyles((theme) => ({
 /** COMPONENT **/
 const GameOptions = () => {
   const classes = useStyles();
-  const [roundTimeState, setRoundTimeState] = useState('60');
-  const [numberOfRoundsState, setNumberOfRoundsState] = useState('3');
-  const [numberOfWordsState, setnumberOfWordsState] = useState('10');
+  // const [roundTimeState, setRoundTimeState] = useState("60");
+  const roundTimeState = useTime();
+  const handleChangeRoundTime = useTimeUpdate();
+  const [numberOfRoundsState, setNumberOfRoundsState] = useState("3");
+  const [numberOfWordsState, setnumberOfWordsState] = useState("10");
 
-  const handleChangeRoudTime = (event) => {
-    const selectedTime = event.target.value;
-    setRoundTimeState(selectedTime);
-    // console.log(selectedTime)
-  };
+  // const handleChangeRoudTime = (event) => {
+  //   const selectedTime = event.target.value;
+  //   setRoundTimeState(selectedTime);
+  //   // console.log(selectedTime)
+  // };
   const handleChangeRoundNumber = (event) => {
     const selectedRoundNumber = event.target.value;
     setNumberOfRoundsState(selectedRoundNumber);
@@ -49,77 +54,82 @@ const GameOptions = () => {
   };
 
   return (
-    <Box className={classes.gameOptions}>
-      <h2> Define Game Options </h2>
-      <Grid container spacing={2} className={classes.innerRow}>
-        <Grid item xs={6} md={6} p={4} className={classes.borderYellow}>
-          Rounds Time
+    <TimeProvider>
+      <Box className={classes.gameOptions}>
+        <h2> Define Game Options </h2>
+        <Grid container spacing={2} className={classes.innerRow}>
+          <Grid item xs={6} md={6} p={4} className={classes.borderYellow}>
+            Rounds Time
+          </Grid>
+          <Grid item xs={6} md={6} p={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
+              <Select
+                native
+                labelId=""
+                value={roundTimeState}
+                onChange={handleChangeRoundTime}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <option aria-label="None" value="" />
+                <option value={60}>1:00</option>
+                <option value={90}>1:30</option>
+                <option value={120}>2:00</option>
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
-        <Grid item xs={6} md={6} p={4}>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
-            <Select
-              native
-              labelId=""
-              value={roundTimeState}
-              onChange={handleChangeRoudTime}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-            >
-              <option aria-label="None" value="" />
-              <option value={60}>1:00</option>
-              <option value={90}>1:30</option>
-              <option value={120}>2:00</option>
-            </Select>
-          </FormControl>
+        <Grid container spacing={2} className={classes.innerRow}>
+          <Grid item xs={6} md={6} p={4}>
+            # of Rounds:
+          </Grid>
+          <Grid item xs={6} md={6} p={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
+              <Select
+                native
+                value={numberOfRoundsState}
+                onChange={handleChangeRoundNumber}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <option aria-label="None" value="" />
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+                <option value={4}>4</option>
+              </Select>
+            </FormControl>
+          </Grid>
         </Grid>
-      </Grid>
-      <Grid container spacing={2} className={classes.innerRow}>
-        <Grid item xs={6} md={6} p={4}>
-          # of Rounds:
+        <Grid container spacing={2} className={classes.innerRow}>
+          <Grid item xs={6} md={6} p={4}>
+            Max # of words per player:
+          </Grid>
+          <Grid item xs={6} md={6} p={4}>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
+              <Select
+                native
+                value={numberOfWordsState}
+                onChange={handleChangeWordNumber}
+                displayEmpty
+                inputProps={{ "aria-label": "Without label" }}
+              >
+                <option aria-label="None" value="" />
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Link to="/rules/lunchbox" className="italicBlue">
+            {" "}
+            Suggested Rules (feel free to modify. We are here to have FUN!)
+          </Link>
         </Grid>
-        <Grid item xs={6} md={6} p={4}>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
-            <Select
-              native
-              value={numberOfRoundsState}
-              onChange={handleChangeRoundNumber}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-            >
-              <option aria-label="None" value="" />
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-            </Select>
-          </FormControl>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2} className={classes.innerRow}>
-        <Grid item xs={6} md={6} p={4}>
-          Max # of words per player:
-        </Grid>
-        <Grid item xs={6} md={6} p={4}>
-          <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="dropdown-native-simple"></InputLabel>
-            <Select
-              native
-              value={numberOfWordsState}
-              onChange={handleChangeWordNumber}
-              displayEmpty
-              inputProps={{ 'aria-label': 'Without label' }}
-            >
-              <option aria-label="None" value="" />
-              <option value={5}>5</option>
-              <option value={10}>10</option>
-              <option value={15}>15</option>
-            </Select>
-          </FormControl>
-        </Grid>
-       <Link to="/rules/lunchbox" className="italicBlue" > Suggested Rules (feel free to modify. We are here to have FUN!)</Link>
-      </Grid>
-    </Box>
+      </Box>
+    </TimeProvider>
   );
 };
 

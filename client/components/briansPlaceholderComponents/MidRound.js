@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getPartyInfo } from '../../store/party';
 import { useParams, useLocation } from 'react-router-dom';
 import { pickACard, guessed } from '../../store/lunchbox';
+import CountdownClock from '../CountDown';
 
 const MidRound = ({
   party,
@@ -15,16 +16,30 @@ const MidRound = ({
 }) => {
   const { partyId, clueGiverId } = useParams();
   const { pathname } = useLocation();
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
   }, []);
 
   const currentCard = lunchbox.filter((card) => card.status === 'current')[0];
+
   return (
     <div>
-      <button onClick={() => pickACard(lunchbox)}>START ROUND</button>
-      <div>{currentCard && <h1>{currentCard.name}</h1>}</div>
+      <button
+        onClick={() => {
+          pickACard(lunchbox);
+          setIsActive(true);
+        }}
+      >
+        START ROUND
+      </button>
+      <div>
+        {currentCard && <h1>{currentCard.name}</h1>}
+        <div>
+          <CountdownClock isActive={isActive} />
+        </div>
+      </div>
       <button onClick={() => guessed(currentCard, user, lunchbox)}>
         CHECK
       </button>

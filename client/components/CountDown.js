@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import CountDownControl from "./CountDownControl";
+import React, { useState, useEffect } from 'react';
+import CountDownControl from './CountDownControl';
 
-export default function CountdownClock() {
+export default function CountdownClock({ isActive }) {
   //   const [secondsElapsed, setSecondsElapsed] = useState(600000);
-  const [count, setCount] = useState(599);
-  const [min, setMin] = useState(10);
+  const [count, setCount] = useState(59);
+  const [min, setMin] = useState(1);
   const [sec, setSec] = useState(0);
-  const [isActive, setIsActive] = useState(false);
+  //   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     let interval = null;
@@ -41,7 +41,7 @@ export default function CountdownClock() {
 
   const playAudio = () => {
     const buzzer = new Audio(
-      "http://cd.textfiles.com/maxsounds/WAV/EFEITOS/ALARME.WAV"
+      'http://cd.textfiles.com/maxsounds/WAV/EFEITOS/ALARME.WAV'
     );
     buzzer.volume = 0.5;
     buzzer.play();
@@ -50,16 +50,16 @@ export default function CountdownClock() {
   return (
     <div className="countDown_container">
       <h1 className="text">
-        <span className="countDownMin">{min <= 9 ? "0" + min : min}</span>
+        <span className="countDownMin">{min <= 9 ? '0' + min : min}</span>
         <span className="countDownColon">:</span>
-        <span className="countDownSec">{sec <= 9 ? "0" + sec : sec}</span>
+        <span className="countDownSec">{sec <= 9 ? '0' + sec : sec}</span>
       </h1>
-      <CountDownControl
+      {/* <CountDownControl
         setIsActive={setIsActive}
         setCount={setCount}
         setMin={setMin}
         setSec={setSec}
-      />
+      /> */}
     </div>
   );
 }

@@ -1,15 +1,16 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login, Signup } from './components/AuthForm';
-import Home from './components/Home';
-import JoinHost from './components/JoinHost';
-import Host from './components/Host';
-import PartyLobby from './components/PartyLobby';
-import VideoCall from './components/VideoCall';
-import CountdownClock from './components/CountDown';
-import { me } from './store';
-import MidRound from './components/briansPlaceholderComponents/MidRound';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login, Signup } from "./components/AuthForm";
+import Home from "./components/Home";
+import JoinHost from "./components/JoinHost";
+import Host from "./components/Host";
+import PartyLobby from "./components/PartyLobby";
+import VideoCall from "./components/VideoCall";
+import CountdownClock from "./components/CountDown";
+import SocketIo from "./components/forSocketIo";
+import { me } from "./store";
+import MidRound from "./components/briansPlaceholderComponents/MidRound";
 
 /**
  * COMPONENT
@@ -36,6 +37,8 @@ class Routes extends Component {
             <Route path="/countdown" exact component={CountdownClock} />
 
             <Route path="/chatroom" component={VideoCall} />
+
+            <Route path="/socket" component={SocketIo} />
 
             <Route
               path="/dummyround/:partyId/:clueGiverId"

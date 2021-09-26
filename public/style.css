@@ -183,9 +183,11 @@ form div {
   width: 300px;
   position: relative;
   background: #eff1f4;
-  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9,
-    inset 0px 0px 0px 0px #0001, inset 0px 0px 0px 0px #fff9,
+  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.214),
+    -4px -4px 5px 0px rgba(255, 255, 255, 0.214), 7px 7px 20px 0px #0002,
+    4px 4px 5px 0px #0001, inset 0px 0px 0px 0px rgba(255, 255, 255, 0.214),
+    inset 0px 0px 0px 0px #0001,
+    inset 0px 0px 0px 0px rgba(255, 255, 255, 0.214),
     inset 0px 0px 0px 0px #0001;
   transition: box-shadow 0.6s cubic-bezier(0.79, 0.21, 0.06, 0.81);
   border-radius: 10px;
@@ -298,4 +300,10 @@ form div {
 button:hover i {
   -webkit-animation: jello-horizontal 0.9s both;
   animation: jello-horizontal 0.9s both;
+}
+
+/* socket.io temp style ================================= */
+
+.placeHolder {
+  padding: 3rem;
 }

@@ -33,6 +33,12 @@ h4.italicBlue {
   font-style: italic;
   font-weight: 400;
 }
+a.italicBlue {
+  color: #60d2da;
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
 span.accentYellow {
   color: #f3ba40;
   font-weight: 900;
@@ -58,7 +64,9 @@ form div {
   font-weight: 800;
   filter: drop-shadow(2px 2px 1px #000);
 }
-
+span.accentTestGreen {
+  color: #5bc77b;
+}
 /* PARTY LOBBY */
 .svgFile {
   width: 5%;
@@ -69,11 +77,32 @@ form div {
   left: 0;
   bottom: 50px;
 }
+.MuiGrid-spacing-xs-2 > .MuiGrid-item {
+  padding: 8px;
+  justify-content: center;
+}
+
+/* DIAGONAL LINES */
+.diagonal-green:before{
+  content: '';
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(to top left, #5cc87c 50%, #8dd6a600 50%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.ball {
+  position: absolute;
+  border-radius: 100%;
+  opacity: 0.7;
+}
 
 /* VIDEO CONTROLS - video screen  */
 .controlInner {
   position: absolute;
-  right: -65px;
+  right: -115px;
   display: flex;
   flex-direction: column;
   flex-grow: 2;

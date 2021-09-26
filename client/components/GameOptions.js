@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import { Link } from 'react-router-dom';
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -116,6 +117,7 @@ const GameOptions = () => {
             </Select>
           </FormControl>
         </Grid>
+       <Link to="/rules/lunchbox" className="italicBlue" > Suggested Rules (feel free to modify. We are here to have FUN!)</Link>
       </Grid>
     </Box>
   );

@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import Circles from "./FloatingCircles"
 
 /**
  * COMPONENT
@@ -27,6 +28,7 @@ const AuthForm = (props) => {
   const classes = useStyles();
 
   return (
+
     <Box className={classes.formOuter}>
       <form
         onSubmit={handleSubmit}
@@ -49,7 +51,7 @@ const AuthForm = (props) => {
           />
         </div>
         <Box>
-          <Button variant="outlined" type="submit">
+          <Button variant="outlined" type="submit"  color="primary">
             {displayName}
           </Button>
         </Box>
@@ -66,6 +68,7 @@ const AuthForm = (props) => {
           Login with facebook
         </Button>
       </p>
+      <Circles />
     </Box>
   );
 };

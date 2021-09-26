@@ -1,12 +1,12 @@
 const Sequelize = require('sequelize');
-const { STRING, BOOLEAN, INTEGER } = require('sequelize');
+const { STRING, BOOLEAN, INTEGER, ENUM } = require('sequelize');
 const db = require('../db');
 
 const Card = db.define('card', {
   name: STRING,
-  guessed: {
-    type: BOOLEAN,
-    defaultValue: false,
+  status: {
+    type: ENUM('current', 'skipped', 'pending', 'guessed'),
+    defaultValue: 'pending',
   },
   createdBy: INTEGER,
 

@@ -1,19 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPartyInfo } from '../../store/party';
 import { useParams, useLocation } from 'react-router-dom';
+import { pickACard, guessed } from '../../store/lunchbox';
 
-const MidRound = ({ party, user, lunchbox, getPartyInfo }) => {
+const MidRound = ({
+  party,
+  user,
+  lunchbox,
+  getPartyInfo,
+
+  pickACard,
+  guessed,
+}) => {
   const { partyId, clueGiverId } = useParams();
   const { pathname } = useLocation();
+
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
   }, []);
 
+  const currentCard = lunchbox.filter((card) => card.status === 'current')[0];
   return (
     <div>
-      <button>START ROUND</button>
-      <button>CHECK</button>
+      <button onClick={() => pickACard(lunchbox)}>START ROUND</button>
+      <div>{currentCard && <h1>{currentCard.name}</h1>}</div>
+      <button onClick={() => guessed(currentCard, user, lunchbox)}>
+        CHECK
+      </button>
       <button>SKIP</button>
     </div>
   );
@@ -31,6 +45,12 @@ const mapDispatch = (dispatch, { history }) => {
   return {
     getPartyInfo: (partyId, userId, path) => {
       dispatch(getPartyInfo(partyId, userId, path, history));
+    },
+    pickACard: (cards) => {
+      dispatch(pickACard(cards));
+    },
+    guessed: (card, userId, lunchbox) => {
+      dispatch(guessed(card, userId, lunchbox));
     },
   };
 };

@@ -18,6 +18,8 @@ const pickedCard = (card) => ({ type: PICKED_CARD, card });
 
 const guessedCard = (newBox) => ({ type: GUESSED_CARD, newBox });
 
+const skippedCard = (newBox) => ({ type: SKIPPED, newBox });
+
 const roundFinished = () => ({
   type: ROUND_FINISHED,
 });
@@ -68,7 +70,17 @@ export const guessed = (card, user, lunchbox) => {
   };
 };
 
-export const skip = () => {};
+export const skip = (card, lunchbox) => {
+  return async (dispatch) => {
+    const res = await axios.post(`/api/lunchboxes/skip/${card.id}`);
+    const cardSkip = await res.data;
+
+    const newLunchbox = [...lunchbox].filter((_card) => _card.id !== card.id);
+    newLunchbox.push(cardSkip);
+    dispatch(skippedCard(newLunchbox));
+    dispatch(pickACard(newLunchbox));
+  };
+};
 
 //Reducer
 
@@ -87,6 +99,9 @@ export default (state = [], action) => {
       return [...newCards, action.card];
 
     case GUESSED_CARD:
+      return action.newBox;
+
+    case SKIPPED:
       return action.newBox;
 
     case ROUND_FINISHED:

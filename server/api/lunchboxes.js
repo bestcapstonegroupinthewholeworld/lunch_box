@@ -44,10 +44,20 @@ router.post('/guess/:id/:userId', async (req, res, next) => {
   try {
     const card = await Card.findByPk(req.params.id * 1);
     await card.update({ status: 'guessed' });
-    console.log('guessed card', card);
+
     const user = await User.findByPk(req.params.userId * 1);
     const team = await Team.findByPk(user.teamId);
     await team.update({ score: team.score + 1 });
+    res.json(card);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post('/skip/:id', async (req, res, next) => {
+  try {
+    const card = await Card.findByPk(req.params.id * 1);
+    await card.update({ status: 'skipped' });
     res.json(card);
   } catch (error) {
     next(error);

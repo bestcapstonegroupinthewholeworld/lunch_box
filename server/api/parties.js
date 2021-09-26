@@ -86,7 +86,7 @@ router.post('/teams/:id', async (req, res, next) => {
 router.post('/join/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.body.id * 1);
-    console.log('FOUND USER', user);
+
     const join = { partyId: req.params.id, host: null };
 
     if (user.host === req.params.id) {

@@ -34,17 +34,15 @@ const theme = createTheme({
     },
     MuiButton: {
       containedPrimary: {
-        color: "white",
-        width: "170px",
-        borderRadius: "20px",
+        color: 'white',
+        width: '170px',
+        borderRadius: '20px',
       },
       containedSecondary: {
-
         color: 'white',
         width: '170px',
 
         borderRadius: '20px',
-
       },
     },
   },
@@ -57,20 +55,19 @@ const theme = createTheme({
 
 const useStyles = makeStyles((theme) => ({
   app: {
-
-    minHeight: "100vh",
-    background: "rgb(243,185,63)",
-    background:
-      "linear-gradient(90deg, rgba(243,185,63,1) 0%, rgba(96,210,218,1) 100%)",
-    "&::before": {
-      content: '""',
-      backgroundColor: "#141018",
-      position: "absolute",
-      height: "calc(100% - 60px)",
-      width: "calc(100% - 60px)",
-      top: "30px",
-      left: "30px",
-    },
+    // minHeight: '100vh',
+    // background: 'rgb(243,185,63)',
+    // background:
+    //   'linear-gradient(90deg, rgba(243,185,63,1) 0%, rgba(96,210,218,1) 100%)',
+    // '&::before': {
+    //   content: '""',
+    //   backgroundColor: '#141018',
+    //   position: 'absolute',
+    //   height: 'calc(100% - 60px)',
+    //   width: 'calc(100% - 60px)',
+    //   top: '30px',
+    //   left: '30px',
+    // },
     //     minHeight: '100vh',
     //     background: 'rgb(243,185,63)',
     //     background:
@@ -84,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
     //       top: '30px',
     //       left: '30px',
     //     },
-
     // minHeight: '100vh',
     // background: 'rgb(243,185,63)',
     // background:
@@ -111,7 +107,6 @@ const useStyles = makeStyles((theme) => ({
     //   top: '30px',
     //   left: '30px',
     // },
-
   },
 }));
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getPartyInfo } from '../../store/party';
 import { useParams, useLocation } from 'react-router-dom';
-import { pickACard, guessed } from '../../store/lunchbox';
+import { pickACard, guessed, skip } from '../../store/lunchbox';
 import CountdownClock from '../CountDown';
 
 const MidRound = ({
@@ -10,7 +10,7 @@ const MidRound = ({
   user,
   lunchbox,
   getPartyInfo,
-
+  skip,
   pickACard,
   guessed,
 }) => {
@@ -22,14 +22,16 @@ const MidRound = ({
     getPartyInfo(partyId, user.id, pathname);
   }, []);
 
-  const currentCard = lunchbox.filter((card) => card.status === 'current')[0];
+  let currentCard = lunchbox.filter((card) => card.status === 'current')[0];
+  if (!currentCard) {
+    currentCard = lunchbox.filter((card) => card.status === 'skipped')[0];
+  }
 
   return (
     <div>
       <button
         onClick={() => {
           pickACard(lunchbox);
-          setIsActive(true);
         }}
       >
         START ROUND
@@ -37,13 +39,17 @@ const MidRound = ({
       <div>
         {currentCard && <h1>{currentCard.name}</h1>}
         <div>
-          <CountdownClock isActive={isActive} />
+          <CountdownClock
+            isActive={isActive}
+            setIsActive={setIsActive}
+            currentCard={currentCard}
+          />
         </div>
       </div>
       <button onClick={() => guessed(currentCard, user, lunchbox)}>
         CHECK
       </button>
-      <button>SKIP</button>
+      <button onClick={() => skip(currentCard, lunchbox)}>SKIP</button>
     </div>
   );
 };
@@ -66,6 +72,9 @@ const mapDispatch = (dispatch, { history }) => {
     },
     guessed: (card, userId, lunchbox) => {
       dispatch(guessed(card, userId, lunchbox));
+    },
+    skip: (card, lunchbox) => {
+      dispatch(skip(card, lunchbox));
     },
   };
 };

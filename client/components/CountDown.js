@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import CountDownControl from './CountDownControl';
 
-export default function CountdownClock({ isActive }) {
+export default function CountdownClock({ isActive, setIsActive, currentCard }) {
   //   const [secondsElapsed, setSecondsElapsed] = useState(600000);
   const [count, setCount] = useState(59);
   const [min, setMin] = useState(1);
   const [sec, setSec] = useState(0);
   //   const [isActive, setIsActive] = useState(false);
+  if (currentCard) setIsActive(true);
+  else setIsActive(false);
 
   useEffect(() => {
     let interval = null;

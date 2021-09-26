@@ -17,7 +17,6 @@ const joinedParty = (user) => ({ type: JOINED_PARTY, user });
 
 export const joinParty = (partyId, userId) => {
   return async (dispatch) => {
-    console.log('JOIN PARTY', userId);
     await axios.post(`/api/parties/join/${partyId}`, { id: userId });
     const res = await User.findByPk(userId);
     const user = await res.data;
@@ -37,6 +36,7 @@ export const createParty = (hostId, history) => {
 
 export const getPartyInfo = (partyId, userId, path, history) => {
   return async (dispatch) => {
+    console.log;
     let res = await axios.get(`/api/parties/${partyId}`);
     const party = await res.data;
     dispatch(fetchCards(party.game.lunchbox.id));

@@ -53,11 +53,14 @@ export const Host = ({ username, party, getPartyInfo }) => {
     getPartyInfo(params.partyId);
   }, []);
 
-  console.log(party);
   return (
     <Box className={classes.hostOuter} color="text.primary" mr={6} ml={6}>
       <Box className={classes.center}>
-        <h1> <span className="accentYellow">{username}</span>, you are hosting a Party </h1>
+        <h1>
+          {' '}
+          <span className="accentYellow">{username}</span>, you are hosting a
+          Party{' '}
+        </h1>
       </Box>
       <Box m={6}>
         <Grid container spacing={6}>

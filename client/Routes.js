@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
@@ -9,8 +10,10 @@ import Host from './components/Host';
 import PartyLobby from './components/PartyLobby';
 import VideoCall from './components/VideoCall';
 import CountdownClock from './components/CountDown';
+import SocketIo from "./components/forSocketIo";
 import { me } from './store';
 import MidRound from './components/briansPlaceholderComponents/MidRound';
+
 
 /**
  * COMPONENT
@@ -38,7 +41,11 @@ class Routes extends Component {
 
             <Route path="/chatroom" component={VideoCall} />
 
+
+            <Route path="/socket" component={SocketIo} />
+
             <Route path="/rules/lunchbox" exact component={RulesLunchBox} />
+
 
             <Route
               path="/dummyround/:partyId/:clueGiverId"

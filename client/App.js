@@ -1,32 +1,34 @@
-import React from 'react';
+import React from "react";
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 // createMuiTheme - function that allow to create a custom theme.
-import { ThemeProvider } from '@material-ui/core';
-import { createTheme } from '@material-ui/core/styles';
-import { CssBaseline } from '@material-ui/core';
+import { ThemeProvider } from "@material-ui/core";
+import { createTheme } from "@material-ui/core/styles";
+import { CssBaseline } from "@material-ui/core";
 
-import Navbar from './components/Navbar';
-import Routes from './Routes';
+import Navbar from "./components/Navbar";
+import Routes from "./Routes";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#60d2da',
+      main: "#60d2da",
     },
     secondary: {
-      main: '#5cc87c',
+      main: "#5cc87c",
     },
     text: {
-      primary: '#fff',
-      secondary: '#fff',
+      primary: "#fff",
+      secondary: "#fff",
     },
   },
   overrides: {
     MuiInputLabel: {
       root: {
-        color: '#fff',
+        color: "#fff",
       },
+
+
       // MuiButton: {
       //   color: '#fff',
       // },
@@ -42,17 +44,21 @@ const theme = createTheme({
         width: '170px',
 
         borderRadius: '20px',
+
       },
     },
   },
   typography: {
     h1: {
-      marginTop: '0',
+      marginTop: "0",
     },
   },
 });
 
 const useStyles = makeStyles((theme) => ({
+
+ 
+=======
   //   app: {
   //     minHeight: '100vh',
   //     background: 'rgb(243,185,63)',
@@ -81,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
   //       left: '30px',
   //     },
   //   },
+
 }));
 
 const App = () => {
@@ -88,7 +95,7 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.app} style={{ height: '100%' }}>
+      <div className={classes.app} style={{ height: "100%" }}>
         <Navbar />
         <Routes />
         <CssBaseline />

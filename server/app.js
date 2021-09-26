@@ -1,7 +1,8 @@
 const path = require("path");
 const express = require("express");
-
 const morgan = require("morgan");
+const cors = require("cors");
+
 const app = express();
 module.exports = app;
 
@@ -10,6 +11,9 @@ app.use(morgan("dev"));
 
 // body parsing middleware
 app.use(express.json());
+
+// cross-origin middleware
+app.use(cors());
 
 // auth and api routes
 app.use("/auth", require("./auth"));

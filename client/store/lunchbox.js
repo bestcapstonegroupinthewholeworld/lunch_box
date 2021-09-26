@@ -3,6 +3,8 @@ import axios from 'axios';
 //ACTION TYPES
 const FETCHED_CARDS = 'FETCHED_CARDS';
 export const ADDED_CARD = 'ADDED_CARD';
+const PICKED_CARD = 'PICKED_CARD';
+const GUESSED_CARD = 'GUESSED_CARD';
 
 //ACTION CREATOR
 
@@ -10,6 +12,9 @@ const fetchedCards = (cards) => ({ type: FETCHED_CARDS, cards });
 
 const addedCard = (card) => ({ type: ADDED_CARD, card });
 
+const pickedCard = (card) => ({ type: PICKED_CARD, card });
+
+const guessedCard = (newBox) => ({ type: GUESSED_CARD, newBox });
 //THUNK CREATOR
 
 export const fetchCards = (lunchboxId) => {
@@ -28,6 +33,31 @@ export const addCard = (card) => {
   };
 };
 
+export const pickACard = (cards) => {
+  return async (dispatch) => {
+    const pendingCards = cards.filter((card) => card.status === 'pending');
+    //if no pending cards deal with skipped. if no cards at all figure out a done message and end round. Than can be checked in component probably
+    const currentCard =
+      pendingCards[Math.floor(Math.random() * pendingCards.length)];
+    const res = await axios.post(`/api/lunchboxes/pick/${currentCard.id}`);
+    const newCurrent = await res.data;
+    dispatch(pickedCard(newCurrent));
+  };
+};
+
+export const guessed = (card, user, lunchbox) => {
+  return async (dispatch) => {
+    const res = await axios.post(`/api/lunchboxes/guess/${card.id}/${user.id}`);
+    const updatedCard = await res.data;
+
+    console.log('GUESSED CARD IN STORE', guessedCard, 'CURRENT BOX', lunchbox);
+    const newLunchbox = [...lunchbox].filter((_card) => _card.id !== card.id);
+    newLunchbox.push(updatedCard);
+    dispatch(guessedCard(newLunchbox));
+    dispatch(pickACard(newLunchbox));
+  };
+};
+
 //Reducer
 
 export default (state = [], action) => {
@@ -38,6 +68,14 @@ export default (state = [], action) => {
     case ADDED_CARD:
       return [...state, action.card];
       break;
+
+    case PICKED_CARD:
+      const newCards = [...state].filter((card) => card.id !== action.card.id);
+
+      return [...newCards, action.card];
+
+    case GUESSED_CARD:
+      return action.newBox;
 
     default:
       return state;

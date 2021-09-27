@@ -4,7 +4,7 @@ import { TimeProvider } from "./TimeContext";
 import CountDownControl from "./CountDownControl";
 
 export default function CountdownClock({ isActive, setIsActive, currentCard }) {
-  const count = Number(useTime());
+  const count = Number(useTime()); // why change to string
   // const [count, setCount] = useState(providerValue.count);
   const [min, setMin] = useState(Math.floor((count + 1) / 60));
   const [sec, setSec] = useState((count + 1) % 60);

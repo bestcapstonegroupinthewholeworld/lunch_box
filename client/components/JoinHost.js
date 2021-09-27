@@ -46,9 +46,10 @@ const JoinHost = ({ userId, createParty, party }) => {
     <Box m={6} p={6} className={classes.hostJoin}>
       <Circles />
       <Grid container spacing={2}  style={{
-              zIndex: '4'
+              zIndex: '4',
+              jusifyContent: 'center'
             }}>
-        <Grid container item xs={6} md={6} className="hostContainer">
+        <Grid container item xs={6} md={6} className="hostContainer" style={{justifyContent: 'center'}}>
           <Button
             color="secondary"
             variant="contained"
@@ -64,7 +65,7 @@ const JoinHost = ({ userId, createParty, party }) => {
             Host
           </Button>
         </Grid>
-        <Grid container item xs={6} md={6}>
+        <Grid container item xs={6} md={6} style={{justifyContent: 'center'}}>
           <TextField
             id="standard-basic"
             label="Enter Room Number"

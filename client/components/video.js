@@ -80,7 +80,7 @@ export default function Video(props) {
         users.map((user) => {
           if (user.videoTrack) {
             return (
-              <Grid item xs={gridSpacing} className={classes.singleVideoScreen}>
+              <Grid item xs={gridSpacing} className={classes.singleVideoScreen} key={user.uid}>
                  <div className="team-one">
                  <AgoraVideoPlayer
                   key={user.uid}
@@ -89,7 +89,6 @@ export default function Video(props) {
                     height: "100%",
                     width: "100%",
                     position: "absolute",
-
                   }}
                   className={classes.singleVideoScreenInner}
                 />

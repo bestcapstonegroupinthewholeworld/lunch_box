@@ -79,7 +79,6 @@ span.accentTestGreen {
 }
 .MuiGrid-spacing-xs-2 > .MuiGrid-item {
   padding: 8px;
-  justify-content: center;
 }
 
 /* DIAGONAL LINES */
@@ -99,10 +98,15 @@ span.accentTestGreen {
   opacity: 0.7;
 }
 
+/* Display none class for disabling the button */
+.displayNone {
+  display: none !important;
+}
+
 /* VIDEO CONTROLS - video screen  */
 .controlInner {
   position: absolute;
-  right: -115px;
+  right: -55px;
   display: flex;
   flex-direction: column;
   flex-grow: 2;
@@ -112,6 +116,7 @@ span.accentTestGreen {
 .controlInner button {
   background-color: transparent;
   box-shadow: none;
+  width: 20px;
 }
 .controlInner button:hover {
   background-color: transparent;
@@ -139,9 +144,9 @@ span.accentTestGreen {
   border-radius: 15px;
 }
 
-/* .makeStyles-singleVideoScreenInner-15 > div {
+/* /* .makeStyles-singleVideoScreenInner-15 > div {
   border-radius: 15px;
-}
+} */
 .makeStyles-singleVideoScreenInner-15 > div > video {
   border-radius: 15px;
   background: linear-gradient(
@@ -169,7 +174,6 @@ span.accentTestGreen {
 
 .countDown_container {
   width: 300px;
-  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;

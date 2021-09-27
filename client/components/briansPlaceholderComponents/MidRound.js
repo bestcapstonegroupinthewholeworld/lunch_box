@@ -42,8 +42,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
 const MidRound = ({
   party,
   user,

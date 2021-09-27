@@ -7,6 +7,8 @@ import store from "./store";
 import App from "./App";
 
 import { initFacebookSdk } from "./init-facebook-sdk";
+import { TimeProvider } from "./components/TimeContext";
+import CountdownClock from "./components/CountDown";
 
 initFacebookSdk().then(startApp);
 
@@ -17,6 +19,7 @@ function startApp() {
         <App />
       </Router>
     </Provider>,
+
     document.getElementById("app")
   );
 }

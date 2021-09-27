@@ -1,11 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import CountDownControl from './CountDownControl';
+import React, { useState, useEffect } from "react";
+import { useTime, useTimeUpdate } from "./TimeContext";
+import { TimeProvider } from "./TimeContext";
+import CountDownControl from "./CountDownControl";
 
 export default function CountdownClock({ isActive, setIsActive, currentCard }) {
-  //   const [secondsElapsed, setSecondsElapsed] = useState(600000);
-  const [count, setCount] = useState(59);
-  const [min, setMin] = useState(1);
-  const [sec, setSec] = useState(0);
+  const count = Number(useTime());
+  // const [count, setCount] = useState(providerValue.count);
+  const [min, setMin] = useState(Math.floor((count + 1) / 60));
+  const [sec, setSec] = useState((count + 1) % 60);
+
+  // const [count, setCount] = useState(599)
+  // cont [min, setMin] = useState(10);
+  // const [sec, setSec] = useState(0);
+
+  // const min = useTime();
+  // const sec = useTime();
+  console.log("one more time==============", count);
+
+  const handlechangeRoundTime = useTimeUpdate();
+
   //   const [isActive, setIsActive] = useState(false);
   if (currentCard) setIsActive(true);
   else setIsActive(false);
@@ -31,9 +44,8 @@ export default function CountdownClock({ isActive, setIsActive, currentCard }) {
   }, [isActive, count]);
 
   function secondsToTime(secs) {
-    // let minDivisor = secs % (60 * 60);
     let minutes = Math.floor(secs / 60);
-    // let secDivisor = minDivisor % 60;
+
     let seconds = secs - minutes * 60;
     return {
       m: minutes,
@@ -43,25 +55,28 @@ export default function CountdownClock({ isActive, setIsActive, currentCard }) {
 
   const playAudio = () => {
     const buzzer = new Audio(
-      'http://cd.textfiles.com/maxsounds/WAV/EFEITOS/ALARME.WAV'
+      "http://cd.textfiles.com/maxsounds/WAV/EFEITOS/ALARME.WAV"
     );
     buzzer.volume = 0.5;
     buzzer.play();
   };
+  console.log(count, min, sec);
 
   return (
-    <div className="countDown_container">
-      <h1 className="text">
-        <span className="countDownMin">{min <= 9 ? '0' + min : min}</span>
-        <span className="countDownColon">:</span>
-        <span className="countDownSec">{sec <= 9 ? '0' + sec : sec}</span>
-      </h1>
-      {/* <CountDownControl
+    <TimeProvider>
+      <div className="countDown_container">
+        <h1 className="text">
+          <span className="countDownMin">{min <= 9 ? "0" + min : min}</span>
+          <span className="countDownColon">:</span>
+          <span className="countDownSec">{sec <= 9 ? "0" + sec : sec}</span>
+        </h1>
+        {/* <CountDownControl
         setIsActive={setIsActive}
         setCount={setCount}
         setMin={setMin}
         setSec={setSec}
       /> */}
-    </div>
+      </div>
+    </TimeProvider>
   );
 }

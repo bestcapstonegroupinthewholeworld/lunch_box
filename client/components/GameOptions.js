@@ -27,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
   borderYellow: {},
 }));
-
 /** COMPONENT **/
 const GameOptions = () => {
   const classes = useStyles();
-  // const [roundTimeState, setRoundTimeState] = useState("60");
-  const roundTimeState = useTime();
+
+  const count = useTime();
+
+  // console.log(count, "game option");
+
   const handleChangeRoundTime = useTimeUpdate();
   const [numberOfRoundsState, setNumberOfRoundsState] = useState("3");
   const [numberOfWordsState, setnumberOfWordsState] = useState("10");
@@ -42,6 +44,7 @@ const GameOptions = () => {
   //   setRoundTimeState(selectedTime);
   //   // console.log(selectedTime)
   // };
+
   const handleChangeRoundNumber = (event) => {
     const selectedRoundNumber = event.target.value;
     setNumberOfRoundsState(selectedRoundNumber);
@@ -67,15 +70,15 @@ const GameOptions = () => {
               <Select
                 native
                 labelId=""
-                value={roundTimeState}
+                value={count}
                 onChange={handleChangeRoundTime}
                 displayEmpty
                 inputProps={{ "aria-label": "Without label" }}
               >
                 <option aria-label="None" value="" />
-                <option value={60}>1:00</option>
-                <option value={90}>1:30</option>
-                <option value={120}>2:00</option>
+                <option value={59}>1:00</option>
+                <option value={89}>1:30</option>
+                <option value={119}>2:00</option>
               </Select>
             </FormControl>
           </Grid>

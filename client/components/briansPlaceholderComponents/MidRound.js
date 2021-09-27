@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getPartyInfo } from '../../store/party';
-import { useParams, useLocation } from 'react-router-dom';
-import { pickACard, guessed, skip } from '../../store/lunchbox';
-import CountdownClock from '../CountDown';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { getPartyInfo } from "../../store/party";
+import { useParams, useLocation } from "react-router-dom";
+import { pickACard, guessed, skip } from "../../store/lunchbox";
+import CountdownClock from "../CountDown";
 
 const MidRound = ({
   party,
@@ -22,9 +22,9 @@ const MidRound = ({
     getPartyInfo(partyId, user.id, pathname);
   }, []);
 
-  let currentCard = lunchbox.filter((card) => card.status === 'current')[0];
+  let currentCard = lunchbox.filter((card) => card.status === "current")[0];
   if (!currentCard) {
-    currentCard = lunchbox.filter((card) => card.status === 'skipped')[0];
+    currentCard = lunchbox.filter((card) => card.status === "skipped")[0];
   }
 
   return (
@@ -33,6 +33,7 @@ const MidRound = ({
         onClick={() => {
           pickACard(lunchbox);
         }}
+        style={{ position: "absolute" }}
       >
         START ROUND
       </button>
@@ -46,10 +47,18 @@ const MidRound = ({
           />
         </div>
       </div>
-      <button onClick={() => guessed(currentCard, user, lunchbox)}>
+      <button
+        onClick={() => guessed(currentCard, user, lunchbox)}
+        style={{ position: "absolute" }}
+      >
         CHECK
       </button>
-      <button onClick={() => skip(currentCard, lunchbox)}>SKIP</button>
+      <button
+        onClick={() => skip(currentCard, lunchbox)}
+        style={{ position: "absolute" }}
+      >
+        SKIP
+      </button>
     </div>
   );
 };

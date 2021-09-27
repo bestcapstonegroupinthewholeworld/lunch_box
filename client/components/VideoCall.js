@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { forwardRef, createRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   config,
   useClient,
@@ -12,14 +12,22 @@ import { Button } from "@material-ui/core";
 
 import Video from "./video";
 import Control from "./control";
+import { LeakRemoveTwoTone } from "@material-ui/icons";
 
-export default function VideoCall() {
+const VideoCall = forwardRef((props, ref) => {
   const [users, setUsers] = useState([]);
   const [start, setStart] = useState(false);
   const [inCall, setInCall] = useState(false);
 
   const client = useClient();
   const { ready, tracks } = useMicrophoneAndCameraTracks(); //audio and video tracks
+
+  //difining ref in the button component 
+  const btnRef = createRef();
+  useEffect(() => {
+    const buttonClicked = btnRef.current;
+    console.log(buttonClicked)
+  }, [])
 
   //only run effect when any of the given value in the array changes
   useEffect(() => {
@@ -106,13 +114,20 @@ export default function VideoCall() {
         <Button
           variant="contained"
           color="primary"
+          className="joinCallButton"
+          id="buttonClicked"
           onClick={() => {
             setInCall(true);
           }}
+          ref={btnRef}
         >
           Join call{" "}
         </Button>
+       
       )}
     </div>
   );
 }
+);
+
+export default VideoCall;

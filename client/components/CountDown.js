@@ -4,22 +4,13 @@ import { TimeProvider } from "./TimeContext";
 import CountDownControl from "./CountDownControl";
 
 export default function CountdownClock({ isActive, setIsActive, currentCard }) {
-  const count = Number(useTime()); // why change to string
-  // const [count, setCount] = useState(providerValue.count);
+  const count = Number(useTime());
+
   const [min, setMin] = useState(Math.floor((count + 1) / 60));
   const [sec, setSec] = useState((count + 1) % 60);
 
-  // const [count, setCount] = useState(599)
-  // cont [min, setMin] = useState(10);
-  // const [sec, setSec] = useState(0);
-
-  // const min = useTime();
-  // const sec = useTime();
-  console.log("one more time==============", count);
-
   const handlechangeRoundTime = useTimeUpdate();
 
-  //   const [isActive, setIsActive] = useState(false);
   if (currentCard) setIsActive(true);
   else setIsActive(false);
 

@@ -62,7 +62,7 @@ const GameOptions = () => {
         <h2> Define Game Options </h2>
         <Grid container spacing={2} className={classes.innerRow}>
           <Grid item xs={6} md={6} p={4} className={classes.borderYellow}>
-            Rounds Time
+            Time of Round
           </Grid>
           <Grid item xs={6} md={6} p={4}>
             <FormControl className={classes.formControl}>

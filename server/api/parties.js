@@ -59,7 +59,6 @@ router.post('/teams/:id', async (req, res, next) => {
 
     for (let i = 0; i < teamSize; i++) {
       const idx = Math.floor(Math.random() * users.length);
-      console.log('IDXXXX', idx);
       await users[idx].update({ teamId: teamB.id, turnOrder: i + 1 });
       users.splice(idx, 1);
     }

@@ -4,7 +4,8 @@ import { TimeProvider } from "./TimeContext";
 import CountDownControl from "./CountDownControl";
 
 export default function CountdownClock({ isActive, setIsActive, currentCard }) {
-  const count = Number(useTime());
+  // const count = Number(useTime());
+  const [count, setCount] = useState(Number(useTime()));
 
   const [min, setMin] = useState(Math.floor((count + 1) / 60));
   const [sec, setSec] = useState((count + 1) % 60);
@@ -62,11 +63,11 @@ export default function CountdownClock({ isActive, setIsActive, currentCard }) {
           <span className="countDownSec">{sec <= 9 ? "0" + sec : sec}</span>
         </h1>
         {/* <CountDownControl
-        setIsActive={setIsActive}
-        setCount={setCount}
-        setMin={setMin}
-        setSec={setSec}
-      /> */}
+          setIsActive={setIsActive}
+          setCount={count}
+          setMin={setMin}
+          setSec={setSec}
+        /> */}
       </div>
     </TimeProvider>
   );

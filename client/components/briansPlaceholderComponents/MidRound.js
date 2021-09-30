@@ -52,6 +52,7 @@ const MidRound = ({
   guessed,
 }) => {
   const { partyId, clueGiverId } = useParams();
+
   const { pathname } = useLocation();
   //to hide the button when the Start Round button is clicked
   const [isActive, setIsActive] = useState(false);
@@ -105,34 +106,41 @@ const MidRound = ({
               </div>
             </div>
 
-            <div className="buttons">
+            <div className="countDownFrame">
               {!isActive ? (
                 <Button
-                  color="primary"
-                  variant="contained"
-                  size="large"
+                  // color="primary"
+                  // variant="contained"
+                  // size="large"
                   onClick={() => {
                     pickACard(lunchbox);
                     handleToggle();
                   }}
-                  className={`${isActive ? "displayNone" : ""}`}
+                  // className={`${isActive ? "displayNone" : ""}`}
                 >
-                  START ROUND
+                  <i className="material-icons-round">play_arrow</i>
                 </Button>
               ) : (
                 <button
-                  color="primary"
-                  variant="contained"
-                  size="large"
+                  // color="primary"
+                  // variant="contained"
+                  // size="large"
                   onClick={() => guessed(currentCard, user, lunchbox)}
                 >
-                  CHECK
+                  <i class="material-icons-round">done</i>
                 </button>
               )}
             </div>
             {/* {setIsActive === true ? ( */}
 
-            <button onClick={() => skip(currentCard, lunchbox)}>SKIP</button>
+            <button
+              // color="primary"
+              // variant="contained"
+              // size="large"
+              onClick={() => skip(currentCard, lunchbox)}
+            >
+              <i className="material-icons-round">skip_next</i>
+            </button>
           </Box>
         </Grid>
         <Grid container item xs={6} md={4} className={classes.colRight}>

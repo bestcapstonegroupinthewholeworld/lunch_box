@@ -1,36 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import SVGFile from './PartyLobbySvg';
-import VideoCall from '../components/VideoCall';
+import SVGFile from "./PartyLobbySvg";
+import VideoCall from "../components/VideoCall";
 
-import { fetchCards, addCard } from '../store/lunchbox';
+import { fetchCards, addCard } from "../store/lunchbox";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import { makeRandomTeams, getPartyInfo, joinParty } from '../store/party';
-import { useParams, useLocation } from 'react-router-dom';
+import { makeRandomTeams, getPartyInfo, joinParty } from "../store/party";
+import { useParams, useLocation } from "react-router-dom";
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
   partyLobbyOuter: {
-    position: 'relative',
-    height: 'calc(100vh - 130px)',
+    position: "relative",
+    height: "calc(100vh - 130px)",
   },
   partyLobbyVideos: {
-    height: 'calc((100vh - 130px)/2)',
-    display: 'block',
-    flexWrap: 'wrap',
-    position: 'relative',
-    marginLeft: '3em',
+    height: "calc((100vh - 130px)/2)",
+    display: "block",
+    flexWrap: "wrap",
+    position: "relative",
+    marginLeft: "3em",
   },
   partyLobbyBottom: {
-    marginLeft: '3em',
+    marginLeft: "3em",
   },
 }));
 
@@ -46,7 +46,7 @@ const PartyLobby = ({
   getPartyInfo,
 }) => {
   const classes = useStyles();
-  const [word, setWord] = useState('');
+  const [word, setWord] = useState("");
 
   const { partyId } = useParams();
   const { pathname } = useLocation();
@@ -61,7 +61,7 @@ const PartyLobby = ({
       createdBy: user.id * 1,
       lunchboxId: party.game.lunchbox.id,
     });
-    setWord('');
+    setWord("");
   };
 
   const createTeams = () => {
@@ -107,12 +107,12 @@ const PartyLobby = ({
                   Add a Word
                 </Button>
                 <h4 className="italicBlue">
-                  {' '}
-                  Add items to your LunchBox.{' '}
+                  {" "}
+                  Add items to your LunchBox.{" "}
                   <span className="accentYellow">
                     {(game.cardsPerPlayer ? game.cardsPerPlayer : 10) -
                       (userCards.length ? userCards.length : 0)}
-                  </span>{' '}
+                  </span>{" "}
                   words left!
                 </h4>
               </div>

@@ -94,12 +94,12 @@ router.post('/teams/:id', async (req, res, next) => {
 
     for (let i = 0; i < teamSize; i++) {
       const idx = Math.floor(Math.random() * users.length);
-      await users[idx].update({ teamId: teamB.id, turnOrder: i + 1 });
+      await users[idx].update({ teamId: teamA.id, turnOrder: i + 1 });
       users.splice(idx, 1);
     }
 
     for (let i = 0; i < users.length; i++) {
-      await users[i].update({ teamId: teamA.id, turnOrder: i + 1 });
+      await users[i].update({ teamId: teamB.id, turnOrder: i + 1 });
     }
 
     const guesser = await User.findOne({

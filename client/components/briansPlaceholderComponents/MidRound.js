@@ -5,13 +5,14 @@ import { useParams, useLocation } from 'react-router-dom';
 import { pickACard, guessed, skip } from '../../store/lunchbox';
 
 import CountdownClock from '../CountDown';
-import VideoCall from '../VideoCall'
+import VideoCall from '../VideoCall';
 
-import Box from "@material-ui/core/Box";
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { RefreshSharp } from '@material-ui/icons';
+import { nextTurn } from '../../store/party';
 
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   gameScreen: {
     position: 'relative',
@@ -31,15 +32,15 @@ const useStyles = makeStyles((theme) => ({
     height: 'calc(100vh - 200px)',
   },
   colLeft: {
-    position: 'relative'
+    position: 'relative',
   },
   colCenter: {
     position: 'relative',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   colRight: {
-    position: 'relative'
-  }
+    position: 'relative',
+  },
 }));
 
 const MidRound = ({
@@ -50,13 +51,14 @@ const MidRound = ({
   skip,
   pickACard,
   guessed,
+  nextTurn,
 }) => {
   const { partyId, clueGiverId } = useParams();
   const { pathname } = useLocation();
   //to hide the button when the Start Round button is clicked
   const [isActive, setIsActive] = useState(false);
   const classes = useStyles();
-  
+
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
   }, []);
@@ -67,62 +69,68 @@ const MidRound = ({
   }
   const handleToggle = () => {
     setActive(true);
-  }
+  };
 
   //to access the ref from the Video compnent
   const childRef = useRef();
-  
+
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
     const clickedButton = document.getElementById('buttonClicked');
     clickedButton.click();
-  }, [])
-  
+  }, []);
+
   return (
-    <Box className={classes.playOuter}  mr={6} ml={6}>
-       <Grid container spacing={2}>
-          <Grid container item xs={6} md={4} className={classes.colLeft}>
-            <Box className={classes.gameScreen}>
-              <VideoCall ref={childRef}/>
-            </Box>
-          </Grid>
-          <Grid container item xs={6} md={4} className={classes.colCenter}>
-            <Box className={classes.countDown}>  
-              <div style={{textAlign: 'center'}}>
-                {currentCard && <h1><span className="accentYellow center">{currentCard.name}</span></h1>}
-                <div>
-                  <CountdownClock
-                    isActive={isActive}
-                    setIsActive={setIsActive}
-                    currentCard={currentCard}
-                  />
-                </div>
+    <Box className={classes.playOuter} mr={6} ml={6}>
+      <Grid container spacing={2}>
+        <Grid container item xs={6} md={4} className={classes.colLeft}>
+          <Box className={classes.gameScreen}>
+            <VideoCall ref={childRef} />
+          </Box>
+        </Grid>
+        <Grid container item xs={6} md={4} className={classes.colCenter}>
+          <Box className={classes.countDown}>
+            <div style={{ textAlign: 'center' }}>
+              {currentCard && (
+                <h1>
+                  <span className="accentYellow center">
+                    {currentCard.name}
+                  </span>
+                </h1>
+              )}
+              <div>
+                <CountdownClock
+                  isActive={isActive}
+                  setIsActive={setIsActive}
+                  currentCard={currentCard}
+                />
               </div>
-              <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                onClick={() => {
-                    pickACard(lunchbox);
-                    handleToggle()
-                  }
-                }
-                className={`${isActive ? "displayNone" : ""}`}
-              >
-                START ROUND
-              </Button>
-              <button onClick={() => guessed(currentCard, user, lunchbox)}>
-                CHECK
-              </button>
-              <button onClick={() => skip(currentCard, lunchbox)}>SKIP</button>
-            </Box>
-          </Grid>
-          <Grid container item xs={6} md={4} className={classes.colRight}>
-            {/* <Box className={classes.gameScreen}>
+            </div>
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              onClick={() => {
+                pickACard(lunchbox);
+                handleToggle();
+              }}
+              className={`${isActive ? 'displayNone' : ''}`}
+            >
+              START ROUND
+            </Button>
+            <button onClick={() => guessed(currentCard, user, lunchbox)}>
+              CHECK
+            </button>
+            <button onClick={() => skip(currentCard, lunchbox)}>SKIP</button>
+            <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+          </Box>
+        </Grid>
+        <Grid container item xs={6} md={4} className={classes.colRight}>
+          {/* <Box className={classes.gameScreen}>
               <VideoCall ref={childRef}/>
             </Box> */}
-          </Grid>
-      </Grid>  
+        </Grid>
+      </Grid>
     </Box>
   );
 };
@@ -148,6 +156,9 @@ const mapDispatch = (dispatch, { history }) => {
     },
     skip: (card, lunchbox) => {
       dispatch(skip(card, lunchbox));
+    },
+    nextTurn: (partyId) => {
+      dispatch(nextTurn(partyId, history));
     },
   };
 };

@@ -59,6 +59,15 @@ export const makeRandomTeams = (partyId, history) => {
   };
 };
 
+export const nextTurn = (partyId, history) => {
+  return async (dispatch) => {
+    const res = await axios.post(`/api/parties/next/${partyId}`);
+    const clueGiver = await res.data;
+
+    history.push(`/dummyround/${partyId}/${clueGiver.id}`);
+  };
+};
+
 //Reducer
 
 export default (state = [], action) => {

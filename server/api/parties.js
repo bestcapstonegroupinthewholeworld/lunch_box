@@ -47,8 +47,43 @@ router.get('/:id', async (req, res, next) => {
   res.json(party);
 });
 
-//MAKE TEAMS
+//NEXT TURN
+router.post('/next/:id', async (req, res, next) => {
+  try {
+    const party = await Party.findByPk(req.params.id);
+    const teams = await Team.findAll({
+      where: { partyId: party.id },
+    });
+    let guessTeam;
+    if (party.guessingTeam === teams[0].id) {
+      guessTeam = teams[1];
+    } else {
+      guessTeam = teams[0];
+    }
 
+    const teammembers = await User.findAll({ where: { teamId: guessTeam.id } });
+
+    let clueNum = guessTeam.clueGiver++;
+    if (clueNum > teammembers.length) {
+      clueNum = 1;
+    }
+    await guessTeam.update({ clueNum: clueNum });
+    const clueGiver = teammembers.find(
+      (member) => member.turnOrder === clueNum
+    );
+
+    await party.update({
+      guessingTeam: guessTeam.id,
+      currentRoute: `/dummyround/${party.id}/${clueGiver.id}`,
+    });
+
+    res.json(clueGiver);
+  } catch (error) {
+    next(error);
+  }
+});
+
+//MAKE TEAMS
 router.post('/teams/:id', async (req, res, next) => {
   try {
     const party = await Party.findByPk(req.params.id);
@@ -68,7 +103,7 @@ router.post('/teams/:id', async (req, res, next) => {
     }
 
     const guesser = await User.findOne({
-      where: { partyId: party.id, teamId: teamB.id, turnOrder: 1 },
+      where: { partyId: party.id, teamId: teamA.id, turnOrder: 1 },
     });
 
     await party.update({

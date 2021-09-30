@@ -1,5 +1,6 @@
 import React, { forwardRef, createRef } from "react";
 import { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import {
   config,
   useClient,
@@ -14,7 +15,9 @@ import Video from "./video";
 import Control from "./control";
 import { LeakRemoveTwoTone } from "@material-ui/icons";
 
-const VideoCall = forwardRef((props, ref) => {
+import { addVideoId } from '../store/party'
+
+const VideoCall = forwardRef((props, ref, addVideoId) => {
   const [users, setUsers] = useState([]);
   const [start, setStart] = useState(false);
   const [inCall, setInCall] = useState(false);
@@ -118,6 +121,7 @@ const VideoCall = forwardRef((props, ref) => {
           id="buttonClicked"
           onClick={() => {
             setInCall(true);
+            addVideoId(userId);
           }}
           ref={btnRef}
         >
@@ -129,5 +133,18 @@ const VideoCall = forwardRef((props, ref) => {
   );
 }
 );
+const mapState = (state) => {
+  return {
+    userId: state.auth.id
+  };
+};
 
-export default VideoCall;
+const mapDispatch = (dispatch) => {
+  return {
+    addVideoId: (userId) => {
+      dispatch(addVideoId(userId));
+    },
+  };
+};
+
+export default connect(mapState, mapDispatch)(VideoCall);

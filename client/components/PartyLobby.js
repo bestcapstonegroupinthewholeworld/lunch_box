@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
+
 /** COMPONENT **/
 const PartyLobby = ({
   user,
@@ -63,6 +66,12 @@ const PartyLobby = ({
     });
     setWord("");
   };
+
+  //Function to capture and autoclick on Join button on page load
+  useEffect(() => {
+    const clickedButton = document.getElementById('buttonClicked');
+    clickedButton.click();
+  }, [])
 
   const createTeams = () => {
     makeRandomTeams(partyId);

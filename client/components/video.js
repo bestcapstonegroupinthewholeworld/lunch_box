@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import {connect} from 'react-redux'
 
 import { AgoraVideoPlayer } from "agora-rtc-react";
 import {
@@ -43,12 +44,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Video(props) {
+export const Video = (props) => {
   const { users, tracks } = props;
   const [gridSpacing, setGridSpacing] = useState(12);
   const [start, setStart] = useState(false);
   const [inCall, setInCall] = useState(false);
   const { ready } = useMicrophoneAndCameraTracks();
+  const {userId} = props;
 
   const classes = useStyles();
 
@@ -56,6 +58,8 @@ export default function Video(props) {
     //users.length + 1 => including the host
     setGridSpacing(Math.max(Math.floor(12 / (users.length + 1))), 4);
   }, [users, tracks]); //only useEffect when either of the value in array changes
+
+  let savedVideoId = 0;
 
   return (
     //AgoraVideoPlayer height takes from the parent height ? how to fix
@@ -81,7 +85,12 @@ export default function Video(props) {
           if (user.videoTrack) {
             return (
               <Grid item xs={gridSpacing} className={classes.singleVideoScreen} key={user.uid}>
+                 {user.uid ? savedVideoId = user.uid : ""}
+                 {console.log('LOOK right belowwwww')}
+                  {console.log(savedVideoId)}
+                 {console.log('LOOK right aboveeeeee')}
                  <div className="team-one">
+                 <div className="savedVideoId">{savedVideoId}</div>
                  <AgoraVideoPlayer
                   key={user.uid}
                   videoTrack={user.videoTrack}
@@ -104,3 +113,13 @@ export default function Video(props) {
     
   );
 }
+
+const mapState = state => {
+  return {
+    username: state.auth.username,
+    userId: state.auth.id,
+    party: state.party
+  }
+}
+
+export default connect(mapState)(Video)

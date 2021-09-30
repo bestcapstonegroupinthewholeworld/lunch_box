@@ -6,14 +6,20 @@ const CREATED_PARTY = 'CREATED_PARTY';
 const GOT_PARTY_INFO = 'GOT_PARTY_INFO';
 import { ADDED_CARD } from './lunchbox';
 const JOINED_PARTY = 'JOINED_PARTY';
+const ADD_VIDEO_ID = 'ADD_VIDEO_ID';
 
 //ACTION CREATOR
 
 const createdParty = (party) => ({ type: CREATED_PARTY, party });
 const gotPartyInfo = (party) => ({ type: GOT_PARTY_INFO, party });
 const joinedParty = (user) => ({ type: JOINED_PARTY, user });
+const addedVideoId = (videoid) => ({ type: ADD_VIDEO_ID, videoid })
 
 //THUNK CREATOR
+
+export const addVideoId = () => {
+  console.log(`Lets add a token HERREEEEE`)
+}
 
 export const joinParty = (partyId, userId) => {
   return async (dispatch) => {

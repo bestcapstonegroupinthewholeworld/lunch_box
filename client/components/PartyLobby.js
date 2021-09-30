@@ -47,7 +47,9 @@ const PartyLobby = ({
   addCard,
   makeRandomTeams,
   getPartyInfo,
+  match,
 }) => {
+  console.log(match);
   const classes = useStyles();
   const [word, setWord] = useState("");
 
@@ -130,14 +132,16 @@ const PartyLobby = ({
             )}
           </Grid>
           <Box>
-            <Button
-              color="secondary"
-              variant="contained"
-              size="large"
-              onClick={createTeams}
-            >
-              Create Teams
-            </Button>
+            {match.url === party.currentRoute ? (
+              <Button
+                color="secondary"
+                variant="contained"
+                size="large"
+                onClick={createTeams}
+              >
+                Create Teams
+              </Button>
+            ) : null}
           </Box>
         </Grid>
       </Box>

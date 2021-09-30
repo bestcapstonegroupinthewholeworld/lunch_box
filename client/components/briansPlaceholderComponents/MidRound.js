@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { getPartyInfo } from '../../store/party';
-import { useParams, useLocation } from 'react-router-dom';
-import { pickACard, guessed, skip } from '../../store/lunchbox';
+import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
+import { getPartyInfo } from "../../store/party";
+import { useParams, useLocation } from "react-router-dom";
+import { pickACard, guessed, skip } from "../../store/lunchbox";
+
 
 import CountdownClock from '../CountDown';
 import VideoCall from '../VideoCall';
@@ -14,32 +15,36 @@ import Grid from '@material-ui/core/Grid';
 import { RefreshSharp } from '@material-ui/icons';
 import { nextTurn } from '../../store/party';
 
+
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
-    position: 'relative',
-    height: 'calc(100vh - 200px)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+
+    position: "relative",
+    height: "calc(100vh - 200px)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
   },
   gameScreen: {
-    position: 'relative',
-    right: '0',
-    height: 'calc(100vh - 200px)',
+    position: "relative",
+    right: "0",
+    height: "calc(100vh - 200px)",
   },
   colLeft: {
-    position: 'relative',
+
+    position: "relative",
   },
   colCenter: {
-    position: 'relative',
-    justifyContent: 'center',
+    position: "relative",
+    justifyContent: "center",
   },
   colRight: {
-    position: 'relative',
+    position: "relative",
+
   },
 }));
 
@@ -63,12 +68,14 @@ const MidRound = ({
     getPartyInfo(partyId, user.id, pathname);
   }, []);
 
-  let currentCard = lunchbox.filter((card) => card.status === 'current')[0];
+  let currentCard = lunchbox.filter((card) => card.status === "current")[0];
   if (!currentCard) {
-    currentCard = lunchbox.filter((card) => card.status === 'skipped')[0];
+    currentCard = lunchbox.filter((card) => card.status === "skipped")[0];
   }
   const handleToggle = () => {
-    setActive(true);
+
+    setIsActive(true);
+
   };
 
   //to access the ref from the Video compnent
@@ -76,7 +83,7 @@ const MidRound = ({
 
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
-    const clickedButton = document.getElementById('buttonClicked');
+    const clickedButton = document.getElementById("buttonClicked");
     clickedButton.click();
   }, []);
 
@@ -90,7 +97,9 @@ const MidRound = ({
         </Grid>
         <Grid container item xs={6} md={4} className={classes.colCenter}>
           <Box className={classes.countDown}>
-            <div style={{ textAlign: 'center' }}>
+
+            <div style={{ textAlign: "center" }}>
+
               {currentCard && (
                 <h1>
                   <span className="accentYellow center">
@@ -106,21 +115,35 @@ const MidRound = ({
                 />
               </div>
             </div>
-            <Button
-              color="primary"
-              variant="contained"
-              size="large"
-              onClick={() => {
-                pickACard(lunchbox);
-                handleToggle();
-              }}
-              className={`${isActive ? 'displayNone' : ''}`}
-            >
-              START ROUND
-            </Button>
-            <button onClick={() => guessed(currentCard, user, lunchbox)}>
-              CHECK
-            </button>
+
+
+            <div className="buttons">
+              {!isActive ? (
+                <Button
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                  onClick={() => {
+                    pickACard(lunchbox);
+                    handleToggle();
+                  }}
+                  className={`${isActive ? "displayNone" : ""}`}
+                >
+                  START ROUND
+                </Button>
+              ) : (
+                <button
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                  onClick={() => guessed(currentCard, user, lunchbox)}
+                >
+                  CHECK
+                </button>
+              )}
+            </div>
+            {/* {setIsActive === true ? ( */}
+
             <button onClick={() => skip(currentCard, lunchbox)}>SKIP</button>
             <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
           </Box>

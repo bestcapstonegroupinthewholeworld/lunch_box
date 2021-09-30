@@ -57,6 +57,8 @@ const MidRound = ({
   const [isActive, setIsActive] = useState(false);
   const classes = useStyles();
 
+  console.log(party)
+
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
   }, []);

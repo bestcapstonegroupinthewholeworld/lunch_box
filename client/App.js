@@ -56,6 +56,7 @@ const theme = createTheme({
 
 const useStyles = makeStyles((theme) => ({
   app: {
+
     minHeight: "100vh",
     background: "rgb(243,185,63)",
     background:
@@ -68,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
       width: "calc(100% - 60px)",
       top: "30px",
       left: "30px",
+
     },
   },
 }));

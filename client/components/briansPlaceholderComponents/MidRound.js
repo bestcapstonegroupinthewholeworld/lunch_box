@@ -4,20 +4,24 @@ import { getPartyInfo } from "../../store/party";
 import { useParams, useLocation } from "react-router-dom";
 import { pickACard, guessed, skip } from "../../store/lunchbox";
 
-import CountdownClock from "../CountDown";
-import VideoCall from "../VideoCall";
 
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import { RefreshSharp } from "@material-ui/icons";
+import CountdownClock from '../CountDown';
+import VideoCall from '../VideoCall';
+
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import { RefreshSharp } from '@material-ui/icons';
+import { nextTurn } from '../../store/party';
+
 
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
+
     position: "relative",
     height: "calc(100vh - 200px)",
     display: "flex",
@@ -31,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
     height: "calc(100vh - 200px)",
   },
   colLeft: {
+
     position: "relative",
   },
   colCenter: {
@@ -39,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
   colRight: {
     position: "relative",
+
   },
 }));
 
@@ -50,6 +56,7 @@ const MidRound = ({
   skip,
   pickACard,
   guessed,
+  nextTurn,
 }) => {
   const { partyId, clueGiverId } = useParams();
 
@@ -67,7 +74,9 @@ const MidRound = ({
     currentCard = lunchbox.filter((card) => card.status === "skipped")[0];
   }
   const handleToggle = () => {
+
     setIsActive(true);
+
   };
 
   //to access the ref from the Video compnent
@@ -89,7 +98,9 @@ const MidRound = ({
         </Grid>
         <Grid container item xs={6} md={4} className={classes.colCenter}>
           <Box className={classes.countDown}>
+
             <div style={{ textAlign: "center" }}>
+
               {currentCard && (
                 <h1>
                   <span className="accentYellow center">
@@ -106,7 +117,8 @@ const MidRound = ({
               </div>
             </div>
 
-            <div className="countDownFrame">
+
+            <div className="buttons">
               {!isActive ? (
                 <Button
                   // color="primary"
@@ -133,6 +145,7 @@ const MidRound = ({
             </div>
             {/* {setIsActive === true ? ( */}
 
+
             <button
               // color="primary"
               // variant="contained"
@@ -141,6 +154,9 @@ const MidRound = ({
             >
               <i className="material-icons-round">skip_next</i>
             </button>
+
+           
+            <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
           </Box>
         </Grid>
         <Grid container item xs={6} md={4} className={classes.colRight}>
@@ -174,6 +190,9 @@ const mapDispatch = (dispatch, { history }) => {
     },
     skip: (card, lunchbox) => {
       dispatch(skip(card, lunchbox));
+    },
+    nextTurn: (partyId) => {
+      dispatch(nextTurn(partyId, history));
     },
   };
 };

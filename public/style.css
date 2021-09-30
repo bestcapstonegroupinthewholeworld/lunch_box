@@ -82,8 +82,8 @@ span.accentTestGreen {
 }
 
 /* DIAGONAL LINES */
-.diagonal-green:before{
-  content: '';
+.diagonal-green:before {
+  content: "";
   width: 100%;
   height: 100vh;
   background-image: linear-gradient(to top left, #5cc87c 50%, #8dd6a600 50%);
@@ -155,7 +155,8 @@ span.accentTestGreen {
     rgba(96, 210, 218, 1) 100%
   );
   padding: 10px;
-} */
+}
+*/
 /* Video Host Styles */
 .makeStyles-videoHost-14 > div > div {
   border-radius: 5px;
@@ -169,101 +170,60 @@ span.accentTestGreen {
   );
   padding: 10px;
 }
-
-/* for countdown timer ================================= */
-
-.countDown_container {
-  width: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 0 auto;
-  border-radius: 100%;
-  padding: 3rem 5rem;
-}
-
 .team-one {
   background-color: #5cc87c;
 }
 .team-one {
   background-color: #60d2da;
 }
-.text {
-  z-index: 99;
-  padding: 1rem 3rem 2.25rem;
-  border: 0.3rem solid aliceblue;
 
-  border-radius: 2rem;
-  animation: flicker 1.5s infinite alternate;
-}
-.countDownMin,
-.countDownSec,
-.countDownColon {
-  top: -15px;
-  font-size: 3rem;
-  font-family: "Poiret One", cursive;
-  font-weight: 200;
-  font-style: italic;
-  color: #5cc87c;
-}
-
-.countDownFrame {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  height: 60px;
-  width: 300px;
+/* for countdown timer ================================= */
+.countDown_container {
   position: relative;
-  background: #eff1f4;
-  box-shadow: -7px -7px 20px 0px rgba(255, 255, 255, 0.214),
-    -4px -4px 5px 0px rgba(255, 255, 255, 0.214), 7px 7px 20px 0px #0002,
-    4px 4px 5px 0px #0001, inset 0px 0px 0px 0px rgba(255, 255, 255, 0.214),
-    inset 0px 0px 0px 0px #0001,
-    inset 0px 0px 0px 0px rgba(255, 255, 255, 0.214),
-    inset 0px 0px 0px 0px #0001;
-  transition: box-shadow 0.6s cubic-bezier(0.79, 0.21, 0.06, 0.81);
-  border-radius: 10px;
+  display: grid;
+  width: 15rem;
+  margin: 1rem;
+}
+.countDown_container::before {
+  border: 3px solid #6cd2d0;
+  border-radius: 100%;
+  animation: 1s linear infinite alternate abberation, 4s linear infinite spin;
+  padding-top: 100%;
+  content: "";
+  position: relative;
+  pointer-events: none;
+  z-index: 99;
+}
+.countDown_container.paused::before {
+  animation: none;
+  transition: 0.3s transform;
 }
 
-.countDownBtn {
-  height: 35px;
-  width: 35px;
-  border-radius: 3px;
-  border: none;
-  background: #eff1f4;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  -webkit-tap-highlight-color: transparent;
-  box-shadow: -7px -7px 20px 0px #fff9, -4px -4px 5px 0px #fff9,
-    7px 7px 20px 0px #0002, 4px 4px 5px 0px #0001;
-  transition: box-shadow 0.6s cubic-bezier(0.79, 0.21, 0.06, 0.81);
-  font-size: 26px;
-  color: #666;
-  text-decoration: none;
-}
-
-.countDownBtn:hover {
-  background: radial-gradient(circle, #0ff 0%, #e0e5ec 60%);
-  color: rgba(102, 102, 102, 0.5);
-  animation: colorchange 3s linear infinite;
-  cursor: pointer;
-}
-.countDownBtn:active {
-  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
-    -4px -4px 6px 0 rgba(116, 125, 136, 0.2),
-    inset -4px -4px 6px 0 rgba(255, 255, 255, 0.5),
-    inset 4px 4px 6px 0 rgba(116, 125, 136, 0.3);
-}
-
-@keyframes colorchange {
+@keyframes abberation {
+  from {
+    box-shadow: 0 0 0 0 #ced76b, 0 0 0 0 #56719a;
+  }
   to {
-    filter: hue-rotate(360deg);
+    box-shadow: 0.25rem 0.125rem 0 0 #ced76b, -0.25rem -0.125rem 0 0 #56719a;
   }
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.countDown_text {
+  margin-top: -145px;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 3.5rem;
+}
+
+/* ========================jello effect of count down buttons========================== */
 @-webkit-keyframes jello-horizontal {
   0% {
     -webkit-transform: scale3d(1, 1, 1);

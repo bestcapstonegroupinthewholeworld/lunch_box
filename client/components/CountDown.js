@@ -57,10 +57,10 @@ export default function CountdownClock({ isActive, setIsActive, currentCard }) {
   return (
     <TimeProvider>
       <div className="countDown_container">
-        <h1 className="text">
-          <span className="countDownMin">{min <= 9 ? "0" + min : min}</span>
-          <span className="countDownColon">:</span>
-          <span className="countDownSec">{sec <= 9 ? "0" + sec : sec}</span>
+        <h1 className="countDown_text">
+          <span>{min <= 9 ? "0" + min : min}</span>
+          <span>:</span>
+          <span>{sec <= 9 ? "0" + sec : sec}</span>
         </h1>
         {/* <CountDownControl
           setIsActive={setIsActive}

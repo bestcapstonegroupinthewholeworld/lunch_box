@@ -67,7 +67,7 @@ router.post('/next/:id', async (req, res, next) => {
     if (clueNum > teammembers.length) {
       clueNum = 1;
     }
-    await guessTeam.update({ clueNum: clueNum });
+    await guessTeam.update({ clueGiver: clueNum });
     const clueGiver = teammembers.find(
       (member) => member.turnOrder === clueNum
     );

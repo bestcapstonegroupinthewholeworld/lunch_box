@@ -13,13 +13,13 @@ const ADD_VIDEO_ID = 'ADD_VIDEO_ID';
 const createdParty = (party) => ({ type: CREATED_PARTY, party });
 const gotPartyInfo = (party) => ({ type: GOT_PARTY_INFO, party });
 const joinedParty = (user) => ({ type: JOINED_PARTY, user });
-const addedVideoId = (videoid) => ({ type: ADD_VIDEO_ID, videoid })
+const addedVideoId = (videoid) => ({ type: ADD_VIDEO_ID, videoid });
 
 //THUNK CREATOR
 
 export const addVideoId = () => {
-  console.log(`Lets add a token HERREEEEE`)
-}
+  console.log(`Lets add a token HERREEEEE`);
+};
 
 export const joinParty = (partyId, userId) => {
   return async (dispatch) => {

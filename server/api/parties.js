@@ -63,7 +63,7 @@ router.post('/next/:id', async (req, res, next) => {
 
     const teammembers = await User.findAll({ where: { teamId: guessTeam.id } });
 
-    let clueNum = guessTeam.clueGiver++;
+    let clueNum = guessTeam.clueGiver + 1;
     if (clueNum > teammembers.length) {
       clueNum = 1;
     }

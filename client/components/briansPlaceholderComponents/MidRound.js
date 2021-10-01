@@ -23,7 +23,6 @@ import { nextTurn } from '../../store/party';
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
-
     position: "relative",
     height: "calc(100vh - 200px)",
     display: "flex",
@@ -82,10 +81,6 @@ const MidRound = ({
   };
   //to access the ref from the Video compnent
   const childRef = useRef();
-
-
-  const app = document.getElementById('app')
-  console.log(app)
   
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
@@ -117,17 +112,14 @@ const MidRound = ({
 
   return (
     <Box className={classes.playOuter} mr={6} ml={6}>
-      <Grid container spacing={2}>
-        <Grid container item xs={6} md={4} className={classes.colLeft}>
-          <Box className={classes.gameScreen}>
-            <VideoCall ref={childRef} />
-          </Box>
-        </Grid>
-        <Grid container item xs={6} md={4} className={classes.colCenter}>
+      <div className="video-call-left-right">
+        <VideoCall ref={childRef} 
+          className={classes.singleVideoSplit}
+        />
+      </div>
+        <Grid className={classes.colCenter}>
           <Box className={classes.countDown}>
-
             <div style={{ textAlign: "center" }}>
-
               {currentCard && (
                 <h1>
                   <span className="accentYellow center">
@@ -184,12 +176,6 @@ const MidRound = ({
             <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
           </Box>
         </Grid>
-        <Grid container item xs={6} md={4} className={classes.colRight}>
-          <Box className={classes.gameScreen}>
-              {/* <VideoCall ref={childRef}/> */}
-            </Box>
-        </Grid>
-      </Grid>
     </Box>
   );
 };
@@ -222,3 +208,7 @@ const mapDispatch = (dispatch, { history }) => {
   };
 };
 export default connect(mapState, mapDispatch)(MidRound);
+
+
+
+

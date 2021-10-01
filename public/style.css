@@ -138,6 +138,9 @@ span.accentTestGreen {
   padding: 10px;
   min-width: 300px;
 }
+.team-two-baby {
+
+}
 .team-two-baby > div > div > video {
   border-radius: 15px;
   background-color: #61d1d8;
@@ -149,11 +152,36 @@ span.accentTestGreen {
   padding: 10px;
   min-width: 300px;
 }
+.MuiGrid-root.makeStyles-videoContainerOuter-12.MuiGrid-container > div {
+  margin-bottom: 1em;
+}
+
+.video-call-left-right .MuiGrid-root.makeStyles-videoContainerOuter-12.MuiGrid-container {
+
+}
+
+
+/* .team-two-baby > div {
+  float: right;
+  position: fixed !important;
+  width: 350px !important;
+  height: 226px !important;
+  right: 45px !important;
+} */
+.savedVideoId {
+  position: absolute;
+  border: 0;
+  bottom: 12px;
+  left: 12px;
+  background-color: #000000c9;
+  padding: 1px 10px;
+  border-radius: 8px;
+}
 
 /* /* .makeStyles-singleVideoScreenInner-15 > div {
   border-radius: 15px;
 } */
-.makeStyles-singleVideoScreenInner-15 > div > video {
+/* .makeStyles-singleVideoScreenInner-15 > div > video {
   border-radius: 15px;
   background: linear-gradient(
     90deg,
@@ -161,8 +189,12 @@ span.accentTestGreen {
     rgba(96, 210, 218, 1) 100%
   );
   padding: 10px;
-}
+} */
 */
+
+
+/* Dividing screens into two columns depensing on a class */
+
 /* Video Host Styles */
 .makeStyles-videoHost-14 > div > div {
   border-radius: 5px;
@@ -176,11 +208,16 @@ span.accentTestGreen {
   );
   padding: 10px;
 }
-.team-one {
-  background-color: #5cc87c;
+
+.video-call-left-right .MuiGrid-root.makeStyles-videoContainerOuter-12.MuiGrid-container {
+  display: flex;
+  flex-direction: column !important;
+  position: fixed;
+  width: 100%;
 }
-.team-one {
-  background-color: #60d2da;
+
+.video-call-left-right .controlInner {
+  right: 20px !important;
 }
 
 /* for countdown timer ================================= */
@@ -306,3 +343,27 @@ button:hover i {
 .placeHolder {
   padding: 3rem;
 }
+
+/* Media queries */
+@media(min-width: 1200px)  {
+  .team-two-baby {
+    display: flex;
+    width: 1000px;
+    justify-content: end;
+  }
+}
+@media(min-width: 1400px)  {
+  .team-two-baby {
+    display: flex;
+    width: 1250px;
+    justify-content: end;
+  }
+}
+@media (min-width:1600px){
+  .team-two-baby {
+    display: flex;
+    min-width: 1400px;
+    justify-content: end;
+  }
+}
+

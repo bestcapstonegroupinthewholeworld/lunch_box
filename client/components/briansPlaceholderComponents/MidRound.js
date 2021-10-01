@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { getPartyInfo } from "../../store/party";
 import { useParams, useLocation } from "react-router-dom";
 import { pickACard, guessed, skip } from "../../store/lunchbox";
+import auth, { me } from "../../store/auth";
 
 import CountdownClock from "../CountDown";
 import VideoCall from "../VideoCall";
@@ -15,7 +16,11 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { RefreshSharp, SignalCellularNoSimOutlined } from "@material-ui/icons";
+import {
+  RefreshSharp,
+  SettingsInputAntennaSharp,
+  SignalCellularNoSimOutlined,
+} from "@material-ui/icons";
 import { nextTurn } from "../../store/party";
 
 //if team a - left aligned  classes: leftA
@@ -57,9 +62,11 @@ const MidRound = ({
   guessed,
   nextTurn,
   match,
+  setAuth,
 }) => {
-  console.log(match.url);
-  console.log(party.currentRoute);
+  console.log(setAuth);
+  // console.log(match.url);
+  // console.log(party.currentRoute);
   const { partyId, clueGiverId } = useParams();
 
   const { pathname } = useLocation();
@@ -68,13 +75,13 @@ const MidRound = ({
   //to only have the next round button to show when clock strikes 0
   const [count, setCount] = useState(Number(useTime()));
 
-  console.log(count);
   const classes = useStyles();
 
   // console.log(party);
 
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
+    setAuth();
   }, []);
 
   let currentCard = lunchbox.filter((card) => card.status === "current")[0];
@@ -88,7 +95,7 @@ const MidRound = ({
   const childRef = useRef();
 
   const app = document.getElementById("app");
-  console.log(app);
+  // console.log(app);
 
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
@@ -99,7 +106,7 @@ const MidRound = ({
   //Function to add team-on/team-two classes depending on a team
   let searchedId = "";
   const creatingAnId = setTimeout(() => {
-    console.log(searchedId);
+    // console.log(searchedId);
     if (party) {
       if (party.users) {
         party.users.forEach((player) => {
@@ -115,7 +122,7 @@ const MidRound = ({
       }
     }
   }, 3000);
-
+  console.log(user);
   return (
     <TimeProvider>
       <Box className={classes.playOuter} mr={6} ml={6}>
@@ -145,43 +152,45 @@ const MidRound = ({
                   />
                 </div>
               </div>
-              <div className="buttons">
-                {!isActive ? (
-                  <Button
-                    // color="primary"
-                    // variant="contained"
-                    // size="large"
-                    onClick={() => {
-                      pickACard(lunchbox);
-                      handleToggle();
-                    }}
-                    // className={`${isActive ? "displayNone" : ""}`}
-                  >
-                    <i className="material-icons-round">play_arrow</i>
-                  </Button>
-                ) : (
+              {user.host === partyId ? (
+                <div className="buttons">
+                  {!isActive ? (
+                    <Button
+                      // color="primary"
+                      // variant="contained"
+                      // size="large"
+                      onClick={() => {
+                        pickACard(lunchbox);
+                        handleToggle();
+                      }}
+                      // className={`${isActive ? "displayNone" : ""}`}
+                    >
+                      <i className="material-icons-round">play_arrow</i>
+                    </Button>
+                  ) : (
+                    <button
+                      // color="primary"
+                      // variant="contained"
+                      // size="large"
+                      onClick={() => guessed(currentCard, user, lunchbox)}
+                    >
+                      <i class="material-icons-round">done</i>
+                    </button>
+                  )}
+
                   <button
                     // color="primary"
                     // variant="contained"
                     // size="large"
-                    onClick={() => guessed(currentCard, user, lunchbox)}
+                    onClick={() => skip(currentCard, lunchbox)}
                   >
-                    <i class="material-icons-round">done</i>
+                    <i className="material-icons-round">skip_next</i>
                   </button>
-                )}
-              </div>
-              {/* {setIsActive === true ? ( */}
-              <button
-                // color="primary"
-                // variant="contained"
-                // size="large"
-                onClick={() => skip(currentCard, lunchbox)}
-              >
-                <i className="material-icons-round">skip_next</i>
-              </button>
-              {/* only visible to host */}
-              {count <= 0 ? (
-                <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+
+                  {count <= 0 ? (
+                    <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+                  ) : null}
+                </div>
               ) : null}
             </Box>
           </Grid>
@@ -200,6 +209,7 @@ const mapState = ({ party, auth, lunchbox }) => {
   return {
     party: party || {},
     user: auth,
+
     lunchbox: lunchbox || [],
   };
 };
@@ -220,6 +230,9 @@ const mapDispatch = (dispatch, { history }) => {
     },
     nextTurn: (partyId) => {
       dispatch(nextTurn(partyId, history));
+    },
+    setAuth: () => {
+      dispatch(me());
     },
   };
 };

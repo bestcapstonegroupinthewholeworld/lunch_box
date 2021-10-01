@@ -24,7 +24,6 @@ export default function CountdownClock({
   useEffect(() => {
     let interval = null;
     if (isActive && count >= 0) {
-      // console.log(count);
       interval = setInterval(() => {
         setCount(count - 1);
         let timeLeft = secondsToTime(count);
@@ -58,7 +57,6 @@ export default function CountdownClock({
     buzzer.volume = 0.5;
     buzzer.play();
   };
-  // console.log(count, min, sec);
 
   return (
     <TimeProvider>

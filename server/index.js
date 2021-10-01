@@ -22,8 +22,9 @@ const init = async () => {
 
     io.on("connection", (socket) => {
       console.log("use is connected");
-      socket.on("start", () => {
-        io.in(pin).emit("start game");
+      socket.on("start", (url) => {
+        console.log(url);
+        io.emit("start", url);
       });
     });
 

@@ -3,9 +3,15 @@ import { useTime, useTimeUpdate } from "./TimeContext";
 import { TimeProvider } from "./TimeContext";
 import CountDownControl from "./CountDownControl";
 
-export default function CountdownClock({ isActive, setIsActive, currentCard }) {
+export default function CountdownClock({
+  count,
+  setCount,
+  isActive,
+  setIsActive,
+  currentCard,
+}) {
   // const count = Number(useTime());
-  const [count, setCount] = useState(Number(useTime()));
+  // const [count, setCount] = useState(Number(useTime()));
 
   const [min, setMin] = useState(Math.floor((count + 1) / 60));
   const [sec, setSec] = useState((count + 1) % 60);
@@ -18,7 +24,7 @@ export default function CountdownClock({ isActive, setIsActive, currentCard }) {
   useEffect(() => {
     let interval = null;
     if (isActive && count >= 0) {
-      console.log(count);
+      // console.log(count);
       interval = setInterval(() => {
         setCount(count - 1);
         let timeLeft = secondsToTime(count);
@@ -52,7 +58,7 @@ export default function CountdownClock({ isActive, setIsActive, currentCard }) {
     buzzer.volume = 0.5;
     buzzer.play();
   };
-  console.log(count, min, sec);
+  // console.log(count, min, sec);
 
   return (
     <TimeProvider>

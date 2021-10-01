@@ -5,8 +5,9 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import auth from './auth';
 import party from './party';
 import lunchbox from './lunchbox';
+import cluegiver from './cluegiver';
 
-const reducer = combineReducers({ auth, party, lunchbox });
+const reducer = combineReducers({ auth, party, lunchbox, cluegiver });
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({ collapsed: true }))
 );

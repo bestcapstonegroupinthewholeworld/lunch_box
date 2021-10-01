@@ -8,10 +8,10 @@ const Game = db.define('game', {
     type: INTEGER,
     defaultValue: 3,
   },
+
   roundTime: {
     type: INTEGER,
     defaultValue: 60,
-    //store time in seconds seems easiest
   },
   cardsPerPlayer: {
     type: INTEGER,

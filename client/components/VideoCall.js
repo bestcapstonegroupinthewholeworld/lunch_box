@@ -1,21 +1,21 @@
-import React, { forwardRef, createRef } from 'react';
-import { useState, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
+import React, { forwardRef, createRef } from "react";
+import { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import {
   config,
   useClient,
   useMicrophoneAndCameraTracks,
   channelName,
-} from '../settings.js';
+} from "../settings.js";
 
-import { Grid } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { Grid } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
-import Video from './video';
-import Control from './control';
-import { LeakRemoveTwoTone } from '@material-ui/icons';
+import Video from "./video";
+import Control from "./control";
+import { LeakRemoveTwoTone } from "@material-ui/icons";
 
-import { addVideoId } from '../store/party';
+import { addVideoId } from "../store/party";
 
 const VideoCall = forwardRef((props, ref, addVideoId) => {
   const [users, setUsers] = useState([]);
@@ -30,30 +30,30 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
   const btnRef = createRef();
   useEffect(() => {
     const buttonClicked = btnRef.current;
-    console.log(buttonClicked);
+    // console.log(buttonClicked);
   }, []);
 
   //only run effect when any of the given value in the array changes
   useEffect(() => {
     let init = async (name) => {
-      client.on('user-published', async (user, mediaType) => {
+      client.on("user-published", async (user, mediaType) => {
         await client.subscribe(user, mediaType); //subscribe to the stream
-        if (mediaType === 'video') {
+        if (mediaType === "video") {
           setUsers((prevUsers) => {
             return [...prevUsers, user];
           });
         }
-        if (mediaType === 'audio') {
+        if (mediaType === "audio") {
           user.audioTrack.play(); //audio track is give, no need to subcribe
         }
       });
 
-      client.on('user-unpublished', (user, mediaType) => {
-        if (mediaType === 'audio') {
+      client.on("user-unpublished", (user, mediaType) => {
+        if (mediaType === "audio") {
           //make sure audioTrack is playing => check before action
           if (user.audioTrack) user.audioTrack.stop();
         }
-        if (mediaType === 'video') {
+        if (mediaType === "video") {
           setUsers((prevUsers) => {
             //no need to unsubcribe when unpublish, just remove user from user state
             return prevUsers.filter((User) => User.uid !== user.uid);
@@ -61,7 +61,7 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
         }
       });
 
-      client.on('user-left', (user) => {
+      client.on("user-left", (user) => {
         setUsers((prevUsers) => {
           return prevUsers.filter((User) => User.uid !== user.uid);
         });
@@ -73,14 +73,14 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
 
         await client.join(config.appId, name, token, username);
       } catch (error) {}
-      console.log(tracks[0], tracks[1], '========================');
+      console.log(tracks[0], tracks[1], "========================");
       if (tracks) {
         try {
           await client.publish([tracks[0], tracks[1]]); // audio and video
 
           setStart(true); // stream ready to go
         } catch (error) {
-          console.log('publish', error);
+          console.log("publish", error);
         }
       }
     };
@@ -95,12 +95,12 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
   }, [channelName, client, ready, tracks]);
 
   return (
-    <div style={{ height: '100%' }}>
+    <div style={{ height: "100%" }}>
       {/* set inCall or not inCall condition ===================================== */}
       {inCall ? (
-        <Grid container direction="column" style={{ height: '100%' }}>
+        <Grid container direction="column" style={{ height: "100%" }}>
           {/*control ======================================*/}
-          <Grid item style={{ height: '10%' }}>
+          <Grid item style={{ height: "10%" }}>
             {ready && tracks && (
               <Control
                 tracks={tracks}
@@ -110,7 +110,7 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
             )}
           </Grid>
           {/* video ====================================*/}
-          <Grid item style={{ height: '90%' }}>
+          <Grid item style={{ height: "90%" }}>
             {start && tracks && <Video tracks={tracks} users={users} />}
           </Grid>
         </Grid>
@@ -122,11 +122,10 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
           id="buttonClicked"
           onClick={() => {
             setInCall(true);
-           
           }}
           ref={btnRef}
         >
-          Join call{' '}
+          Join call{" "}
         </Button>
       )}
     </div>

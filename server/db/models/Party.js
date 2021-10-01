@@ -11,6 +11,10 @@ const Party = db.define('party', {
   password: {
     type: STRING,
   },
+  roundsCompleted: {
+    type: INTEGER,
+    defaultValue: 0,
+  },
   guessingTeam: INTEGER,
   currentRoute: STRING,
 });

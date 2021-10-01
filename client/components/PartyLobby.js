@@ -17,8 +17,7 @@ import { connect } from "react-redux";
 import { makeRandomTeams, getPartyInfo, joinParty } from "../store/party";
 import { useParams, useLocation } from "react-router-dom";
 
-// const socket = io("http://localhost: 8080");
-const socket = io.connect("http://localhost:8000/");
+const socket = io("http://localhost:8080");
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -38,9 +37,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
-
 /** COMPONENT **/
 const PartyLobby = ({
   user,
@@ -58,18 +54,16 @@ const PartyLobby = ({
   const classes = useStyles();
   const [word, setWord] = useState("");
 
-  const { partyId } = useParams();
+  const { partyId, clueGiverId } = useParams();
   const { pathname } = useLocation();
 
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
   }, []);
 
-  socket.on("start game", () => {
-    history.push(`/${match.url.pin}`);
+  socket.on("start", (url) => {
+    history.push(url);
   });
-
-  // socket.emit("start");
 
   const addToBox = () => {
     addCard({
@@ -82,12 +76,13 @@ const PartyLobby = ({
 
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
-    const clickedButton = document.getElementById('buttonClicked');
+    const clickedButton = document.getElementById("buttonClicked");
     clickedButton.click();
-  }, [])
+  }, []);
 
-  const createTeams = () => {
-    makeRandomTeams(partyId);
+  const createTeams = async () => {
+    await makeRandomTeams(partyId);
+    socket.emit("start", `/dummyround/${partyId}/${clueGiverId}`);
   };
 
   return (

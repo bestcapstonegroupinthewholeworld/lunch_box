@@ -1,39 +1,48 @@
-import React, { useState, useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import { getPartyInfo } from '../../store/party';
-import { useParams, useLocation } from 'react-router-dom';
-import { pickACard, guessed, skip } from '../../store/lunchbox';
-import auth, { me } from '../../store/auth';
 
-import CountdownClock from '../CountDown';
-import VideoCall from '../VideoCall';
-import Video from '../video';
-import { useTime, useTimeUpdate } from '../TimeContext';
-import { TimeProvider } from '../TimeContext';
 
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from "react-dom";
+import { connect } from "react-redux";
+import { getPartyInfo } from "../../store/party";
+import { useParams, useLocation } from "react-router-dom";
+import { pickACard, guessed, skip } from "../../store/lunchbox";
+import auth, { me } from "../../store/auth";
+
+import CountdownClock from "../CountDown";
+import VideoCall from "../VideoCall";
+import Video from "../video";
+import { useTime, useTimeUpdate } from "../TimeContext";
+import { TimeProvider } from "../TimeContext";
+
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
 import {
   RefreshSharp,
   SettingsInputAntennaSharp,
   SignalCellularNoSimOutlined,
+
 } from '@material-ui/icons';
 import { nextTurn, roundOver } from '../../store/party';
+import { setClueGiver } from '../../store/cluegiver';
+
 
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
-    position: 'relative',
-    height: 'calc(100vh - 200px)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'column',
+
+
+    position: "relative",
+    height: "calc(100vh - 200px)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+
   },
   gameScreen: {
     position: 'relative',
@@ -41,14 +50,22 @@ const useStyles = makeStyles((theme) => ({
     height: 'calc(100vh - 200px)',
   },
   colLeft: {
-    position: 'relative',
+
+
+    position: "relative",
+
+
   },
   colCenter: {
     position: 'relative',
     justifyContent: 'center',
   },
   colRight: {
-    position: 'relative',
+
+
+    position: "relative",
+
+
   },
 }));
 
@@ -61,9 +78,15 @@ const MidRound = ({
   pickACard,
   guessed,
   nextTurn,
+
+  cluegiver,
+  setClueGiver,
+
   match,
   setAuth,
+
   roundOver,
+
 }) => {
   //   console.log(setAuth);
   // console.log(match.url);
@@ -78,11 +101,15 @@ const MidRound = ({
 
   const classes = useStyles();
 
-  // console.log(party);
 
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
     setAuth();
+  }, []);
+
+
+  useEffect(() => {
+    setClueGiver(clueGiverId);
   }, []);
 
   let currentCard = lunchbox.filter((card) => card.status === 'current')[0];
@@ -95,8 +122,11 @@ const MidRound = ({
   //to access the ref from the Video compnent
   const childRef = useRef();
 
-  const app = document.getElementById('app');
-  // console.log(app);
+
+
+  const app = document.getElementById("app");
+
+
 
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
@@ -107,22 +137,29 @@ const MidRound = ({
   //Function to add team-on/team-two classes depending on a team
   let searchedId = '';
   const creatingAnId = setTimeout(() => {
+
     // console.log(searchedId);
+
     if (party) {
       if (party.users) {
         party.users.forEach((player) => {
           searchedId = document.getElementById(`${player.username}`);
           if (searchedId.id === player.username) {
             if (player.teamId === 1) {
-              searchedId.classList.add('team-one-baby');
+
+
+              searchedId.classList.add("team-one-baby");
             } else {
-              searchedId.classList.add('team-two-baby');
+              searchedId.classList.add("team-two-baby");
+
+
             }
           }
         });
       }
     }
   }, 3000);
+
   console.log(user);
   return (
     <TimeProvider>
@@ -207,18 +244,20 @@ const MidRound = ({
               </button>
             </Box>
           </Grid>
+
         </Grid>
       </Box>
     </TimeProvider>
   );
 };
 
-const mapState = ({ party, auth, lunchbox }) => {
+const mapState = ({ party, auth, lunchbox, cluegiver }) => {
   return {
     party: party || {},
     user: auth,
 
     lunchbox: lunchbox || [],
+    cluegiver: cluegiver || {},
   };
 };
 
@@ -239,8 +278,13 @@ const mapDispatch = (dispatch, { history }) => {
     nextTurn: (partyId) => {
       dispatch(nextTurn(partyId, history));
     },
+
+    setClueGiver: (clueGiverId) => {
+      dispatch(setClueGiver(clueGiverId));
+    },
     setAuth: () => {
       dispatch(me());
+
     },
     roundOver: (partyId) => {
       console.log('thunkin');

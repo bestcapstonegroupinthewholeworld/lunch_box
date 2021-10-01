@@ -47,6 +47,7 @@ router.get('/:id', async (req, res, next) => {
   res.json(party);
 });
 
+
 //ROUND OVER
 router.post('/roundover/:id', async (req, res, next) => {
   const party = await Party.findByPk(req.params.id);
@@ -55,6 +56,18 @@ router.post('/roundover/:id', async (req, res, next) => {
     currentRoute: `/party/${party.id}`,
   });
   res.sendStatus(200);
+  });
+
+//get cluegiver
+router.get('/cluegiver/:id', async (req, res, next) => {
+  try {
+    const cluegiver = await User.findByPk(req.params.id * 1);
+
+    res.json(cluegiver);
+  } catch (error) {
+    next(error);
+  }
+
 });
 
 //NEXT TURN

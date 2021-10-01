@@ -1,25 +1,25 @@
-const router = require("express").Router();
+const router = require('express').Router();
 // const {
 //   models: { User, Party, Lunchbox, Game, Card, Team },
 // } = require('../db');
 
-const User = require("../db/models/User");
-const Party = require("../db/models/Party");
-const Lunchbox = require("../db/models/Lunchbox");
-const Game = require("../db/models/Game");
-const Card = require("../db/models/Card");
-const Team = require("../db/models/Team");
+const User = require('../db/models/User');
+const Party = require('../db/models/Party');
+const Lunchbox = require('../db/models/Lunchbox');
+const Game = require('../db/models/Game');
+const Card = require('../db/models/Card');
+const Team = require('../db/models/Team');
 
 module.exports = router;
 
 //CREATE A PARTY AND ADD HOST
-router.post("/host", async (req, res, next) => {
+router.post('/host', async (req, res, next) => {
   try {
     const party = await Party.create();
     await party.update({ currentRoute: `/party/${party.id}` });
     const host = await User.findByPk(req.body.hostId);
     await host.update({ partyId: party.id, host: party.id });
-    await party.chooseGame("lunchbox");
+    await party.chooseGame('lunchbox');
     res.json(party);
   } catch (err) {
     next(err);
@@ -28,7 +28,7 @@ router.post("/host", async (req, res, next) => {
 
 //GET PARTY INFO
 
-router.get("/:id", async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
   const party = await Party.findOne({
     where: { id: req.params.id },
     include: [
@@ -47,6 +47,17 @@ router.get("/:id", async (req, res, next) => {
   res.json(party);
 });
 
+
+//ROUND OVER
+router.post('/roundover/:id', async (req, res, next) => {
+  const party = await Party.findByPk(req.params.id);
+  await party.update({
+    roundsCompleted: party.roundsCompleted + 1,
+    currentRoute: `/party/${party.id}`,
+  });
+  res.sendStatus(200);
+  });
+
 //get cluegiver
 router.get('/cluegiver/:id', async (req, res, next) => {
   try {
@@ -56,10 +67,11 @@ router.get('/cluegiver/:id', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+
 });
 
 //NEXT TURN
-router.post("/next/:id", async (req, res, next) => {
+router.post('/next/:id', async (req, res, next) => {
   try {
     const party = await Party.findByPk(req.params.id);
     const teams = await Team.findAll({
@@ -95,7 +107,7 @@ router.post("/next/:id", async (req, res, next) => {
 });
 
 //MAKE TEAMS
-router.post("/teams/:id", async (req, res, next) => {
+router.post('/teams/:id', async (req, res, next) => {
   try {
     const party = await Party.findByPk(req.params.id);
     const users = await User.findAll({ where: { partyId: party.id } });
@@ -128,7 +140,7 @@ router.post("/teams/:id", async (req, res, next) => {
 });
 
 //JOIN A PARTY ROUTE
-router.post("/join/:id", async (req, res, next) => {
+router.post('/join/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.body.id * 1);
 

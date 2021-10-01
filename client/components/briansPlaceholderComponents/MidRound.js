@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
@@ -17,12 +18,14 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+
 import {
   RefreshSharp,
   SettingsInputAntennaSharp,
   SignalCellularNoSimOutlined,
-} from "@material-ui/icons";
-import { nextTurn } from "../../store/party";
+
+} from '@material-ui/icons';
+import { nextTurn, roundOver } from '../../store/party';
 import { setClueGiver } from '../../store/cluegiver';
 
 
@@ -31,6 +34,7 @@ import { setClueGiver } from '../../store/cluegiver';
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
+
 
     position: "relative",
     height: "calc(100vh - 200px)",
@@ -47,7 +51,9 @@ const useStyles = makeStyles((theme) => ({
   },
   colLeft: {
 
+
     position: "relative",
+
 
   },
   colCenter: {
@@ -56,7 +62,9 @@ const useStyles = makeStyles((theme) => ({
   },
   colRight: {
 
+
     position: "relative",
+
 
   },
 }));
@@ -77,8 +85,10 @@ const MidRound = ({
   match,
   setAuth,
 
+  roundOver,
+
 }) => {
-  console.log(setAuth);
+  //   console.log(setAuth);
   // console.log(match.url);
   // console.log(party.currentRoute);
   const { partyId, clueGiverId } = useParams();
@@ -97,6 +107,7 @@ const MidRound = ({
     setAuth();
   }, []);
 
+
   useEffect(() => {
     setClueGiver(clueGiverId);
   }, []);
@@ -112,7 +123,9 @@ const MidRound = ({
   const childRef = useRef();
 
 
+
   const app = document.getElementById("app");
+
 
 
   //Function to capture and autoclick on Join button on page load
@@ -134,9 +147,11 @@ const MidRound = ({
           if (searchedId.id === player.username) {
             if (player.teamId === 1) {
 
+
               searchedId.classList.add("team-one-baby");
             } else {
               searchedId.classList.add("team-two-baby");
+
 
             }
           }
@@ -157,7 +172,7 @@ const MidRound = ({
           </Grid>
           <Grid container item xs={6} md={4} className={classes.colCenter}>
             <Box className={classes.countDown}>
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: 'center' }}>
                 {currentCard && (
                   <h1>
                     <span className="accentYellow center">
@@ -220,6 +235,13 @@ const MidRound = ({
           <Grid container item xs={6} md={4} className={classes.colRight}>
             <Box className={classes.gameScreen}>
               {/* <VideoCall ref={childRef}/> */}
+              <button
+                onClick={() => {
+                  roundOver(partyId);
+                }}
+              >
+                End of Round
+              </button>
             </Box>
           </Grid>
 
@@ -263,6 +285,10 @@ const mapDispatch = (dispatch, { history }) => {
     setAuth: () => {
       dispatch(me());
 
+    },
+    roundOver: (partyId) => {
+      console.log('thunkin');
+      dispatch(roundOver(partyId, history));
     },
   };
 };

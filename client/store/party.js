@@ -1,15 +1,17 @@
 
+
 import axios from 'axios';
 import { fetchCards } from './lunchbox';
 import { _setClueGiver, setClueGiver } from './cluegiver';
 
 
+
 //ACTION TYPES
-const CREATED_PARTY = "CREATED_PARTY";
-const GOT_PARTY_INFO = "GOT_PARTY_INFO";
-import { ADDED_CARD } from "./lunchbox";
-const JOINED_PARTY = "JOINED_PARTY";
-const ADD_VIDEO_ID = "ADD_VIDEO_ID";
+const CREATED_PARTY = 'CREATED_PARTY';
+const GOT_PARTY_INFO = 'GOT_PARTY_INFO';
+import { ADDED_CARD } from './lunchbox';
+const JOINED_PARTY = 'JOINED_PARTY';
+const ADD_VIDEO_ID = 'ADD_VIDEO_ID';
 
 //ACTION CREATOR
 
@@ -33,9 +35,18 @@ export const joinParty = (partyId, userId) => {
   };
 };
 
+export const roundOver = (partyId, history) => {
+  return async (dispatch) => {
+    console.log('in store');
+    await axios.post(`/api/parties/roundover/${partyId}`);
+    console.log('past post?');
+    history.push(`/party/${partyId}`);
+  };
+};
+
 export const createParty = (hostId, history) => {
   return async (dispatch) => {
-    const res = await axios.post("/api/parties/host", { hostId });
+    const res = await axios.post('/api/parties/host', { hostId });
     const party = res.data;
     dispatch(createdParty(party));
 
@@ -95,7 +106,7 @@ export default (state = [], action) => {
 
     case ADDED_CARD:
       const newParty = state;
-      console.log("newParrtty", newParty);
+      console.log('newParrtty', newParty);
       console.log(action.card);
       newParty.game.lunchbox.cards.push(action.card);
       return newParty;

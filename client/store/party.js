@@ -1,5 +1,8 @@
-import axios from "axios";
-import { fetchCards } from "./lunchbox";
+
+import axios from 'axios';
+import { fetchCards } from './lunchbox';
+import { _setClueGiver, setClueGiver } from './cluegiver';
+
 
 //ACTION TYPES
 const CREATED_PARTY = "CREATED_PARTY";
@@ -42,7 +45,6 @@ export const createParty = (hostId, history) => {
 
 export const getPartyInfo = (partyId, userId, path, history) => {
   return async (dispatch) => {
-    console.log;
     let res = await axios.get(`/api/parties/${partyId}`);
     const party = await res.data;
     dispatch(fetchCards(party.game.lunchbox.id));
@@ -61,6 +63,7 @@ export const makeRandomTeams = (partyId, history) => {
     const res = await axios.post(`/api/parties/teams/${partyId}`);
     const clueGiver = await res.data;
 
+    dispatch(_setClueGiver(cluegiver));
     history.push(`/dummyround/${partyId}/${clueGiver.id}`);
   };
 };
@@ -70,6 +73,7 @@ export const nextTurn = (partyId, history) => {
     const res = await axios.post(`/api/parties/next/${partyId}`);
     const clueGiver = await res.data;
 
+    dispatch(_setClueGiver(cluegiver));
     history.push(`/dummyround/${partyId}/${clueGiver.id}`);
   };
 };

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { connect } from "react-redux";
@@ -22,33 +23,41 @@ import {
   SignalCellularNoSimOutlined,
 } from "@material-ui/icons";
 import { nextTurn } from "../../store/party";
+import { setClueGiver } from '../../store/cluegiver';
+
 
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
+
     position: "relative",
     height: "calc(100vh - 200px)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+
   },
   gameScreen: {
-    position: "relative",
-    right: "0",
-    height: "calc(100vh - 200px)",
+    position: 'relative',
+    right: '0',
+    height: 'calc(100vh - 200px)',
   },
   colLeft: {
+
     position: "relative",
+
   },
   colCenter: {
-    position: "relative",
-    justifyContent: "center",
+    position: 'relative',
+    justifyContent: 'center',
   },
   colRight: {
+
     position: "relative",
+
   },
 }));
 
@@ -61,8 +70,13 @@ const MidRound = ({
   pickACard,
   guessed,
   nextTurn,
+
+  cluegiver,
+  setClueGiver,
+
   match,
   setAuth,
+
 }) => {
   console.log(setAuth);
   // console.log(match.url);
@@ -77,16 +91,19 @@ const MidRound = ({
 
   const classes = useStyles();
 
-  // console.log(party);
 
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
     setAuth();
   }, []);
 
-  let currentCard = lunchbox.filter((card) => card.status === "current")[0];
+  useEffect(() => {
+    setClueGiver(clueGiverId);
+  }, []);
+
+  let currentCard = lunchbox.filter((card) => card.status === 'current')[0];
   if (!currentCard) {
-    currentCard = lunchbox.filter((card) => card.status === "skipped")[0];
+    currentCard = lunchbox.filter((card) => card.status === 'skipped')[0];
   }
   const handleToggle = () => {
     setIsActive(true);
@@ -94,34 +111,40 @@ const MidRound = ({
   //to access the ref from the Video compnent
   const childRef = useRef();
 
+
   const app = document.getElementById("app");
-  // console.log(app);
+
 
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
-    const clickedButton = document.getElementById("buttonClicked");
+    const clickedButton = document.getElementById('buttonClicked');
     clickedButton.click();
   }, []);
 
   //Function to add team-on/team-two classes depending on a team
-  let searchedId = "";
+  let searchedId = '';
   const creatingAnId = setTimeout(() => {
+
     // console.log(searchedId);
+
     if (party) {
       if (party.users) {
         party.users.forEach((player) => {
           searchedId = document.getElementById(`${player.username}`);
           if (searchedId.id === player.username) {
             if (player.teamId === 1) {
+
               searchedId.classList.add("team-one-baby");
             } else {
               searchedId.classList.add("team-two-baby");
+
             }
           }
         });
       }
     }
   }, 3000);
+
   console.log(user);
   return (
     <TimeProvider>
@@ -199,18 +222,20 @@ const MidRound = ({
               {/* <VideoCall ref={childRef}/> */}
             </Box>
           </Grid>
+
         </Grid>
       </Box>
     </TimeProvider>
   );
 };
 
-const mapState = ({ party, auth, lunchbox }) => {
+const mapState = ({ party, auth, lunchbox, cluegiver }) => {
   return {
     party: party || {},
     user: auth,
 
     lunchbox: lunchbox || [],
+    cluegiver: cluegiver || {},
   };
 };
 
@@ -231,8 +256,13 @@ const mapDispatch = (dispatch, { history }) => {
     nextTurn: (partyId) => {
       dispatch(nextTurn(partyId, history));
     },
+
+    setClueGiver: (clueGiverId) => {
+      dispatch(setClueGiver(clueGiverId));
+    },
     setAuth: () => {
       dispatch(me());
+
     },
   };
 };

@@ -47,6 +47,17 @@ router.get("/:id", async (req, res, next) => {
   res.json(party);
 });
 
+//get cluegiver
+router.get('/cluegiver/:id', async (req, res, next) => {
+  try {
+    const cluegiver = await User.findByPk(req.params.id * 1);
+
+    res.json(cluegiver);
+  } catch (error) {
+    next(error);
+  }
+});
+
 //NEXT TURN
 router.post("/next/:id", async (req, res, next) => {
   try {

@@ -122,7 +122,7 @@ const VideoCall = forwardRef((props, ref, addVideoId) => {
           id="buttonClicked"
           onClick={() => {
             setInCall(true);
-            addVideoId(userId);
+           
           }}
           ref={btnRef}
         >

@@ -46,7 +46,7 @@ export const Video = (props) => {
   const [start, setStart] = useState(false);
   const [inCall, setInCall] = useState(false);
   const { ready } = useMicrophoneAndCameraTracks();
-  const { userId } = props;
+  const { userId, username } = props;
 
   const classes = useStyles();
 
@@ -63,7 +63,7 @@ export const Video = (props) => {
       <Grid container className={classes.videoContainerOuter}>
         <Grid item xs={gridSpacing} className={classes.videoHost}>
           {/* host ===================== */}
-          <div className="team-one">
+          <div id={username}>
             <AgoraVideoPlayer
               videoTrack={tracks[1]}
               style={{
@@ -92,12 +92,11 @@ export const Video = (props) => {
                   className={classes.singleVideoScreen}
                   key={user.uid}
                 >
-                  {user.uid ? (savedVideoId = user.uid) : ''}
+                  {/* {user.uid ? (savedVideoId = user.uid) : ''} */}
                   {console.log('LOOK right belowwwww')}
-                  {console.log(savedVideoId)}
+                  {console.log(user.uid)}
                   {console.log('LOOK right aboveeeeee')}
-                  <div className="team-one">
-                    <div className="savedVideoId">{savedVideoId}</div>
+                  <div id={user.uid}> 
                     <AgoraVideoPlayer
                       key={user.uid}
                       videoTrack={user.videoTrack}
@@ -108,6 +107,7 @@ export const Video = (props) => {
                       }}
                       className={classes.singleVideoScreenInner}
                     />
+                    <div className="savedVideoId">{user.uid}</div>
                   </div>
                 </Grid>
               );

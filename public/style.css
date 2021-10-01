@@ -127,21 +127,27 @@ span.accentTestGreen {
 }
 
 /* Participants Styles */
-.team-one > div > div > video {
+.team-one-baby > div > div > video {
   border-radius: 15px;
   background-color: #5cc87c;
   padding: 10px;
 }
-.team-one > div > div {
+.team-one-baby > div > div {
   border-radius: 15px;
+  background-color: #5cc87c;
+  padding: 10px;
+  min-width: 300px;
 }
-.team-two > div > div > video {
+.team-two-baby > div > div > video {
   border-radius: 15px;
   background-color: #61d1d8;
   padding: 10px;
 }
-.team-two > div > div {
+.team-two-baby > div > div {
   border-radius: 15px;
+  background-color: #61d1d8;
+  padding: 10px;
+  min-width: 300px;
 }
 
 /* /* .makeStyles-singleVideoScreenInner-15 > div {

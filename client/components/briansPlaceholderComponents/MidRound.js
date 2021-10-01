@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactDOM from 'react-dom';
 import { connect } from "react-redux";
 import { getPartyInfo } from "../../store/party";
 import { useParams, useLocation } from "react-router-dom";
@@ -7,12 +8,13 @@ import { pickACard, guessed, skip } from "../../store/lunchbox";
 
 import CountdownClock from '../CountDown';
 import VideoCall from '../VideoCall';
+import Video from '../video'
 
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import { RefreshSharp } from '@material-ui/icons';
+import { RefreshSharp, SignalCellularNoSimOutlined } from '@material-ui/icons';
 import { nextTurn } from '../../store/party';
 
 
@@ -35,8 +37,8 @@ const useStyles = makeStyles((theme) => ({
     height: "calc(100vh - 200px)",
   },
   colLeft: {
-
     position: "relative",
+
   },
   colCenter: {
     position: "relative",
@@ -76,19 +78,42 @@ const MidRound = ({
     currentCard = lunchbox.filter((card) => card.status === "skipped")[0];
   }
   const handleToggle = () => {
-
     setIsActive(true);
-
   };
-
   //to access the ref from the Video compnent
   const childRef = useRef();
 
+
+  const app = document.getElementById('app')
+  console.log(app)
+  
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
     const clickedButton = document.getElementById("buttonClicked");
     clickedButton.click();
   }, []);
+
+
+  //Function to add team-on/team-two classes depending on a team
+  let searchedId = "";
+  const creatingAnId = setTimeout(() => {
+    console.log(searchedId)
+    if(party) {
+      if(party.users){
+        party.users.forEach(player => {
+          searchedId = document.getElementById(`${player.username}`);
+          if (searchedId.id === player.username) {
+            if(player.teamId === 1) {
+              searchedId.classList.add('team-one-baby');
+            }
+            else {
+              searchedId.classList.add('team-two-baby');
+            }
+          }
+        })
+      }
+    }
+  },3000)
 
   return (
     <Box className={classes.playOuter} mr={6} ml={6}>
@@ -118,8 +143,6 @@ const MidRound = ({
                 />
               </div>
             </div>
-
-
             <div className="buttons">
               {!isActive ? (
                 <Button
@@ -162,9 +185,9 @@ const MidRound = ({
           </Box>
         </Grid>
         <Grid container item xs={6} md={4} className={classes.colRight}>
-          {/* <Box className={classes.gameScreen}>
-              <VideoCall ref={childRef}/>
-            </Box> */}
+          <Box className={classes.gameScreen}>
+              {/* <VideoCall ref={childRef}/> */}
+            </Box>
         </Grid>
       </Grid>
     </Box>

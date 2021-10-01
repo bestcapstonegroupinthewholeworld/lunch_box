@@ -3,36 +3,36 @@ import io from "socket.io-client";
 import TextField from "@material-ui/core/TextField";
 
 export default function SocketIo() {
-  const [state, setState] = useState({ message: "", name: "" });
+  const [state, setState] = useState({ message: "" });
   const [notification, setNotification] = useState([]);
 
   const socketRef = useRef();
 
   useEffect(() => {
     socketRef.current = io.connect("http://localhost:8080");
-    socketRef.current.on("message", ({ name, message }) => {
-      setNotification([...notification, { name, message }]);
+    socketRef.current.on("message", ({ message }) => {
+      setNotification([...notification, { message }]);
     });
     return () => socketRef.current.disconnect();
   }, [notification]);
 
   const onTextChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
+    setState({ ...state, [e.target.message]: e.target.value });
   };
 
   const onNotifySummit = (e) => {
-    const { message, name } = state;
-    socketRef.current.emit("message", { name, message });
+    const { message } = state;
+    socketRef.current.emit("message", { message });
     e.preventDefault();
-    setState({ message: "", name });
+    setState({ message: "" });
   };
 
   const renderNotification = () => {
-    return notification.map(({ name, message }, index) => {
+    return notification.map(({ message }, index) => {
       return (
         <div key={index}>
           <h3 style={{ position: "absolute" }}>
-            {name}: <p> {message}</p>
+            <p> {message}</p>
           </h3>
         </div>
       );
@@ -41,15 +41,6 @@ export default function SocketIo() {
   return (
     <div className="placeHolder">
       <form onSubmit={onNotifySummit}>
-        <div className="hostName">
-          <TextField
-            name="name"
-            onChange={(e) => onTextChange(e)}
-            value={state.name}
-            label="name"
-          />
-        </div>
-
         <div>
           <TextField
             name="message"

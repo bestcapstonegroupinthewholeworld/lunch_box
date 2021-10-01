@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { io } from "socket.io-client";
 
 import SVGFile from "./PartyLobbySvg";
 import VideoCall from "../components/VideoCall";
@@ -15,6 +16,9 @@ import { connect } from "react-redux";
 
 import { makeRandomTeams, getPartyInfo, joinParty } from "../store/party";
 import { useParams, useLocation } from "react-router-dom";
+
+// const socket = io("http://localhost: 8080");
+const socket = io.connect("http://localhost:8000/");
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -45,8 +49,9 @@ const PartyLobby = ({
   makeRandomTeams,
   getPartyInfo,
   match,
+  history,
 }) => {
-  console.log(match);
+  console.log(history);
   const classes = useStyles();
   const [word, setWord] = useState("");
 
@@ -56,6 +61,12 @@ const PartyLobby = ({
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
   }, []);
+
+  socket.on("start game", () => {
+    history.push(`/${match.url.pin}`);
+  });
+
+  // socket.emit("start");
 
   const addToBox = () => {
     addCard({

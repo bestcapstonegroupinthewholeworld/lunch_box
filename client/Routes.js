@@ -9,7 +9,7 @@ import Host from "./components/Host";
 import PartyLobby from "./components/PartyLobby";
 import VideoCall from "./components/VideoCall";
 import CountdownClock from "./components/CountDown";
-import SocketIo from "./components/forSocketIo";
+// import SocketIo from "./components/forSocketIo";
 import { me } from "./store";
 import MidRound from "./components/briansPlaceholderComponents/MidRound";
 import { TimeProvider } from "./components/TimeContext";
@@ -41,7 +41,7 @@ class Routes extends Component {
 
               <Route path="/chatroom" component={VideoCall} />
 
-              <Route path="/socket" component={SocketIo} />
+              {/* <Route path="/socket" component={SocketIo} /> */}
 
               <Route path="/rules/lunchbox" exact component={RulesLunchBox} />
 

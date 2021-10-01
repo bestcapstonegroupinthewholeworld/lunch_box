@@ -19,12 +19,14 @@ const init = async () => {
     } else {
       await db.sync();
     }
-    io.on("connect", (socket) => {
-      console.log("a user connected");
-      socket.on("message", ({ name, message }) => {
-        io.emit("message", { name, message });
+
+    io.on("connection", (socket) => {
+      console.log("use is connected");
+      socket.on("start", () => {
+        io.in(pin).emit("start game");
       });
     });
+
     // start listening (and create a 'server' object representing our server)
     server.listen(PORT, () => console.log(`Mixing it up on port ${PORT}`));
   } catch (ex) {

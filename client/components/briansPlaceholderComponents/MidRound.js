@@ -34,8 +34,6 @@ import { setClueGiver } from '../../store/cluegiver';
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
-
-
     position: "relative",
     height: "calc(100vh - 200px)",
     display: "flex",
@@ -88,9 +86,6 @@ const MidRound = ({
   roundOver,
 
 }) => {
-  //   console.log(setAuth);
-  // console.log(match.url);
-  // console.log(party.currentRoute);
   const { partyId, clueGiverId } = useParams();
 
   const { pathname } = useLocation();
@@ -121,13 +116,6 @@ const MidRound = ({
   };
   //to access the ref from the Video compnent
   const childRef = useRef();
-
-
-
-  const app = document.getElementById("app");
-
-
-
   //Function to capture and autoclick on Join button on page load
   useEffect(() => {
     const clickedButton = document.getElementById('buttonClicked');
@@ -146,13 +134,9 @@ const MidRound = ({
           searchedId = document.getElementById(`${player.username}`);
           if (searchedId.id === player.username) {
             if (player.teamId === 1) {
-
-
               searchedId.classList.add("team-one-baby");
             } else {
               searchedId.classList.add("team-two-baby");
-
-
             }
           }
         });
@@ -163,14 +147,14 @@ const MidRound = ({
   console.log(user);
   return (
     <TimeProvider>
-      <Box className={classes.playOuter} mr={6} ml={6}>
-        <Grid container spacing={2}>
-          <Grid container item xs={6} md={4} className={classes.colLeft}>
-            <Box className={classes.gameScreen}>
-              <VideoCall ref={childRef} />
-            </Box>
-          </Grid>
-          <Grid container item xs={6} md={4} className={classes.colCenter}>
+      <Box className={classes.playOuter} mr={6} ml={6}}
+           <div className="video-call-left-right">
+            <VideoCall ref={childRef} 
+             className={classes.singleVideoSplit}
+            />
+          </div>
+         
+          <Grid className={classes.colCenter}>
             <Box className={classes.countDown}>
               <div style={{ textAlign: 'center' }}>
                 {currentCard && (
@@ -231,7 +215,6 @@ const MidRound = ({
                 </div>
               ) : null}
             </Box>
-          </Grid>
           <Grid container item xs={6} md={4} className={classes.colRight}>
             <Box className={classes.gameScreen}>
               {/* <VideoCall ref={childRef}/> */}
@@ -293,3 +276,7 @@ const mapDispatch = (dispatch, { history }) => {
   };
 };
 export default connect(mapState, mapDispatch)(MidRound);
+
+
+
+

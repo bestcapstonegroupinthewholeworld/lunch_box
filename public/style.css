@@ -24,7 +24,19 @@ nav a {
   display: inline-block;
   margin: 1em;
 }
-
+.circles {
+  bottom: 0;
+  left: 0;
+  height: 26%;
+  content: "";
+  position: absolute;
+  background: url(/assets/circles.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-x: right;
+  width: 26%;
+  background-position: initial;
+}
 /* CUSTOM FONT STYLES*/
 
 h4.italicBlue {

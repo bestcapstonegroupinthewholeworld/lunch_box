@@ -184,6 +184,25 @@ const PartyLobby = ({
                 )}
               </div>
             ) : null}
+
+            {party.roundsCompleted === 0 && (
+              <div>
+                <h2>Round 1</h2>
+                <p>{party.game.round1Rules}</p>
+              </div>
+            )}
+            {party.roundsCompleted === 1 && (
+              <div>
+                <h2>Round 2</h2>
+                <p>{party.game.round2Rules}</p>
+              </div>
+            )}
+            {party.roundsCompleted === 2 && (
+              <div>
+                <h2>Round 3</h2>
+                <p>{party.game.round3Rules}</p>
+              </div>
+            )}
           </Box>
         </Grid>
       </Box>

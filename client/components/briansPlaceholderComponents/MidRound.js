@@ -82,6 +82,7 @@ const MidRound = ({
 
   const classes = useStyles();
 
+  console.log(party);
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
     setAuth();
@@ -109,13 +110,20 @@ const MidRound = ({
   //Function to add team-on/team-two classes depending on a team
   let searchedId = '';
   const creatingAnId = setTimeout(() => {
-    // console.log(searchedId);
-
+    const curPath = window.location.pathname.split("/");
+    const clueGiverId = curPath.pop();
+   console.log(party.users)
+    console.log(clueGiverId)
     if (party) {
       if (party.users) {
-        party.users.forEach((player) => {
+     
+        party.users.forEach(player => {
           searchedId = document.getElementById(`${player.username}`);
+          if(player.id === Number(clueGiverId)) {
+            searchedId.classList.add('clue-giver');
+          }
           if (searchedId.id === player.username) {
+            //clueGiverId === player.id ? searchedId.classList.add('clue-giver') : "";
             if (player.teamId === 1) {
               searchedId.classList.add('team-one-baby');
             } else {
@@ -132,6 +140,13 @@ const MidRound = ({
     <TimeProvider>
       <Box className={classes.playOuter} mr={6} ml={6}>
         <div className="video-call-left-right">
+          {/* <div className="column-left">
+
+          </div>
+          <div className="column-right">
+
+          </div> */}
+          
           <VideoCall ref={childRef} className={classes.singleVideoSplit} />
         </div>
 
@@ -159,22 +174,22 @@ const MidRound = ({
               <div className="buttons">
                 {!isActive ? (
                   <Button
-                    // color="primary"
-                    // variant="contained"
-                    // size="large"
+                    color="primary"
+                    variant="contained"
+                    size="large"
                     onClick={() => {
                       pickACard(lunchbox);
                       handleToggle();
                     }}
-                    // className={`${isActive ? "displayNone" : ""}`}
+                    className={`${isActive ? "displayNone" : ""}`}
                   >
                     <i className="material-icons-round">play_arrow</i>
                   </Button>
                 ) : (
                   <button
-                    // color="primary"
-                    // variant="contained"
-                    // size="large"
+                    color="primary"
+                    variant="contained"
+                    size="large"
                     onClick={() => guessed(currentCard, user, lunchbox)}
                   >
                     <i class="material-icons-round">done</i>
@@ -182,9 +197,9 @@ const MidRound = ({
                 )}
 
                 <button
-                  // color="primary"
-                  // variant="contained"
-                  // size="large"
+                  color="primary"
+                  variant="contained"
+                  size="large"
                   onClick={() => skip(currentCard, lunchbox)}
                 >
                   <i className="material-icons-round">skip_next</i>
@@ -198,8 +213,8 @@ const MidRound = ({
           </Box>
           <Grid container item xs={6} md={4} className={classes.colRight}>
             <Box className={classes.gameScreen}>
-              {/* <VideoCall ref={childRef}/> */}
-              <button
+              {/* <VideoCall ref={childRef}/>  */}
+               <button
                 onClick={() => {
                   roundOver(partyId);
                 }}
@@ -208,7 +223,7 @@ const MidRound = ({
               </button>
             </Box>
           </Grid>
-        </Grid>
+        </Grid> 
       </Box>
     </TimeProvider>
   );
@@ -255,3 +270,87 @@ const mapDispatch = (dispatch, { history }) => {
   };
 };
 export default connect(mapState, mapDispatch)(MidRound);
+
+
+{/* <TimeProvider>
+<Box className={classes.playOuter} mr={6} ml={6}>
+  <div className="video-call-left-right">
+    <VideoCall ref={childRef} className={classes.singleVideoSplit} />
+  </div>
+
+  <Grid className={classes.colCenter}>
+    <Box className={classes.countDown}>
+      <div style={{ textAlign: 'center' }}>
+        {currentCard && (
+          <h1>
+            <span className="accentYellow center">
+              {currentCard.name}
+            </span>
+          </h1>
+        )}
+        <div>
+          <CountdownClock
+            isActive={isActive}
+            setCount={setCount}
+            count={count}
+            setIsActive={setIsActive}
+            currentCard={currentCard}
+          />
+        </div>
+      </div>
+      {user.host === partyId ? (
+        <div className="buttons">
+          {!isActive ? (
+            <Button
+              // color="primary"
+              // variant="contained"
+              // size="large"
+              onClick={() => {
+                pickACard(lunchbox);
+                handleToggle();
+              }}
+              // className={`${isActive ? "displayNone" : ""}`}
+            >
+              <i className="material-icons-round">play_arrow</i>
+            </Button>
+          ) : (
+            <button
+              // color="primary"
+              // variant="contained"
+              // size="large"
+              onClick={() => guessed(currentCard, user, lunchbox)}
+            >
+              <i class="material-icons-round">done</i>
+            </button>
+          )}
+
+          <button
+            // color="primary"
+            // variant="contained"
+            // size="large"
+            onClick={() => skip(currentCard, lunchbox)}
+          >
+            <i className="material-icons-round">skip_next</i>
+          </button>
+
+          {count <= 0 ? (
+            <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+          ) : null}
+        </div>
+      ) : null}
+    </Box>
+    <Grid container item xs={6} md={4} className={classes.colRight}>
+      <Box className={classes.gameScreen}>
+        {/* <VideoCall ref={childRef}/> */}
+//         <button
+//           onClick={() => {
+//             roundOver(partyId);
+//           }}
+//         >
+//           End of Round
+//         </button>
+//       </Box>
+//     </Grid>
+//   </Grid>
+// </Box>
+// </TimeProvider> */}

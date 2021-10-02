@@ -63,3 +63,16 @@ router.post('/skip/:id', async (req, res, next) => {
     next(error);
   }
 });
+
+router.post('/reset/:id', async (req, res, next) => {
+  try {
+    const cards = await Card.findAll({ where: { lunchboxId: req.params.id } });
+    const updatedCards = await Promise.all(
+      cards.map((card) => card.update({ status: 'pending' }))
+    );
+
+    res.sendStatus(200);
+  } catch (error) {
+    next(error);
+  }
+});

@@ -270,17 +270,21 @@ const MidRound = ({
           <Grid container item xs={6} md={4} className={classes.colRight}>
             <Box className={classes.gameScreen}>
               {/* <VideoCall ref={childRef}/> */}
-              <button
-                onClick={() => {
-                  roundOver(partyId);
-                }}
-              >
-                End of Round
-              </button>
-              {/* {count <= 0 ? (
-                <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
-              ) : null} */}
-              <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+              {user.host === partyId ? (
+                <div>
+                  <button
+                    onClick={() => {
+                      roundOver(partyId);
+                    }}
+                  >
+                    END OF ROUND
+                  </button>
+
+                  {count <= 0 ? (
+                    <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+                  ) : null}
+                </div>
+              ) : null}
             </Box>
           </Grid>
         </Grid>

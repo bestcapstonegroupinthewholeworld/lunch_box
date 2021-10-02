@@ -1,46 +1,41 @@
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { getPartyInfo } from '../../store/party';
+import { useParams, useLocation } from 'react-router-dom';
+import { pickACard, guessed, skip } from '../../store/lunchbox';
+import auth, { me } from '../../store/auth';
 
+import CountdownClock from '../CountDown';
+import VideoCall from '../VideoCall';
+import Video from '../video';
+import { useTime, useTimeUpdate } from '../TimeContext';
+import { TimeProvider } from '../TimeContext';
 
-import React, { useState, useEffect, useRef } from "react";
-import ReactDOM from "react-dom";
-import { connect } from "react-redux";
-import { getPartyInfo } from "../../store/party";
-import { useParams, useLocation } from "react-router-dom";
-import { pickACard, guessed, skip } from "../../store/lunchbox";
-import auth, { me } from "../../store/auth";
-
-import CountdownClock from "../CountDown";
-import VideoCall from "../VideoCall";
-import Video from "../video";
-import { useTime, useTimeUpdate } from "../TimeContext";
-import { TimeProvider } from "../TimeContext";
-
-import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 import {
   RefreshSharp,
   SettingsInputAntennaSharp,
   SignalCellularNoSimOutlined,
-
 } from '@material-ui/icons';
 import { nextTurn, roundOver } from '../../store/party';
 import { setClueGiver } from '../../store/cluegiver';
-
 
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
 
 const useStyles = makeStyles((theme) => ({
   countDown: {
-    position: "relative",
-    height: "calc(100vh - 200px)",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-
+    position: 'relative',
+    height: 'calc(100vh - 200px)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
   },
   gameScreen: {
     position: 'relative',
@@ -48,22 +43,14 @@ const useStyles = makeStyles((theme) => ({
     height: 'calc(100vh - 200px)',
   },
   colLeft: {
-
-
-    position: "relative",
-
-
+    position: 'relative',
   },
   colCenter: {
     position: 'relative',
     justifyContent: 'center',
   },
   colRight: {
-
-
-    position: "relative",
-
-
+    position: 'relative',
   },
 }));
 
@@ -84,7 +71,6 @@ const MidRound = ({
   setAuth,
 
   roundOver,
-
 }) => {
   const { partyId, clueGiverId } = useParams();
 
@@ -96,12 +82,10 @@ const MidRound = ({
 
   const classes = useStyles();
 
-
   useEffect(() => {
     getPartyInfo(partyId, user.id, pathname);
     setAuth();
   }, []);
-
 
   useEffect(() => {
     setClueGiver(clueGiverId);
@@ -125,7 +109,6 @@ const MidRound = ({
   //Function to add team-on/team-two classes depending on a team
   let searchedId = '';
   const creatingAnId = setTimeout(() => {
-
     // console.log(searchedId);
 
     if (party) {
@@ -134,9 +117,9 @@ const MidRound = ({
           searchedId = document.getElementById(`${player.username}`);
           if (searchedId.id === player.username) {
             if (player.teamId === 1) {
-              searchedId.classList.add("team-one-baby");
+              searchedId.classList.add('team-one-baby');
             } else {
-              searchedId.classList.add("team-two-baby");
+              searchedId.classList.add('team-two-baby');
             }
           }
         });
@@ -147,74 +130,72 @@ const MidRound = ({
   console.log(user);
   return (
     <TimeProvider>
-      <Box className={classes.playOuter} mr={6} ml={6}}
-           <div className="video-call-left-right">
-            <VideoCall ref={childRef} 
-             className={classes.singleVideoSplit}
-            />
-          </div>
-         
-          <Grid className={classes.colCenter}>
-            <Box className={classes.countDown}>
-              <div style={{ textAlign: 'center' }}>
-                {currentCard && (
-                  <h1>
-                    <span className="accentYellow center">
-                      {currentCard.name}
-                    </span>
-                  </h1>
-                )}
-                <div>
-                  <CountdownClock
-                    isActive={isActive}
-                    setCount={setCount}
-                    count={count}
-                    setIsActive={setIsActive}
-                    currentCard={currentCard}
-                  />
-                </div>
-              </div>
-              {user.host === partyId ? (
-                <div className="buttons">
-                  {!isActive ? (
-                    <Button
-                      // color="primary"
-                      // variant="contained"
-                      // size="large"
-                      onClick={() => {
-                        pickACard(lunchbox);
-                        handleToggle();
-                      }}
-                      // className={`${isActive ? "displayNone" : ""}`}
-                    >
-                      <i className="material-icons-round">play_arrow</i>
-                    </Button>
-                  ) : (
-                    <button
-                      // color="primary"
-                      // variant="contained"
-                      // size="large"
-                      onClick={() => guessed(currentCard, user, lunchbox)}
-                    >
-                      <i class="material-icons-round">done</i>
-                    </button>
-                  )}
+      <Box className={classes.playOuter} mr={6} ml={6}>
+        <div className="video-call-left-right">
+          <VideoCall ref={childRef} className={classes.singleVideoSplit} />
+        </div>
 
+        <Grid className={classes.colCenter}>
+          <Box className={classes.countDown}>
+            <div style={{ textAlign: 'center' }}>
+              {currentCard && (
+                <h1>
+                  <span className="accentYellow center">
+                    {currentCard.name}
+                  </span>
+                </h1>
+              )}
+              <div>
+                <CountdownClock
+                  isActive={isActive}
+                  setCount={setCount}
+                  count={count}
+                  setIsActive={setIsActive}
+                  currentCard={currentCard}
+                />
+              </div>
+            </div>
+            {user.host === partyId ? (
+              <div className="buttons">
+                {!isActive ? (
+                  <Button
+                    // color="primary"
+                    // variant="contained"
+                    // size="large"
+                    onClick={() => {
+                      pickACard(lunchbox);
+                      handleToggle();
+                    }}
+                    // className={`${isActive ? "displayNone" : ""}`}
+                  >
+                    <i className="material-icons-round">play_arrow</i>
+                  </Button>
+                ) : (
                   <button
                     // color="primary"
                     // variant="contained"
                     // size="large"
-                    onClick={() => skip(currentCard, lunchbox)}
+                    onClick={() => guessed(currentCard, user, lunchbox)}
                   >
-                    <i className="material-icons-round">skip_next</i>
+                    <i class="material-icons-round">done</i>
                   </button>
+                )}
 
-                  {count <= 0 ? (
-                    <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
-                  ) : null}
-                </div>
-              ) : null}
-            </Box>
+                <button
+                  // color="primary"
+                  // variant="contained"
+                  // size="large"
+                  onClick={() => skip(currentCard, lunchbox)}
+                >
+                  <i className="material-icons-round">skip_next</i>
+                </button>
+
+                {count <= 0 ? (
+                  <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+                ) : null}
+              </div>
+            ) : null}
+          </Box>
           <Grid container item xs={6} md={4} className={classes.colRight}>
             <Box className={classes.gameScreen}>
               {/* <VideoCall ref={childRef}/> */}
@@ -227,7 +208,6 @@ const MidRound = ({
               </button>
             </Box>
           </Grid>
-
         </Grid>
       </Box>
     </TimeProvider>
@@ -267,7 +247,6 @@ const mapDispatch = (dispatch, { history }) => {
     },
     setAuth: () => {
       dispatch(me());
-
     },
     roundOver: (partyId) => {
       console.log('thunkin');
@@ -276,7 +255,3 @@ const mapDispatch = (dispatch, { history }) => {
   };
 };
 export default connect(mapState, mapDispatch)(MidRound);
-
-
-
-

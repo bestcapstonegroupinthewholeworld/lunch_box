@@ -138,13 +138,13 @@ const MidRound = ({
         <Grid className={classes.colCenter}>
           <Box className={classes.countDown}>
             <div style={{ textAlign: 'center' }}>
-              {currentCard && (
+              {currentCard && user.id === cluegiver.id ? (
                 <h1>
                   <span className="accentYellow center">
                     {currentCard.name}
                   </span>
                 </h1>
-              )}
+              ) : null}
               <div>
                 <CountdownClock
                   isActive={isActive}
@@ -155,7 +155,7 @@ const MidRound = ({
                 />
               </div>
             </div>
-            {user.host === partyId ? (
+            {user.id === cluegiver.id ? (
               <div className="buttons">
                 {!isActive ? (
                   <Button
@@ -189,10 +189,6 @@ const MidRound = ({
                 >
                   <i className="material-icons-round">skip_next</i>
                 </button>
-
-                {count <= 0 ? (
-                  <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
-                ) : null}
               </div>
             ) : null}
           </Box>
@@ -206,6 +202,10 @@ const MidRound = ({
               >
                 End of Round
               </button>
+              {/* {count <= 0 ? (
+                <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
+              ) : null} */}
+              <button onClick={() => nextTurn(partyId)}>NEXT TURN</button>
             </Box>
           </Grid>
         </Grid>

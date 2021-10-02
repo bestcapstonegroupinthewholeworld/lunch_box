@@ -67,20 +67,20 @@ export const getPartyInfo = (partyId, userId, path, history) => {
 export const makeRandomTeams = (partyId, history) => {
   return async (dispatch) => {
     const res = await axios.post(`/api/parties/teams/${partyId}`);
-    const clueGiver = await res.data;
+    const cluegiver = await res.data;
 
     dispatch(_setClueGiver(cluegiver));
-    history.push(`/dummyround/${partyId}/${clueGiver.id}`);
+    history.push(`/dummyround/${partyId}/${cluegiver.id}`);
   };
 };
 
 export const nextTurn = (partyId, history) => {
   return async (dispatch) => {
     const res = await axios.post(`/api/parties/next/${partyId}`);
-    const clueGiver = await res.data;
+    const cluegiver = await res.data;
 
     dispatch(_setClueGiver(cluegiver));
-    history.push(`/dummyround/${partyId}/${clueGiver.id}`);
+    history.push(`/dummyround/${partyId}/${cluegiver.id}`);
   };
 };
 
@@ -88,10 +88,10 @@ export const nextRound = (partyId, lunchboxId, history) => {
   return async (dispatch) => {
     await axios.post(`/api/lunchboxes/reset/${lunchboxId}`);
     const res = await axios.post(`/api/parties/next/${partyId}`);
-    const clueGiver = await res.data;
+    const cluegiver = await res.data;
 
     dispatch(_setClueGiver(cluegiver));
-    history.push(`/dummyround/${partyId}/${clueGiver.id}`);
+    history.push(`/dummyround/${partyId}/${cluegiver.id}`);
   };
 };
 

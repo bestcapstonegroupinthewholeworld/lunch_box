@@ -21,10 +21,13 @@ const init = async () => {
     }
 
     io.on("connection", (socket) => {
-      console.log("use is connected");
+      // console.log("use is connected");
       socket.on("start", (url) => {
-        console.log(url);
         io.emit("start", url);
+      });
+      socket.on("countDownStart", (isActive) => {
+        console.log("=======================================", isActive);
+        io.emit("countDownStart", isActive);
       });
     });
 

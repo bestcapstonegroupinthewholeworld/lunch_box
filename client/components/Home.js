@@ -53,6 +53,7 @@ export const Home = props => {
     <div className={classes.homeOuter}>
       <Circles wrappedComponentRef={ref => this.myRef = ref} />
         <Grid>
+          <div className="circles"></div>
           <Box ml={6} pl={6} className={classes.homeMain} alignItems="center">
             <Grid container spacing={2} className={classes.homeInner}>
               <Grid item xs={6} md={7} p={4}>
@@ -63,7 +64,7 @@ export const Home = props => {
                   </WhiteTextTypography>
                 </Box>      
                 <WhiteTextTypography pt={2} pb={3} variant="h5">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                  Lunchbox! Try to outwit your friends. Our game presents an opportunijty to have fun, play and enjoy the time with your friend no matter where you are at! 
                 </WhiteTextTypography>
                 <Box mt={3}>
                   <Grid container spacing={2} mt={3} className={classes.buttons}>

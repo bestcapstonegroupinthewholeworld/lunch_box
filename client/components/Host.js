@@ -9,6 +9,7 @@ import ParticipantsList from './ParticipantsList';
 import Button from '@material-ui/core/Button';
 import { Link, useParams } from 'react-router-dom';
 import { getPartyInfo } from '../store/party';
+import Circles from './FloatingCircles'
 
 /** STYLES **/
 const useStyles = makeStyles((theme) => ({
@@ -55,6 +56,8 @@ export const Host = ({ username, party, getPartyInfo }) => {
 
   return (
     <Box className={classes.hostOuter} color="text.primary" mr={6} ml={6}>
+      <Circles />
+      
       <Box className={classes.center}>
         <h1>
           {' '}

@@ -144,7 +144,7 @@ const MidRound = ({
           }
           if (searchedId.id === player.username) {
             //clueGiverId === player.id ? searchedId.classList.add('clue-giver') : "";
-            if (player.teamId === 1) {
+            if (player.teamId === party.teams[0].id) {
               searchedId.classList.add("team-one-baby");
             } else {
               searchedId.classList.add("team-two-baby");

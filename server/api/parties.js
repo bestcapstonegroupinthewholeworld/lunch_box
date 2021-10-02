@@ -47,7 +47,6 @@ router.get('/:id', async (req, res, next) => {
   res.json(party);
 });
 
-
 //ROUND OVER
 router.post('/roundover/:id', async (req, res, next) => {
   const party = await Party.findByPk(req.params.id);
@@ -56,7 +55,7 @@ router.post('/roundover/:id', async (req, res, next) => {
     currentRoute: `/party/${party.id}`,
   });
   res.sendStatus(200);
-  });
+});
 
 //get cluegiver
 router.get('/cluegiver/:id', async (req, res, next) => {
@@ -67,16 +66,17 @@ router.get('/cluegiver/:id', async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 });
 
 //NEXT TURN
 router.post('/next/:id', async (req, res, next) => {
   try {
     const party = await Party.findByPk(req.params.id);
+
     const teams = await Team.findAll({
       where: { partyId: party.id },
     });
+
     let guessTeam;
     if (party.guessingTeam === teams[0].id) {
       guessTeam = teams[1];

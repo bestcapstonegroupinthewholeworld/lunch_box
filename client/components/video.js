@@ -75,6 +75,7 @@ export const Video = (props) => {
             />
           </div>
         </Grid>
+       
         {/* generate a video for every sigle user  */}
         {users.length > 0 &&
           users.map((user) => {

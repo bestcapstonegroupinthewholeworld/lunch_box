@@ -1,10 +1,6 @@
-
-
 import axios from 'axios';
 import { fetchCards } from './lunchbox';
 import { _setClueGiver, setClueGiver } from './cluegiver';
-
-
 
 //ACTION TYPES
 const CREATED_PARTY = 'CREATED_PARTY';
@@ -37,9 +33,8 @@ export const joinParty = (partyId, userId) => {
 
 export const roundOver = (partyId, history) => {
   return async (dispatch) => {
-    console.log('in store');
     await axios.post(`/api/parties/roundover/${partyId}`);
-    console.log('past post?');
+
     history.push(`/party/${partyId}`);
   };
 };
@@ -89,6 +84,17 @@ export const nextTurn = (partyId, history) => {
   };
 };
 
+export const nextRound = (partyId, lunchboxId, history) => {
+  return async (dispatch) => {
+    await axios.post(`/api/lunchboxes/reset/${lunchboxId}`);
+    const res = await axios.post(`/api/parties/next/${partyId}`);
+    const clueGiver = await res.data;
+
+    dispatch(_setClueGiver(cluegiver));
+    history.push(`/dummyround/${partyId}/${clueGiver.id}`);
+  };
+};
+
 //Reducer
 
 export default (state = [], action) => {
@@ -106,8 +112,7 @@ export default (state = [], action) => {
 
     case ADDED_CARD:
       const newParty = state;
-      console.log('newParrtty', newParty);
-      console.log(action.card);
+
       newParty.game.lunchbox.cards.push(action.card);
       return newParty;
 

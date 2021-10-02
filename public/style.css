@@ -209,7 +209,31 @@ span.accentTestGreen {
   padding: 10px;
 }
 
+.video-call-left-right .savedVideoId {
+  display: none;
+}
+
 .video-call-left-right .MuiGrid-root.makeStyles-videoContainerOuter-12.MuiGrid-container {
+  display: flex;
+  flex-direction: column !important;
+  position: fixed;
+  width: 100%;
+}
+
+.video-call-left-right .MuiGrid-root.makeStyles-videoContainerOuter-11.MuiGrid-container {
+  display: flex;
+  flex-direction: column !important;
+  position: fixed;
+  width: 100%;
+}
+
+.video-call-left-right .MuiGrid-root.makeStyles-videoContainerOuter-13.MuiGrid-container {
+  display: flex;
+  flex-direction: column !important;
+  position: fixed;
+  width: 100%;
+}
+.video-call-left-right .MuiGrid-root.jss13.MuiGrid-container {
   display: flex;
   flex-direction: column !important;
   position: fixed;
@@ -218,6 +242,34 @@ span.accentTestGreen {
 
 .video-call-left-right .controlInner {
   right: 20px !important;
+  top: 40% !important;
+}
+
+/* CLUE GIVER */
+.clue-giver {
+  position: absolute;
+  width: 450px;
+  height: 270px;
+  margin: auto;
+  z-index: 3;
+}
+
+.clue-giver > div > div > video {
+  background: linear-gradient(60deg, #f3ba40, #f37055, #5cc87c, #5cc87c, #5073b8, #61d2d9, #07b39b, #5cc87c);
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 /* for countdown timer ================================= */

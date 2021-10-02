@@ -115,3 +115,47 @@ const mapDispatch = (dispatch) => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm);
 export const Signup = connect(mapSignup, mapDispatch)(AuthForm);
+
+
+
+// <Box className={classes.formOuter}>
+// <form
+//   onSubmit={handleSubmit}
+//   name={name}
+//   className={classes.form}
+//   noValidate
+//   autoComplete="off"
+//   color="primary"
+// >
+//   <div>
+//     <TextField id="standard-basic" label="Username" name="username" />
+//   </div>
+//   <div>
+//     <TextField
+//       id="standard-password-input"
+//       label="Password"
+//       type="password"
+//       autoComplete="current-password"
+//       name="password"
+//     />
+//   </div>
+//   <Box>
+//     <Button variant="outlined" type="submit"  color="primary">
+//       {displayName}
+//     </Button>
+//   </Box>
+//   <div></div>
+//   {error && error.response && <div> {error.response.data} </div>}
+// </form>
+// <p>
+//   <Button
+//     className={classes.form}
+//     variant="outlined"
+//     onClick={handleFacebookLogin}
+//     text="Login with Facebook"
+//   >
+//     Login with facebook
+//   </Button>
+// </p>
+// <Circles />
+//</Box>

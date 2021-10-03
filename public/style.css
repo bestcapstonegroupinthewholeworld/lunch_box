@@ -259,11 +259,15 @@ span.accentTestGreen {
 
 /* CLUE GIVER */
 .clue-giver {
-  position: absolute;
-  width: 450px;
-  height: 270px;
+
   margin: auto;
   z-index: 3;
+  margin: 0.3em 0px;
+}
+.clue-giver  > div{
+  width: 450px !important;
+  height: 270px !important;
+  z-index: 99999;
 }
 
 .clue-giver > div > div > video {

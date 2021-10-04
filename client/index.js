@@ -10,16 +10,12 @@ import { initFacebookSdk } from "./init-facebook-sdk";
 import { TimeProvider } from "./components/TimeContext";
 import CountdownClock from "./components/CountDown";
 
-initFacebookSdk().then(startApp);
+ReactDOM.render(
+  <Provider store={store}>
+    <Router history={history}>
+      <App />
+    </Router>
+  </Provider>,
 
-function startApp() {
-  ReactDOM.render(
-    <Provider store={store}>
-      <Router history={history}>
-        <App />
-      </Router>
-    </Provider>,
-
-    document.getElementById("app")
-  );
-}
+  document.getElementById("app")
+);

@@ -269,14 +269,27 @@ span.accentTestGreen {
   height: 270px !important;
   z-index: 99999;
 }
+.clue-giver > div::after {
+  content: "Clue Giver";
+  position: absolute;
+  z-index: 100000;
+  top: 27px;
+  left: -27px;
+  color: #f2b940;
+  font-family: "Luckiest Guy", cursive;
+  transform: rotate(
+-45deg);
+  font-size: 2em;
+  text-shadow: 3px 2px #000200;
+}
 
-.clue-giver > div > div > video {
+/* .clue-giver > div > div > video {
   background: linear-gradient(60deg, #f3ba40, #f37055, #5cc87c, #5cc87c, #5073b8, #61d2d9, #07b39b, #5cc87c);
   animation: animatedgradient 3s ease alternate infinite;
   background-size: 300% 300%;
-}
+} */
 
-@keyframes animatedgradient {
+/* @keyframes animatedgradient {
 	0% {
 		background-position: 0% 50%;
 	}
@@ -286,7 +299,7 @@ span.accentTestGreen {
 	100% {
 		background-position: 0% 50%;
 	}
-}
+} */
 
 /* for countdown timer ================================= */
 .countDown_container {

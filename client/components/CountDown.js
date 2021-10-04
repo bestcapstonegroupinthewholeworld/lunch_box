@@ -16,7 +16,7 @@ export default function CountdownClock({
 }) {
   // const count = Number(useTime());
   // const [count, setCount] = useState(Number(useTime()));
-  console.log("inside countDown clock ~~~~~~~~~~", isActive);
+
   // const [min, setMin] = useState(Math.floor((count + 1) / 60));
   // const [sec, setSec] = useState((count + 1) % 60);
 

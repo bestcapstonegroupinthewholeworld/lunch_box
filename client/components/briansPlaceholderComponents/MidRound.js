@@ -26,7 +26,7 @@ import {
 import { nextTurn, roundOver } from "../../store/party";
 import { setClueGiver } from "../../store/cluegiver";
 
-const socket = io("http://localhost:8080");
+const socket = io("/");
 
 //if team a - left aligned  classes: leftA
 //if team b -  right alligned classes: rightB
@@ -132,15 +132,14 @@ const MidRound = ({
   const creatingAnId = setTimeout(() => {
     const curPath = window.location.pathname.split("/");
     const clueGiverId = curPath.pop();
-   console.log(party.users)
-    console.log(clueGiverId)
+    console.log(party.users);
+    console.log(clueGiverId);
     if (party) {
       if (party.users) {
-     
-        party.users.forEach(player => {
+        party.users.forEach((player) => {
           searchedId = document.getElementById(`${player.username}`);
-          if(player.id === Number(clueGiverId)) {
-            searchedId.classList.add('clue-giver');
+          if (player.id === Number(clueGiverId)) {
+            searchedId.classList.add("clue-giver");
           }
           if (searchedId.id === player.username) {
             //clueGiverId === player.id ? searchedId.classList.add('clue-giver') : "";
@@ -166,7 +165,7 @@ const MidRound = ({
           <div className="column-right">
 
           </div> */}
-          
+
           <VideoCall ref={childRef} className={classes.singleVideoSplit} />
         </div>
         <Grid className={classes.colCenter}>
@@ -263,7 +262,7 @@ const MidRound = ({
               ) : null}
             </Box>
           </Grid>
-        </Grid> 
+        </Grid>
       </Box>
     </TimeProvider>
   );

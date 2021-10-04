@@ -249,10 +249,10 @@ const MidRound = ({
                       onClick={() => {
                         nextTurn(partyId);
                         // timeReset();
-                        // setIsActive(false);
-                        // setCount(Number(useTime()));
-                        // setMin(Math.floor((count + 1) / 60));
-                        // setSec((count + 1) % 60);
+                        setIsActive(false);
+                        setCount(Number(useTime()));
+                        setMin(Math.floor((count + 1) / 60));
+                        setSec((count + 1) % 60);
                       }}
                     >
                       {" "}
